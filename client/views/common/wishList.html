@@ -1,0 +1,11 @@
+<template name='wishList'>
+  <div class="wish-list list-section">
+    {{> addWish}}
+
+    <ul>
+      {{#each $.Session.get 'yourList'}}
+      {{> listItem}}
+      {{/each}}
+    </ul>
+  </div>
+</template>

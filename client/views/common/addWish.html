@@ -1,58 +1,60 @@
 <template name='addWish'>
-  <form class="add-wish">
-    <h2>Add Wish</h2>
-    <div class="tabs">
-      <span id='amazon-tab' class="tab {{amazonActive}}">
-        Amazon
-      </span>
+  <div class="add-wish">
+    <form class="add-wish-form">
+      <h2>Add Wish</h2>
+      <div class="tabs">
+        <span id='amazon-tab' class="tab {{amazonActive}}">
+          Amazon
+        </span>
 
-      <span id='text-tab' class="tab {{textActive}}">
-        Text
-      </span>
-    </div>
+        <span id='text-tab' class="tab {{textActive}}">
+          Text
+        </span>
+      </div>
 
-    {{#unless $.Session.equals 'addWishError' ''}}
-    <p class='error'>{{$.Session.get 'addWishError'}}</p>
-    {{/unless}}
+      {{#unless $.Session.equals 'addWishError' ''}}
+      <p class='error'>{{$.Session.get 'addWishError'}}</p>
+      {{/unless}}
 
-    {{#if amazonActive}}
-    <span class="amazon">
-      <input class='amazon-input' type="text" name='amazonurl' placeholder='Amazon url'>
-      <button class='amazon-submit' type='submit'><span class="entypo-moon"></span></button>
-    </span>
-    {{else}}
-    <span class="text">
-      <span class="text-input product-name">
-        <p>Product Name</p>
-        <input type="text" name='name' placeholder='Blue Socks'>
+      {{#if amazonActive}}
+      <span class="amazon">
+        <input class='amazon-input' type="text" name='amazonurl' placeholder='Amazon url'>
+        <button class='amazon-submit' type='submit'><span class="entypo-moon"></span></button>
       </span>
+      {{else}}
+      <span class="text">
+        <span class="text-input product-name">
+          <p>Product Name</p>
+          <input type="text" name='name' placeholder='Blue Socks'>
+        </span>
 
-      <span class="text-input seller">
-        <p>Seller</p>
-        <input type="text" name='seller' placeholder='Walmart'>
-      </span>
-      <span class='text-input price'>
-        <p>Price</p>
-        <input type="text" name='price' placeholder='$100.00'>
-      </span>
+        <span class="text-input seller">
+          <p>Seller</p>
+          <input type="text" name='seller' placeholder='Walmart'>
+        </span>
+        <span class='text-input price'>
+          <p>Price</p>
+          <input type="text" name='price' placeholder='$100.00'>
+        </span>
 
-      <span class="text-input url">
-        <p>URL (optional)</p>
-        <input type="text" name='url' placeholder='http://'>
-      </span>
+        <span class="text-input url">
+          <p>URL (optional)</p>
+          <input type="text" name='url' placeholder='http://'>
+        </span>
 
-      <span class="text-input detail">
-        <p>Detail (optional)</p>
-        <textarea name="detail" cols="3" placeholder='If the blue ones arent available, red will do'></textarea>
-      </span>
+        <span class="text-input detail">
+          <p>Detail (optional)</p>
+          <textarea name="detail" cols="3" placeholder='If the blue ones arent available, red will do'></textarea>
+        </span>
 
-      <span class="text-input submit">
-        <button class="text-submit" type='submit'>
-          <span class="entypo-magnet"></span>
-          Add!
-        </button>
+        <span class="text-input submit">
+          <button class="text-submit" type='submit'>
+            <span class="entypo-magnet"></span>
+            Add!
+          </button>
+        </span>
       </span>
-    </span>
-    {{/if}}
-  </form>
+      {{/if}}
+    </form>
+  </div>
 </template>

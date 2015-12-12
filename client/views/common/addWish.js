@@ -14,7 +14,7 @@ Template.addWish.events({
     Session.set('addWishError', '');
   },
 
-  'submit .add-wish': function(event) {
+  'submit .add-wish-form': function(event) {
     event.preventDefault();
 
     if (Session.get('amazon-active')) {
