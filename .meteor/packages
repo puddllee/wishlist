@@ -27,7 +27,6 @@ accounts-google
 service-configuration
 accounts-password
 accounts-facebook
-stevezhu:fbgraph
 jparker:gravatar
 email
 matb33:collection-hooks
@@ -36,4 +35,3 @@ meteorhacks:npm
 
 
 npm-container
-
