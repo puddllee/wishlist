@@ -9,11 +9,11 @@ ServiceConfiguration.configurations.insert({
 	loginStyle: "popup"
 });
 
-ServiceConfigurations.configurations.remove({
+ServiceConfiguration.configurations.remove({
 	service: "facebook"
 });
 
-ServiceConfigurations.configurations.insert({
+ServiceConfiguration.configurations.insert({
 	service: "facebook",
 	appId: "130018900700595",
 	secret: "087d7b3aa5534cf672e78a524869ea9a"
