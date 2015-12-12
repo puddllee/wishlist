@@ -26,9 +26,13 @@ Router.route('/user/:_id', {
 MainController = RouteController.extend({
   onBeforeAction: function() {
     var query = this.params.query;
-    if (Meteor.userId() && query && query.friendrequest) {
-      console.log(query.friendrequest);
-      // Meteor.call('addFriendForHash', query.friendrequest);
+    if (Meteor.userId() && query && query.friendrequest && query.friendrequest !== '') {
+      Meteor.call('addFriendForHash', query.friendrequest);
+      var uri = window.location.toString();
+      if (uri.indexOf("?") > 0) {
+        var clean_uri = uri.substring(0, uri.indexOf("?"));
+        window.history.replaceState({}, document.title, clean_uri);
+      }
     }
     this.next();
   },

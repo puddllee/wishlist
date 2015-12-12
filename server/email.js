@@ -30,11 +30,13 @@ Mail = {
 
     // wait for other method calls to finish
     // before sending email
-    this.unblock();
+    if (this && this.unblock) {
+      this.unblock();
+    }
 
     Email.send({
       to: to,
-      from: MAIL_NAME,
+      from: MAIL_FROM,
       subject: subject,
       text: text
     });
@@ -44,10 +46,22 @@ Mail = {
 Meteor.methods({
   sendMail: Mail.sendMail,
 
-  sendRequestEmail: function(email) {
+  addFriendByEmail: function(email) {
     var user = Meteor.user();
-    if (validateEmail(email)) {
-      // var subject = 'Wish List friend request from ' + Me
+    if (user && validateEmail(email)) {
+      var friend = userForEmail(email);
+      if (!friend) {
+        console.log('someone wiht that email already exists');
+        Noti.addRequestNoti(friend._id);
+      } else {
+        var hash = Hash.createHash(Meteor.userId());
+        var url = Meteor.absoluteUrl() + '?friendrequest=' + hash;
+        var subject = 'Wish List friend request from ' + user.profile.name;
+        var text = 'You received a friend request from ' + user.profile.name + ' for Wish List.';
+        text += '\r\nClick the following link to create and account and accept.';
+        text += '\r\n' + url;
+        Mail.sendMail(email, subject, text);
+      }
     } else {
       // email invalid
     }

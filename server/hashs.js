@@ -11,6 +11,7 @@ Hash = {
       hash_string: hash,
       user_id: user_id
     });
+    return hash;
   },
 
   removeHash: function(hashId) {
@@ -26,15 +27,14 @@ Hash = {
   // add the user_id associated with the hash
   // as a friend to the currently logged in user
   addFriendForHash: function(hash) {
-    console.log(hash);
     if (!Meteor.user()) {
       return;
     }
-    return;
 
     var friend = Hash.getUserFromHash(hash);
     if (friend) {
-      console.log('will add ' + friend._id + ' as friend for ' + Meteor.userId());
+      Friends.addFriend(friend.user_id);
+      Hash.removeHash(friend._id);
     } else {
       console.log('cannot find user for that hash: ' + hash);
     }

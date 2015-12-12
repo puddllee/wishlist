@@ -44,7 +44,10 @@ Template.friendList.events({
     event.preventDefault();
 
     var search = event.target.search.value;
-    console.log('send email to ' + search);
+    if (validateEmail(search)) {
+      Meteor.call('addFriendByEmail', search);
+      event.target.search.value = '';
+    }
   },
 
   'input .friend-input': function(event) {
