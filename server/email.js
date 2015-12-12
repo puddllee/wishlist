@@ -50,7 +50,7 @@ Meteor.methods({
     var user = Meteor.user();
     if (user && validateEmail(email)) {
       var friend = userForEmail(email);
-      if (!friend) {
+      if (friend) {
         console.log('someone wiht that email already exists');
         Noti.addRequestNoti(friend._id);
       } else {
