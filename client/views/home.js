@@ -40,12 +40,12 @@ Template.home.events({
                   if (error) {
                     console.log(error);
                   } else {
-                    window.location.href = Meteor.absoluteUrl() + "list";
+                    Router.go('list');
                   }
                 });
                 break;
               case 'google':
-                Meteor.loginWithGoogle({
+              Meteor.loginWithGoogle({
                   requestPermissions: ['email', 'profile'],
                   loginStyle: "redirect",
                   redirectUrl: Meteor.absoluteUrl() + "list"
