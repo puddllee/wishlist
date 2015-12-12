@@ -1,0 +1,145 @@
+@import 'normalize';
+@import 'animate';
+@import 'sass-css3-mixins';
+@import 'susy';
+@import 'fonts';
+@import 'variables';
+
+$susy: (
+  columns: 12,
+  gutters: .25,
+  global-box-sizing: border-box
+  );
+
+$mobile: 600px;
+$tablet: 900px;
+$desktop: 1600px;
+
+/* Makes border-box properties */
+@include border-box-sizing;
+
+// mixins
+
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Muli", "Helvetica", sans-serif;
+  color: $dark-text;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+input, button:focus {
+  outline: 0;
+}
+
+h1, h2 {
+  font-weight: 200;
+}
+
+a {
+  color: $secondary-colour;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: grey;
+}
+
+.button-main {
+  padding: 0.5em 1em;
+  background-color: $main-colour;
+  border: none;
+  cursor: pointer;
+
+  [class*="entypo-"] {
+    margin-right: 1em;
+  }
+}
+
+.button-main:active {
+  opacity: 0.8;
+}
+
+.input-main {
+  padding: 0.5em 0.5em;
+}
+
+.header {
+  height: 61.804697157vh;
+  position: relative;
+  margin-top: -2em;
+  margin-bottom: 2em;
+  background-color: $main-colour;
+
+  @include prefix(1 of 12);
+  @include span(12 of 12);
+
+  .header-text {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.para {
+  @include container(60%);
+  @media(max-width: $tablet) {
+    @include container(96%);
+  }
+  line-height: 1.5em;
+}
+
+.new-item {
+  .name {
+    margin-bottom: 1em;
+  }
+}
+
+.item {
+  @include container();
+  height: 2em;
+
+  .name {
+    @include span(5 of 12);
+  }
+
+  .created {
+    @include span(5 of 12);
+  }
+
+  .delete {
+    @include span(2 of 12 no-gutters);
+    span {
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+  }
+}
+
+footer {
+  background-color: $main-colour;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 2em;
+  color: $dark-text;
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  a {
+    color: $dark-text;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
