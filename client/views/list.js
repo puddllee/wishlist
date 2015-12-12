@@ -102,6 +102,11 @@ var last_save;
 Template.list.rendered = function() {
   Session.set('yourList', yourList);
   Session.set('friendList', friendList);
+
+  console.log(Meteor.userId());
+  Meteor.call('getWishlist', Meteor.userId(), function(error, result) {
+    console.log(result);
+  });
 }
 
 Template.list.events({});

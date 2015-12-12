@@ -1,21 +1,4 @@
 Meteor.methods({
-  addItem: function(wishlist, name, seller, price, detail, url, image, callback) {
-    Items.insert({
-      name: name,
-      seller: seller,
-      price: price,
-      detail: detail,
-      url: url,
-      image: image,
-      bought: false,
-      wishlist: wishlist
-    }, callback);
-  },
-
-  deleteItem: function(itemId) {
-    Items.remove(itemId);
-  },
-
   emailExists: function(email) {
     return Meteor.users.find({
       'emails[0].address': email
@@ -42,27 +25,18 @@ Meteor.methods({
     }
   },
 
+  addItem: function(wishlist, name, seller, price, detail, url, image, callback) {
+    Wishlist.addItem(wishlist, name, seller, price, detail, url, image, callback);
+  },
+
+  deleteItem: function(itemId) {
+    Wishlist.deleteItem(itemId);
+  },
+
   getWishlist: function(userId) {
-    console.log('getting wishlist');
-    wishlist = Wishlists.findOne({
-      owner: userId
-    });
-    console.log(wishlist);
-
-    return wishlist;
+    Wishlist.getWishlist(userId);
   }
-
 });
-
-Meteor.publish(null, function() {
-  return Meteor.users.find({
-    _id: this.userId
-  }, {
-    fields: {
-      'services': 1,
-    }
-  });
-})
 
 Accounts.onCreateUser(function(options, user) {
   // Instantiate the wishes
