@@ -24,6 +24,7 @@ var addFriendList = [{
   avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
 }];
 
+
 searchFriendList = function(search) {
   var filterFunc = function(obj) {
     return obj.name.toLowerCase().indexOf(search.toLowerCase()) != -1;
@@ -48,9 +49,16 @@ Template.friendList.events({
   'input .friend-input': function(event) {
     event.preventDefault();
 
+    Meteor.call('getfbContacts', Meteor.user().services.facebook.id, function(error) {
+      if (errror) {
+        console.log(error);
+      }
+    })
+
     var search = event.target.value;
     if (search && search !== '') {
       Session.set('typing', true);
+      Meteor.call('getGContacts', Meteor.user());
       searchFriendList(search);
     } else {
       Session.set('typing', false);
