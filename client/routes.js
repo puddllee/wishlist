@@ -10,6 +10,9 @@ Router.route('/about', {
     // return Meteor.subscribe('items');
   }
 });
+Router.route('/list', {
+  name: 'list'
+});
 
 MainController = RouteController.extend({
   action: function() {
@@ -31,5 +34,11 @@ HomeController = MainController.extend({
 AboutController = MainController.extend({
   action: function() {
     this.render('about');
+  }
+});
+
+LoginController = MainController.extend({
+  action: function() {
+    this.render('list');
   }
 });
