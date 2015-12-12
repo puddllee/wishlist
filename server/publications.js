@@ -8,6 +8,12 @@ Meteor.publish('wishlists', function() {
   });
 });
 
+Meteor.publish('notis', function() {
+  return Notis.find({
+    owner: this.userId
+  });
+});
+
 Meteor.publish(null, function() {
   return Meteor.users.find({
     _id: this.userId

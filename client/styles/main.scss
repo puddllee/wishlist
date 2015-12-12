@@ -212,16 +212,18 @@ textarea {
 
 .notifications {
   position: fixed;
-  top: 4em;
+  top: 2em;
   right: 2em;
 
   .noti-list {
     .noti {
       @include container(25em);
+      min-width: 20em;
       @include border-radius(4px);
       margin-bottom: 0.3em;
       padding: 1em;
       background-color: $grey-back;
+      @include box-shadow(darkgray, 0px, 0px, 10px);
 
       @include fadeIn();
 
@@ -237,7 +239,7 @@ textarea {
       }
 
       .actions:hover > a {
-        opacity: 0.5;
+        opacity: 0.3;
         transition: opacity .5s ease-out;
       }
 
