@@ -49,13 +49,3 @@ Meteor.publish(null, function() {
     }
   });
 })
-
-// Accounts.onCreateUser(function(options, user) {
-//   var newEmail = user.emails[0].address
-//   console.log(newEmail);
-//   console.log(emailExists + 'existance');
-//   profile = {};
-//   profile.nameOfArray = [];
-//   return user;
-
-// })
