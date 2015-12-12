@@ -246,10 +246,24 @@ input {
     @include container();
     padding-left: 0;
     overflow-y: auto;
+    margin-top: 2em;
 
     @media(min-width: $tablet) {
       max-height: 80em;
     }
+  }
+}
+
+.empty-state {
+  @include container();
+  margin-bottom: 2em;
+  margin-top: 2em;
+  padding: 2em;
+  text-align: center;
+  background-color: $grey-back;
+
+  .icon {
+    font-size: 4em;
   }
 }
 

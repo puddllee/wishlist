@@ -32,9 +32,11 @@
         <textarea class='detail-text' name="detail" id="" placeholder='detail' cols='3'></textarea>
       </span>
 
+      {{#if url}}
       <span class="url">
         <a href="{{url}}">visit page</a>
       </span>
+      {{/if}}
     </div>
   </li>
 </template>
