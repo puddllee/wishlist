@@ -1,4 +1,3 @@
-
 Template.home.helpers({
   myAppVariable: function() {
     return Session.get('myAppVariable');
@@ -10,10 +9,6 @@ Template.home.rendered = function() {
 }
 
 Template.home.events({
-  'click button': function(event, template) {
-    Session.set('myAppVariable', Math.floor(Math.random() * 11));
-  },
-
   'submit .login': function(event, template) {
     event.preventDefault();
 
@@ -30,5 +25,15 @@ Template.home.events({
     } else {
       Session.set('loginError', 'All inputs are required');
     }
+  },
+
+  'click .fb': function(event) {
+    event.preventDefault();
+    console.log('fb');
+  },
+
+  'click .gplus': function(event) {
+    event.preventDefault();
+    console.log('plus');
   }
 });

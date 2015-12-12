@@ -3,7 +3,10 @@ Router.configure({
   loadingTemplate: 'loading'
 });
 
-Router.route('/', {name: 'home', controller: 'HomeController'});
+Router.route('/', {
+  name: 'home',
+  controller: 'HomeController'
+});
 Router.route('/about', {
   name: 'about',
   waitOn: function() {
@@ -16,11 +19,13 @@ Router.route('/list', {
 
 MainController = RouteController.extend({
   action: function() {
-  	this.render('home', {
-	    data: function () {
-	      return { posts: ['post red', 'post blue'] }
-	    }
-  	});
+    this.render('home', {
+      data: function() {
+        return {
+          posts: ['post red', 'post blue']
+        }
+      }
+    });
   }
 });
 
