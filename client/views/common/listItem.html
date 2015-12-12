@@ -1,0 +1,40 @@
+<template name='listItem'>
+  <li class='list-item'>
+    <img src="{{image}}" alt="{{title}}">
+    <div class="info">
+      <span class="title-icon">
+        <span class="type entypo-dribbble"></span>
+        <p class='title'>{{title}}</p>
+        <span class="delete entypo-cancel"></span>
+      </span>
+
+      <span class="seller-wrapper">
+        <p class='seller'>{{seller}}</p>
+      </span>
+
+      <span class="price-bought">
+        <span class="price">
+          <p class='price'>{{price}}</p>
+        </span>
+
+        <span class="bought">
+          <button>
+            {{#if bought}}
+            Bought by {{bought_user}}
+            {{else}}
+            Buy for USER
+            {{/if}}
+          </button>
+        </span>
+      </span>
+
+      <span class="detail">
+        <textarea class='detail-text' name="detail" id="" placeholder='detail' cols='3'></textarea>
+      </span>
+
+      <span class="url">
+        <a href="{{url}}">visit page</a>
+      </span>
+    </div>
+  </li>
+</template>

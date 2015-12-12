@@ -17,10 +17,9 @@
       <h2>Login / Register</h2>
 
       {{#unless $.Session.equals 'loginError' ''}}
-        <p class='error'>this is error text</p>
+        <p class='error'>{{$.Session.get 'loginError'}}</p>
       {{/unless}}
 
-      <input type="text" name='name' placeholder='Name'>
       <input type="email" name='email' placeholder='Email'>
       <input type="password" name='password' placeholder='Password'>
       <button type='submit'>Go</button>
