@@ -52,6 +52,15 @@ a:hover {
   color: grey;
 }
 
+.nostyle {
+  text-decoration: none;
+  color: $dark-text;
+}
+.nostyle:hover {
+  text-decoration: none;
+  color: $dark-text;
+}
+
 button {
   padding: 0.5em 1em;
   background-color: $main-colour;
@@ -196,6 +205,7 @@ input {
       padding-left: 1em;
       padding-right: 1em;
       border: solid 1px $main-colour;
+      text-align: center;
 
       h2 {
         @include span(12 of 12);
@@ -280,6 +290,7 @@ input {
 
         .submit {
           @include span(12 of 12 no-gutters);
+          font-size: 1.2em;
 
           button {
             width: 100%;
@@ -288,18 +299,77 @@ input {
       }
     }
 
-    .your-list {
-      @include span(50%);
-
-      ul {
-        padding-left: 0;
-        max-height: 80em;
-        overflow-y: auto;
-      }
+    ul {
+      padding-left: 0;
+      max-height: 80em;
+      overflow-y: auto;
     }
 
-    .friend-list {
+    .your-list {
       @include span(50%);
+    }
+
+    .friends {
+      @include span(50%);
+    }
+  }
+}
+
+.friend-list {
+  .add-friend {
+    @include container();
+    padding-top: 0;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border: solid 1px $main-colour;
+    text-align: center;
+
+    .friend-input {
+      @include span(9 of 12 no-gutters);
+      margin-top: 1.6em;
+      margin-bottom: 1.6em;
+    }
+
+    .friend-submit {
+      @include span(3 of 12);
+      margin-top: 1.4em;
+      margin-bottom: 1.6em;
+      font-size: 1.1em;
+      border-bottom: solid 1px $main-colour;
+    }
+  }
+}
+
+.friend-item {
+  @include container(100%);
+  margin-bottom: 1em;
+  padding: 1em 0.5em;
+  list-style-type: none;
+  background-color: $grey-back;
+
+  .avatar {
+    @include span(2 of 12);
+    @include border-radius(150px);
+  }
+
+  .info {
+    @include span(10 of 12);
+
+    .name {
+      @include span(10 of 12);
+      margin-top: 0.9em;
+      margin-bottom: 0;
+      padding-left: 2em;
+      font-size: 2em;
+    }
+
+    .unfriend {
+      @include span(2 of 12);
+      margin-top: 0.9em;
+      font-size: 2em;
+      margin-top: 1em;
+      cursor: pointer;
     }
   }
 }
@@ -309,11 +379,11 @@ input {
   list-style-type: none;
   padding: 0.5em 0;
   margin-bottom: 1em;
-
-  background-color: #F5F5F5;
+  background-color: $grey-back;
 
   img {
     @include span(3 of 12);
+    padding-left: 0.5em;
   }
 
   .info {

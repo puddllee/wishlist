@@ -71,7 +71,6 @@ Template.home.events({
           });
 
         } else {
-          console.log('email does not exist, creating new user')
           Accounts.createUser({
             email: email,
             password: password
@@ -97,9 +96,7 @@ Template.home.events({
 
   'click .fb': function(event) {
     event.preventDefault();
-    console.log('fb');
     if (!Meteor.user()) {
-      console.log('logging in')
       Meteor.loginWithFacebook({
         requestPermissions: ['email', 'user_friends'],
         loginStyle: 'redirect',
@@ -107,16 +104,18 @@ Template.home.events({
       }, function(error) {
         if (error) {
           console.log(error);
-        } else {}
-      })
+        } else {
+          Router.go('list');
+        }
+      });
+    } else {
+      Router.go('list');
     }
   },
 
   'click .gplus': function(event) {
     event.preventDefault();
-    console.log('plus');
     if (!Meteor.user()) {
-      console.log('logging in')
       Meteor.loginWithGoogle({
         requestPermissions: ['email', 'profile'],
         loginStyle: "redirect",
@@ -124,8 +123,12 @@ Template.home.events({
       }, function(error) {
         if (error) {
           console.log(error);
-        } else {}
+        } else {
+          Router.go('list');
+        }
       });
+    } else {
+      Router.go('list');
     }
   }
 });
