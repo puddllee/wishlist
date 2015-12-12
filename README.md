@@ -1,7 +1,7 @@
 Wish List
 ==========
 
-[http://wishlist.jakerunzer.xyz](here)
+[here](http://wishlist.jakerunzer.xyz)
 
-Wish list app originally for [http://teams-koding.hs-sites.com/hackathon](this hackathon).
+Wish list app originally for [this hackathon](http://teams-koding.hs-sites.com/hackathon).
 It got delayed 2 months but we are doing it anyway.
