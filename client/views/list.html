@@ -3,10 +3,12 @@
   <div class="list">
 
     <div class="list-header">
-      <div class="header-text">
-        <img class='logo' src="/images/star.svg" alt="">
-        <span>Wish List</span>
-      </div>
+      <a class='nostyle' href="/">
+        <div class="header-text">
+          <img class='logo' src="/images/star.svg" alt="">
+          <span>Wish List</span>
+        </div>
+      </a>
     </div>
 
     <div class="list-body">
@@ -18,13 +20,15 @@
 
         <ul>
           {{#each $.Session.get 'yourList'}}
-          {{> listItem}}
+            {{> listItem}}
           {{/each}}
         </ul>
       </div>
 
-      <div class="friend-list">
+      <div class="friends">
         <h1>Friends</h1>
+
+        {{> friendList}}
       </div>
 
     </div>

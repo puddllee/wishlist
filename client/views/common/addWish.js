@@ -1,5 +1,5 @@
 Template.addWish.rendered = function() {
-  Session.set('amazon-active', false);
+  Session.set('amazon-active', true);
   Session.set('addWishError', '');
 }
 
