@@ -36,6 +36,14 @@ MainController = RouteController.extend({
 });
 
 HomeController = MainController.extend({
+  onBeforeAction: function() {
+    if (Meteor.user()) {
+      this.render('list');
+    } else {
+      this.next();
+    }
+  },
+
   action: function() {
     this.render('home');
   }
