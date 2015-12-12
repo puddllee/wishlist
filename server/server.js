@@ -1,8 +1,14 @@
 Meteor.methods({
-  addItem: function(name, callback) {
+  addItem: function(wishlist, name, seller, price, detail, url, image, callback) {
     Items.insert({
       name: name,
-      createdAt: new Date()
+      seller: seller,
+      price: price,
+      detail: detail,
+      url: url,
+      image: image,
+      bought: false,
+      wishlist: wishlist
     }, callback);
   },
 
@@ -34,7 +40,18 @@ Meteor.methods({
     } else {
       return;
     }
+  },
+
+  getWishlist: function(userId) {
+    console.log('getting wishlist');
+    wishlist = Wishlists.findOne({
+      owner: userId
+    });
+    console.log(wishlist);
+
+    return wishlist;
   }
+
 });
 
 Meteor.publish(null, function() {
@@ -47,10 +64,26 @@ Meteor.publish(null, function() {
   });
 })
 
-Accounts.onCreateUser(options, user) {
+Accounts.onCreateUser(function(options, user) {
   // Instantiate the wishes
-  Wishlists.insert({
+  w = Wishlists.insert({
     'owner': user._id,
-    'last_update': Date.now()
+    'lastUpdated': Date.now()
+  });
+  Meteor.publish("wishlists", function() {
+    return Wishlists.find({
+      _id: w
+    }, {
+      fields: {
+        owner: 1,
+        lastUpdated: 1
+      }
+    })
   })
-}
+  console.log('wishlist: ' + w)
+
+  if (options.profile) {
+    user.profile = options.profile;
+  }
+  return user;
+});
