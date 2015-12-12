@@ -23,3 +23,7 @@ velocity:html-reporter
 aldeed:collection2
 momentjs:moment
 raix:handlebar-helpers
+accounts-google
+service-configuration
+accounts-password
+accounts-facebook
