@@ -26,7 +26,6 @@ Template.home.events({
         console.log(error);
         return;
       } else {
-        console.log('result: ' + result)
         if (result) {
           Meteor.call('getUserType', email, function(error, result) {
             user_type = result;
@@ -84,9 +83,17 @@ Template.home.events({
                 } else {
                   Router.go('list')
                 }
-              })
+              });
             } else {
-              console.log(error);
+              Meteor.loginWithPassword({
+                'email': email
+              }, password, function(error) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  Router.go('list')
+                }
+              });
             }
           })
         }
