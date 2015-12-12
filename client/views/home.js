@@ -36,6 +36,10 @@ Template.home.events({
         requestPermissions: ['email', 'user_friends'],
         loginStyle: 'redirect',
         redirectUrl: Meteor.absoluteUrl() + "list"
+      }, function(error) {
+        if (error) {
+          console.log(error);
+        } else {}
       })
     }
   },
@@ -52,7 +56,7 @@ Template.home.events({
       }, function(error) {
         if (error) {
           console.log(error);
-        }
+        } else {}
       });
     }
   }
