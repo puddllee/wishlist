@@ -25,6 +25,15 @@ Template.home.events({
     } else {
       Session.set('loginError', 'All inputs are required');
     }
+
+    Meteor.call('emailExists', 1, function(error, result) {});
+    Accounts.createUser({
+      email: email,
+      password: password
+    }, function(error) {
+      console.log(error);
+    })
+
   },
 
   'click .fb': function(event) {

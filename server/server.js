@@ -9,13 +9,6 @@ Meteor.methods({
   deleteItem: function(itemId) {
     Items.remove(itemId);
   },
-
-  logCurrentUser: function(userId) {
-    user = Meteor.users.findOne({
-      _id: userId
-    });
-    console.log(user)
-  }
 });
 
 Meteor.publish(null, function() {
@@ -26,4 +19,25 @@ Meteor.publish(null, function() {
       'services': 1,
     }
   });
+})
+
+Accounts.onCreateUser(function(options, user) {
+  var newEmail = user.emails[0].address
+  console.log(newEmail);
+  var emailExists = Meteor.users.find({
+    'emails.address': newEmail
+  }, {
+    limit: 1
+  }).count() > 0;
+
+  console.log(emailExists + 'existance');
+
+  if (emailExists === true) {
+    // do something
+  } else {
+    profile = {};
+    profile.nameOfArray = [];
+    return user;
+  }
+
 })
