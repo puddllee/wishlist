@@ -28,3 +28,10 @@ service-configuration
 accounts-password
 accounts-facebook
 jparker:gravatar
+email
+matb33:collection-hooks
+check
+meteorhacks:npm
+
+
+npm-container

@@ -24,6 +24,14 @@ Router.route('/user/:_id', {
 });
 
 MainController = RouteController.extend({
+  onBeforeAction: function() {
+    var query = this.params.query;
+    if (query && query.friendrequest) {
+      Meteor.call('addFriendForHash', query.friendrequest);
+    }
+    this.next();
+  },
+
   action: function() {
     this.render('home', {
       data: function() {

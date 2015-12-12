@@ -42,19 +42,8 @@ Accounts.onCreateUser(function(options, user) {
   // Instantiate the wishes
   w = Wishlists.insert({
     'owner': user._id,
-    'lastUpdated': Date.now()
+    'last_updated': Date.now()
   });
-  Meteor.publish("wishlists", function() {
-    return Wishlists.find({
-      _id: w
-    }, {
-      fields: {
-        owner: 1,
-        lastUpdated: 1
-      }
-    })
-  })
-  console.log('wishlist: ' + w)
 
   if (options.profile) {
     user.profile = options.profile;

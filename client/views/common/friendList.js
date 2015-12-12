@@ -35,6 +35,8 @@ searchFriendList = function(search) {
 Template.friendList.rendered = function() {
   Session.set('typing', false);
   Session.set('addFriendList', []);
+  Session.set('email', '');
+  Session.set('emailvalid', false);
 }
 
 Template.friendList.events({
@@ -49,11 +51,18 @@ Template.friendList.events({
     event.preventDefault();
 
     var search = event.target.value;
-    if (search && search !== '') {
+    if (validateInput(search)) {
       Session.set('typing', true);
       searchFriendList(search);
     } else {
       Session.set('typing', false);
+    }
+    if (validateEmail(search)) {
+      Session.set('typing', false);
+      Session.set('emailvalid', true);
+      Session.set('email', search);
+    } else {
+      Session.set('emailvalid', false);
     }
   },
 
@@ -66,6 +75,6 @@ Template.friendList.events({
 
 Template.friendList.helpers({
   addDisabled: function() {
-    return Session.get('typing') ? false : true;
+    return Session.get('emailvalid') ? false : true;
   }
 });

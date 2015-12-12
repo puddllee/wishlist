@@ -8,6 +8,14 @@ Template.home.rendered = function() {
   Session.set('loginError', '');
 }
 
+var afterLogin = function() {
+  // Router.go('list');
+  var query = Router.current().params;
+  if (query && query.friendrequest) {
+    Meteor.call('addFriendForHash', query.friendrequest);
+  }
+}
+
 Template.home.events({
   'submit .login': function(event, template) {
     event.preventDefault();
@@ -40,12 +48,12 @@ Template.home.events({
                   if (error) {
                     console.log(error);
                   } else {
-                    Router.go('list');
+                    afterLogin();
                   }
                 });
                 break;
               case 'google':
-              Meteor.loginWithGoogle({
+                Meteor.loginWithGoogle({
                   requestPermissions: ['email', 'profile'],
                   loginStyle: "redirect",
                   redirectUrl: Meteor.absoluteUrl() + "list"
@@ -53,7 +61,7 @@ Template.home.events({
                   if (error) {
                     console.log(error);
                   } else {
-                    Router.go('list');
+                    afterLogin();
                   }
                 });
               default:
@@ -63,7 +71,7 @@ Template.home.events({
                   if (error) {
                     console.log(error);
                   } else {
-                    Router.go('list')
+                    afterLogin();
                   }
                 })
             }
@@ -81,7 +89,7 @@ Template.home.events({
                 if (error) {
                   console.log(error);
                 } else {
-                  Router.go('list')
+                  afterLogin();
                 }
               });
             } else {
@@ -91,7 +99,7 @@ Template.home.events({
                 if (error) {
                   console.log(error);
                 } else {
-                  Router.go('list')
+                  afterLogin();
                 }
               });
             }
@@ -112,7 +120,7 @@ Template.home.events({
         if (error) {
           console.log(error);
         } else {
-          Router.go('list');
+          afterLogin();
         }
       });
     } else {
@@ -131,11 +139,11 @@ Template.home.events({
         if (error) {
           console.log(error);
         } else {
-          Router.go('list');
+          afterLogin();
         }
       });
     } else {
-      Router.go('list');
+      afterLogin();
     }
   }
 });

@@ -7,6 +7,10 @@ var notis = [{
 
 var FADE_TIME = 500;
 
+sendMail = function(subject, text) {
+  Meteor.call('sendMail', 'jakerunzer@gmail.com', subject, text);
+}
+
 Template.notifications.helpers({
   notis: function() {
     return Notis.find({});
