@@ -26,14 +26,66 @@ Template.home.events({
       Session.set('loginError', 'All inputs are required');
     }
 
-    Meteor.call('emailExists', 1, function(error, result) {});
-    Accounts.createUser({
-      email: email,
-      password: password
-    }, function(error) {
-      console.log(error);
-    })
+    var emailExists = Meteor.call('emailExists', email, function(error, result) {
+      if (error) {
+        console.log(error);
+        return;
+      } else {
+        console.log('result: ' + result)
+        if (result) {
+          Meteor.call('getUserType', email, function(error, result) {
+            user_type = result;
+            console.log('user_type: ' + user_type);
+            switch (user_type) {
+              case 'facebook':
+                Meteor.loginWithFacebook({
+                  requestPermissions: ['email', 'user_friends'],
+                  loginStyle: 'redirect',
+                  redirectUrl: Meteor.absoluteUrl() + "list"
+                }, function(error) {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    window.location.href = Meteor.absoluteUrl() + "list";
+                  }
+                });
+                break;
+              case 'google':
+                Meteor.loginWithGoogle({
+                  requestPermissions: ['email', 'profile'],
+                  loginStyle: "redirect",
+                  redirectUrl: Meteor.absoluteUrl() + "list"
+                }, function(error) {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    window.location.href = Meteor.absoluteUrl() + "list";
+                  }
+                });
+              default:
+                Meteor.loginWithPassword({
+                  'email': email
+                }, password, function(error) {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    window.location.href = Meteor.absoluteUrl() + "list";
+                  }
+                })
+            }
+          });
 
+        } else {
+          console.log('email does not exist, creating new user')
+          Accounts.createUser({
+            email: email,
+            password: password
+          }, function(error) {
+            console.log(error);
+          })
+        }
+      }
+    });
   },
 
   'click .fb': function(event) {

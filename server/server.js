@@ -9,6 +9,35 @@ Meteor.methods({
   deleteItem: function(itemId) {
     Items.remove(itemId);
   },
+
+  emailExists: function(email) {
+    console.log('email: ' + email)
+    return Meteor.users.find({
+      'emails[0].address': email
+    }).count() > 0 || Meteor.users.find({
+      'services.facebook.email': email
+    }).count() > 0 || Meteor.users.find({
+      'services.google.email': email
+    }).count() > 0;
+  },
+
+  getUserType: function(email) {
+    var google_logged_in = Meteor.users.find({
+      'services.google.email': email
+    });
+    var facebook_logged_in = Meteor.users.find({
+      'services.facebook.email': email
+    });
+    console.log('google: ' + google_logged_in.count());
+    console.log('facebook: ' + facebook_logged_in.count());
+    if (facebook_logged_in.count() >= 1) {
+      return 'facebook';
+    } else if (google_logged_in.count() >= 1) {
+      return 'google';
+    } else {
+      return;
+    }
+  }
 });
 
 Meteor.publish(null, function() {
@@ -21,23 +50,12 @@ Meteor.publish(null, function() {
   });
 })
 
-Accounts.onCreateUser(function(options, user) {
-  var newEmail = user.emails[0].address
-  console.log(newEmail);
-  var emailExists = Meteor.users.find({
-    'emails.address': newEmail
-  }, {
-    limit: 1
-  }).count() > 0;
+// Accounts.onCreateUser(function(options, user) {
+//   var newEmail = user.emails[0].address
+//   console.log(newEmail);
+//   console.log(emailExists + 'existance');
+//   profile = {};
+//   profile.nameOfArray = [];
+//   return user;
 
-  console.log(emailExists + 'existance');
-
-  if (emailExists === true) {
-    // do something
-  } else {
-    profile = {};
-    profile.nameOfArray = [];
-    return user;
-  }
-
-})
+// })
