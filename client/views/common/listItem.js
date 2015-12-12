@@ -11,7 +11,17 @@ Template.listItem.events({
         } else {
           console.log('deleted: ' + response)
         }
-      })
+      });
+  }
+});
 
+
+Template.listItem.helpers({
+  imageUrl: function() {
+    var image = this.image;
+    if (!image || image === '') {
+      image = '/images/star.svg';
+    }
+    return image;
   }
 });

@@ -24,18 +24,33 @@ Router.route('/user/:_id', {
 });
 
 MainController = RouteController.extend({
-  action: function() {
-    this.render('home', {
-      data: function() {
-        return {
-          posts: ['post red', 'post blue']
-        }
+  onBeforeAction: function() {
+    var query = this.params.query;
+    if (Meteor.userId() && query && query.friendrequest && query.friendrequest !== '') {
+      Meteor.call('addFriendForHash', query.friendrequest);
+      var uri = window.location.toString();
+      if (uri.indexOf("?") > 0) {
+        var clean_uri = uri.substring(0, uri.indexOf("?"));
+        window.history.replaceState({}, document.title, clean_uri);
       }
-    });
+    }
+    this.next();
+  },
+
+  action: function() {
+    this.render('home');
   }
 });
 
 HomeController = MainController.extend({
+  onBeforeAction: function() {
+    if (Meteor.user()) {
+      this.render('list');
+    } else {
+      this.next();
+    }
+  },
+
   action: function() {
     this.render('home');
   }
@@ -45,16 +60,6 @@ HomeController = MainController.extend({
 AboutController = MainController.extend({
   action: function() {
     this.render('about');
-  }
-});
-
-LoginController = MainController.extend({
-  action: function() {
-    if (Meteor.user()) {
-      this.render('list');
-    } else {
-      Router.go('/');
-    }
   }
 });
 

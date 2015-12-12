@@ -100,10 +100,18 @@ var SAVE_WAIT_TIME = 1000; // ms
 var last_save;
 
 Template.list.rendered = function() {
-  Session.set('yourList', yourList);
+  Session.set('yourList', []);
   Session.set('friendList', friendList);
+
+  Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
+    Session.set('wishlist', wishlist);
+  });
+
+  // var wishlist = Wishlists.findOne({
+  //   owner: Meteor.userId()
+  // });
+  // Session.set('wishlist', wishlist);
+  // console.log(wishlist);
 }
 
 Template.list.events({});
-
-Template.list.helpers({});

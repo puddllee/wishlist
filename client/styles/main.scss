@@ -81,6 +81,11 @@ input {
   box-sizing: border-box;
 }
 
+textarea {
+  padding-left: 0.5em;
+  padding-top: 0.4em;
+}
+
 .error {
   padding: 0;
   margin: 0;
@@ -205,126 +210,278 @@ input {
   }
 }
 
+.notifications {
+  position: fixed;
+  top: 2em;
+  right: 2em;
+
+  .noti-list {
+    .noti {
+      @include container(25em);
+      min-width: 20em;
+      @include border-radius(4px);
+      margin-bottom: 0.3em;
+      padding: 1em;
+      background-color: $grey-back;
+      @include box-shadow(darkgray, 0px, 0px, 10px);
+
+      @include fadeIn();
+
+      .icon {
+        @include span(2 of 12);
+        margin-top: 0.5em;
+        font-size: 2em;
+      }
+
+      .label {
+        @include span(10 of 12);
+        padding-left: 1em;
+      }
+
+      .actions:hover > a {
+        opacity: 0.3;
+        transition: opacity .5s ease-out;
+      }
+
+      .actions {
+        @include span(8 of 12);
+        @include prefix(2 of 12);
+        margin-top: -1em;
+        margin-left: 1em;
+        opacity: 1;
+
+        a {
+          cursor: pointer;
+          text-decoration: none;
+          opacity: 1;
+          transition: opacity .5s ease-out;
+        }
+
+        a:hover {
+          opacity: 1;
+          transition: opacity .5s ease-out;
+        }
+
+        .action {
+          @include span(6 of 12);
+          padding-top: 0.2em;
+          padding-bottom: 0.2em;
+          text-transform: uppercase;
+        }
+
+        .accept {
+          color: $success-colour;
+        }
+
+        .decline {
+          color: $error-colour;
+        }
+
+        .okay {
+          color: $dark-main;
+        }
+      }
+    }
+
+    .noti-out {
+      @include fadeOut();
+    }
+  }
+}
+
 .user {
   .page-header {
-    // margin-top: -2em;
+    // margin-top: -1.4em;
+  }
+
+  .add-wish-form {
+    margin-top: 1em;
+  }
+
+  .list-section {
+    ul {
+      max-height: none;
+    }
+  }
+
+  .user-body {
+    @include container(50%);
+    @media(max-width: $tablet) {
+      @include container(94%);
+    }
+
+    .user-info {
+      .avatar {
+        @include span(2 of 12);
+        @include border-radius(150px);
+      }
+
+      .name {
+        @include span(10 of 12);
+        padding-left: 2em;
+        padding-top: 0.2em;
+      }
+    }
+  }
+}
+
+.list-section {
+  ul {
+    @include container();
+    padding-left: 0;
+    overflow-y: auto;
+    margin-top: 2em;
+
+    @media(min-width: $tablet) {
+      max-height: 80em;
+    }
+  }
+}
+
+.empty-state {
+  @include container();
+  margin-bottom: 2em;
+  margin-top: 2em;
+  padding: 2em;
+  text-align: center;
+  background-color: $grey-back;
+
+  .icon {
+    font-size: 4em;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  img {
+    width: 6em;
+  }
+}
+
+.invite-mail {
+  padding-bottom: 2.2em;
+}
+
+.wish-list {
+  .add-wish {
+    @include container();
+
+    .add-wish-form {
+      @include span(12 of 12);
+      padding-top: 0;
+      padding-bottom: 1em;
+      padding-left: 1em;
+      padding-right: 1em;
+      border: solid 1px $main-colour;
+    }
+
+    h2 {
+      @include span(12 of 12);
+      margin-bottom: 0.5em;
+      text-align: center;
+    }
+
+    .tab {
+      @include span(50%);
+      margin-bottom: 0.5em;
+      text-align: center;
+      font-size: 1.5em;
+      padding: 0.4em 0;
+      cursor: pointer;
+      background-color: rgba(255, 255, 101, 0.3);
+    }
+
+    .tab:first-child {
+      border-right: solid 1px $light-text;
+    }
+
+    .active-tab {
+      background-color: $main-colour;
+      opacity: 1;
+    }
+
+    .amazon {
+      @include container();
+
+      .amazon-input {
+        @include span(10 of 12 no-gutters);
+      }
+
+      .amazon-submit {
+        @include span(2 of 12 no-gutters);
+        font-size: 1.1em;
+        border-bottom: solid 1px $main-colour;
+
+        span {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .text {
+      @include container();
+
+      p {
+        font-size: 0.8em;
+        margin-bottom: 0;
+        margin-top: 0;
+      }
+
+      .text-input {
+        margin-bottom: 0.2em;
+        input {
+          width: 100%;
+        }
+      }
+
+      .product-name {
+        @include span(12 of 12 no-gutters);
+      }
+
+      .seller {
+        @include span(6 of 12 no-gutters);
+        padding-right: 0.4em;
+      }
+
+      .price {
+        @include span(6 of 12 no-gutters);
+      }
+
+      .url {
+        @include span(6 of 12 no-gutters);
+        padding-right: 0.4em;
+      }
+
+      .image-url {
+        @include span(6 of 12 no-gutters);
+      }
+
+      .detail {
+        @include span(12 of 12 no-gutters);
+
+        textarea {
+          resize: none;
+          width: 100%;
+          height: 4em;
+        }
+      }
+
+      .submit {
+        @include span(12 of 12 no-gutters);
+        font-size: 1.2em;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
   }
 }
 
 .list {
   .list-body {
     @include container(94%);
-
-    .add-wish {
-      @include container();
-
-      padding-top: 0;
-      padding-bottom: 1em;
-      padding-left: 1em;
-      padding-right: 1em;
-      border: solid 1px $main-colour;
-
-      h2 {
-        @include span(12 of 12);
-        margin-bottom: 0.5em;
-        text-align: center;
-      }
-
-      .tab {
-        @include span(50%);
-        margin-bottom: 0.5em;
-        text-align: center;
-        font-size: 1.5em;
-        padding: 0.4em 0;
-        cursor: pointer;
-        background-color: rgba(255, 255, 101, 0.3);
-      }
-
-      .tab:first-child {
-        border-right: solid 1px $dark-text;
-      }
-
-      .active-tab {
-        background-color: $main-colour;
-        opacity: 1;
-      }
-
-      .amazon {
-        @include container();
-
-        .amazon-input {
-          @include span(10 of 12 no-gutters);
-        }
-
-        .amazon-submit {
-          @include span(2 of 12 no-gutters);
-          font-size: 1.1em;
-          border-bottom: solid 1px $main-colour;
-        }
-      }
-
-      .text {
-        @include container();
-
-        p {
-          font-size: 0.8em;
-          margin-bottom: 0;
-          margin-top: 0;
-        }
-
-        .text-input {
-          margin-bottom: 0.2em;
-          input {
-            width: 100%;
-          }
-        }
-
-        .product-name {
-          @include span(12 of 12 no-gutters);
-        }
-
-        .seller {
-          @include span(6 of 12 no-gutters);
-          padding-right: 0.4em;
-        }
-
-        .price {
-          @include span(6 of 12 no-gutters);
-        }
-
-        .url {
-          @include span(12 of 12 no-gutters);
-        }
-
-        .detail {
-          @include span(12 of 12 no-gutters);
-
-          textarea {
-            resize: none;
-            width: 100%;
-            height: 4em;
-          }
-        }
-
-        .submit {
-          @include span(12 of 12 no-gutters);
-          font-size: 1.2em;
-
-          button {
-            width: 100%;
-          }
-        }
-      }
-    }
-
-    ul {
-      padding-left: 0;
-      overflow-y: auto;
-
-      @media(min-width: $tablet) {
-        max-height: 80em;
-      }
-    }
 
     .your-list {
       @include span(50%);
@@ -375,7 +532,7 @@ input {
 
 .friend-item {
   @include container(100%);
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   padding: 1em 0.5em;
   list-style-type: none;
   background-color: $grey-back;
@@ -408,7 +565,7 @@ input {
 
 .add-friend-item {
   @include container(100%);
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   padding: 1em 0.5em;
   list-style-type: none;
   background-color: $grey-back;
@@ -444,7 +601,7 @@ input {
   @include container();
   list-style-type: none;
   padding: 0.5em 0;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   background-color: $grey-back;
 
   img {

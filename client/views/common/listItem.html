@@ -1,10 +1,10 @@
 <template name='listItem'>
   <li class='list-item'>
-    <img src="{{image}}" alt="{{title}}">
+    <img src="{{imageUrl}}" alt="{{title}}">
     <div class="info">
       <span class="title-icon">
         <span class="type entypo-dribbble"></span>
-        <p class='title'>{{title}}</p>
+        <p class='title'>{{name}}</p>
         <span class="delete entypo-cancel"></span>
       </span>
 
@@ -32,9 +32,11 @@
         <textarea class='detail-text' name="detail" id="" placeholder='detail' cols='3'></textarea>
       </span>
 
+      {{#if url}}
       <span class="url">
         <a href="{{url}}">visit page</a>
       </span>
+      {{/if}}
     </div>
   </li>
 </template>

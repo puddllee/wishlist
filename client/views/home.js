@@ -8,6 +8,14 @@ Template.home.rendered = function() {
   Session.set('loginError', '');
 }
 
+var afterLogin = function() {
+  var query = Router.current().params;
+  if (query && query.friendrequest) {
+    Meteor.call('addFriendForHash', query.friendrequest);
+  }
+  Router.go('list');
+}
+
 Template.home.events({
   'submit .login': function(event, template) {
     event.preventDefault();
@@ -19,17 +27,17 @@ Template.home.events({
       Session.set('loginError', '');
     } else {
       Session.set('loginError', 'All inputs are required');
+      return;
     }
 
-    var emailExists = Meteor.call('emailExists', email, function(error, result) {
+    Meteor.call('emailExists', email, function(error, result) {
       if (error) {
         console.log(error);
         return;
       } else {
-        console.log('result: ' + result)
         if (result) {
           Meteor.call('getUserType', email, function(error, result) {
-            user_type = result;
+            user_type = result || "";
             console.log('user_type: ' + user_type);
             switch (user_type) {
               case 'facebook':
@@ -41,7 +49,7 @@ Template.home.events({
                   if (error) {
                     console.log(error);
                   } else {
-                    window.location.href = Meteor.absoluteUrl() + "list";
+                    afterLogin();
                   }
                 });
                 break;
@@ -54,17 +62,19 @@ Template.home.events({
                   if (error) {
                     console.log(error);
                   } else {
-                    Router.go('list');
+                    afterLogin();
                   }
                 });
+                break;
               default:
+                console.log('logging in with pass');
                 Meteor.loginWithPassword({
                   'email': email
                 }, password, function(error) {
                   if (error) {
                     console.log(error);
                   } else {
-                    Router.go('list')
+                    afterLogin();
                   }
                 })
             }
@@ -82,9 +92,9 @@ Template.home.events({
                 if (error) {
                   console.log(error);
                 } else {
-                  Router.go('list')
+                  afterLogin();
                 }
-              })
+              });
             } else {
               console.log(error);
             }
@@ -105,7 +115,7 @@ Template.home.events({
         if (error) {
           console.log(error);
         } else {
-          Router.go('list');
+          afterLogin();
         }
       });
     } else {
@@ -124,11 +134,11 @@ Template.home.events({
         if (error) {
           console.log(error);
         } else {
-          Router.go('list');
+          afterLogin();
         }
       });
     } else {
-      Router.go('list');
+      afterLogin();
     }
   }
 });

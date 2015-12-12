@@ -9,13 +9,7 @@
       <div class="your-list">
         <h1>Your List</h1>
 
-        {{> addWish}}
-
-        <ul>
-          {{#each $.Session.get 'yourList'}}
-            {{> listItem}}
-          {{/each}}
-        </ul>
+        {{> wishList}}
       </div>
 
       <div class="friends">
@@ -27,5 +21,8 @@
     </div>
 
   </div>
+
+  {{> footer}}
+  {{> notifications}}
 
 </template>

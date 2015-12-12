@@ -1,0 +1,21 @@
+<template name='wishList'>
+  <div class="wish-list list-section">
+    {{> addWish}}
+
+    {{#if yourItems}}
+    <ul>
+      {{#each yourItems}}
+      {{> listItem}}
+      {{/each}}
+    </ul>
+    {{/if}}
+
+    {{#unless yourItems}}
+      <div class="no-items empty-state">
+        <span class="icon entypo-light-up"></span>
+        <h2>You have no Wishes ٩◔̯◔۶</h2>
+        <p>Add some items to your wishlist above</p>
+       </div>
+    {{/unless}}
+  </div>
+</template>

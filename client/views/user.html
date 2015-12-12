@@ -1,0 +1,18 @@
+<template name='user'>
+  <div class="user">
+    {{> pageHeader}}
+
+    <div class="user-body">
+      <div class="user-info">
+        <img class='avatar' src="{{avatar}}" alt="">
+        <h1 class='name'>{{name}}</h1>
+      </div>
+
+      {{> wishList}}
+    </div>
+  </div>
+
+  {{> footer}}
+  {{> notifications}}
+
+</template>
