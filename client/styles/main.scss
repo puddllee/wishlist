@@ -335,7 +335,12 @@ input {
       }
 
       .url {
-        @include span(12 of 12 no-gutters);
+        @include span(6 of 12 no-gutters);
+        padding-right: 0.4em;
+      }
+
+      .image-url {
+        @include span(6 of 12 no-gutters);
       }
 
       .detail {

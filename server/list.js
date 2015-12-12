@@ -8,7 +8,8 @@ Wishlist = {
       url: url,
       image: image,
       bought: false,
-      wishlist: wishlist
+      wishlist: wishlist,
+      created_at: new Date()
     }, callback);
   },
 

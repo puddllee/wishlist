@@ -34,7 +34,7 @@ Meteor.methods({
   },
 
   getWishlist: function(userId) {
-    Wishlist.getWishlist(userId);
+    return Wishlist.getWishlist(userId);
   }
 });
 

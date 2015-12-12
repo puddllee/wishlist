@@ -3,7 +3,7 @@
     {{> addWish}}
 
     <ul>
-      {{#each $.Session.get 'yourList'}}
+      {{#each yourItems 'yourList'}}
       {{> listItem}}
       {{/each}}
     </ul>

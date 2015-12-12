@@ -1,5 +1,5 @@
 Meteor.publish('items', function() {
-  return Items.find();
+  return Items.find({});
 });
 
 Meteor.publish('wishlists', function() {
