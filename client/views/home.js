@@ -12,15 +12,10 @@ Template.home.events({
   'submit .login': function(event, template) {
     event.preventDefault();
 
-    var name = event.target.name.value;
     var email = event.target.email.value;
     var password = event.target.password.value;
 
-    console.log('name: ' + name);
-    console.log('email: ' + email);
-    console.log('pass: ' + password);
-
-    if (validateInput(name) && validateInput(email) && validateInput(password)) {
+    if (validateInput(email) && validateInput(password)) {
       Session.set('loginError', '');
     } else {
       Session.set('loginError', 'All inputs are required');
@@ -59,7 +54,7 @@ Template.home.events({
                   if (error) {
                     console.log(error);
                   } else {
-                    window.location.href = Meteor.absoluteUrl() + "list";
+                    Router.go('list');
                   }
                 });
               default:
@@ -69,7 +64,7 @@ Template.home.events({
                   if (error) {
                     console.log(error);
                   } else {
-                    window.location.href = Meteor.absoluteUrl() + "list";
+                    Router.go('list')
                   }
                 })
             }
@@ -81,7 +76,19 @@ Template.home.events({
             email: email,
             password: password
           }, function(error) {
-            console.log(error);
+            if (!error) {
+              Meteor.loginWithPassword({
+                'email': email
+              }, password, function(error) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  Router.go('list')
+                }
+              })
+            } else {
+              console.log(error);
+            }
           })
         }
       }
