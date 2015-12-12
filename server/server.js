@@ -11,7 +11,6 @@ Meteor.methods({
   },
 
   emailExists: function(email) {
-    console.log('email: ' + email)
     return Meteor.users.find({
       'emails[0].address': email
     }).count() > 0 || Meteor.users.find({
@@ -28,8 +27,6 @@ Meteor.methods({
     var facebook_logged_in = Meteor.users.find({
       'services.facebook.email': email
     });
-    console.log('google: ' + google_logged_in.count());
-    console.log('facebook: ' + facebook_logged_in.count());
     if (facebook_logged_in.count() >= 1) {
       return 'facebook';
     } else if (google_logged_in.count() >= 1) {
@@ -49,3 +46,11 @@ Meteor.publish(null, function() {
     }
   });
 })
+
+Accounts.onCreateUser(options, user) {
+  // Instantiate the wishes
+  Wishlists.insert({
+    'owner': user._id,
+    'last_update': Date.now()
+  })
+}
