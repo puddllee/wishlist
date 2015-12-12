@@ -184,16 +184,34 @@ input {
   }
 }
 
-.list {
-  .list-header {
-    margin-top: -2em;
-    margin-bottom: 2em;
-    padding-bottom: 2em;
-    background-color: $main-colour;
+.page-header {
+  margin-bottom: 2em;
+  padding-bottom: 2em;
+  background-color: $main-colour;
 
-    @include span(12 of 12);
+  @include span(12 of 12);
+
+  .header-text {
+    margin-top: 1em;
   }
 
+  .user-actions {
+    position: absolute;
+    right: 2em;
+
+    a {
+      cursor: pointer;
+    }
+  }
+}
+
+.user {
+  .page-header {
+    // margin-top: -2em;
+  }
+}
+
+.list {
   .list-body {
     @include container(94%);
 
@@ -205,11 +223,11 @@ input {
       padding-left: 1em;
       padding-right: 1em;
       border: solid 1px $main-colour;
-      text-align: center;
 
       h2 {
         @include span(12 of 12);
         margin-bottom: 0.5em;
+        text-align: center;
       }
 
       .tab {
@@ -301,16 +319,26 @@ input {
 
     ul {
       padding-left: 0;
-      max-height: 80em;
       overflow-y: auto;
+
+      @media(min-width: $tablet) {
+        max-height: 80em;
+      }
     }
 
     .your-list {
       @include span(50%);
+
+      @media(max-width: $tablet) {
+        @include span(100%);
+      }
     }
 
     .friends {
       @include span(50%);
+      @media(max-width: $tablet) {
+        @include span(100%);
+      }
     }
   }
 }
@@ -338,6 +366,10 @@ input {
       font-size: 1.1em;
       border-bottom: solid 1px $main-colour;
     }
+
+    .friend-submit:disabled {
+      opacity: 0.5;
+    }
   }
 }
 
@@ -364,12 +396,46 @@ input {
       font-size: 2em;
     }
 
-    .unfriend {
+    .unfriend, .addfriend {
       @include span(2 of 12);
       margin-top: 0.9em;
       font-size: 2em;
       margin-top: 1em;
       cursor: pointer;
+    }
+  }
+}
+
+.add-friend-item {
+  @include container(100%);
+  margin-bottom: 1em;
+  padding: 1em 0.5em;
+  list-style-type: none;
+  background-color: $grey-back;
+
+  .info {
+    .name {
+      @include span(8 of 12);
+      padding-left: 2em;
+    }
+
+    .addfriend {
+      @include span(4 of 12);
+      margin-top: 0.9em;
+      text-align: center;
+    }
+
+    .addfriend:hover {
+      border-bottom: solid 1px $main-colour;
+    }
+
+    .add-friend-text {
+      padding-right: 1em;
+      font-size: 0.8em;
+    }
+
+    .add-friend-icon {
+      // color: $dark-text;
     }
   }
 }
