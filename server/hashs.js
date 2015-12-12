@@ -26,9 +26,11 @@ Hash = {
   // add the user_id associated with the hash
   // as a friend to the currently logged in user
   addFriendForHash: function(hash) {
+    console.log(hash);
     if (!Meteor.user()) {
       return;
     }
+    return;
 
     var friend = Hash.getUserFromHash(hash);
     if (friend) {

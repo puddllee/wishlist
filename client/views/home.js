@@ -9,11 +9,11 @@ Template.home.rendered = function() {
 }
 
 var afterLogin = function() {
-  // Router.go('list');
   var query = Router.current().params;
   if (query && query.friendrequest) {
     Meteor.call('addFriendForHash', query.friendrequest);
   }
+  Router.go('list');
 }
 
 Template.home.events({
@@ -27,16 +27,17 @@ Template.home.events({
       Session.set('loginError', '');
     } else {
       Session.set('loginError', 'All inputs are required');
+      return;
     }
 
-    var emailExists = Meteor.call('emailExists', email, function(error, result) {
+    Meteor.call('emailExists', email, function(error, result) {
       if (error) {
         console.log(error);
         return;
       } else {
         if (result) {
           Meteor.call('getUserType', email, function(error, result) {
-            user_type = result;
+            user_type = result || "";
             console.log('user_type: ' + user_type);
             switch (user_type) {
               case 'facebook':
@@ -64,7 +65,9 @@ Template.home.events({
                     afterLogin();
                   }
                 });
+                break;
               default:
+                console.log('logging in with pass');
                 Meteor.loginWithPassword({
                   'email': email
                 }, password, function(error) {
@@ -93,15 +96,7 @@ Template.home.events({
                 }
               });
             } else {
-              Meteor.loginWithPassword({
-                'email': email
-              }, password, function(error) {
-                if (error) {
-                  console.log(error);
-                } else {
-                  afterLogin();
-                }
-              });
+              console.log(error);
             }
           })
         }

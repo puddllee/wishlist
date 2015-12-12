@@ -1,12 +1,15 @@
 Meteor.methods({
   emailExists: function(email) {
-    return Meteor.users.find({
-      'emails[0].address': email
-    }).count() > 0 || Meteor.users.find({
-      'services.facebook.email': email
-    }).count() > 0 || Meteor.users.find({
-      'services.google.email': email
-    }).count() > 0;
+    var user = Meteor.users.findOne({
+      $or: [{
+        'emails.address': email
+      }, {
+        'services.facebook.email': email
+      }, {
+        'services.google.email': email
+      }]
+    });
+    return user;
   },
 
   getUserType: function(email) {
@@ -47,6 +50,10 @@ Accounts.onCreateUser(function(options, user) {
 
   if (options.profile) {
     user.profile = options.profile;
+  } else if (options.email) {
+    user.profile = {
+      name: nameFromEmail(options.email)
+    };
   }
   return user;
 });

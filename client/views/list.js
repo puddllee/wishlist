@@ -104,7 +104,6 @@ Template.list.rendered = function() {
   Session.set('friendList', friendList);
 
   Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
-    console.log(wishlist._id);
     Session.set('wishlist', wishlist);
   });
 

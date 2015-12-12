@@ -42,5 +42,14 @@ Mail = {
 }
 
 Meteor.methods({
-  sendMail: Mail.sendMail
+  sendMail: Mail.sendMail,
+
+  sendRequestEmail: function(email) {
+    var user = Meteor.user();
+    if (validateEmail(email)) {
+      // var subject = 'Wish List friend request from ' + Me
+    } else {
+      // email invalid
+    }
+  }
 });
