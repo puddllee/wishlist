@@ -30,10 +30,30 @@ Template.home.events({
   'click .fb': function(event) {
     event.preventDefault();
     console.log('fb');
+    if (!Meteor.user()) {
+      console.log('logging in')
+      Meteor.loginWithFacebook({
+        requestPermissions: ['email', 'user_friends'],
+        loginStyle: 'redirect',
+        redirectUrl: Meteor.absoluteUrl() + "list"
+      })
+    }
   },
 
   'click .gplus': function(event) {
     event.preventDefault();
     console.log('plus');
+    if (!Meteor.user()) {
+      console.log('logging in')
+      Meteor.loginWithGoogle({
+        requestPermissions: ['email', 'profile'],
+        loginStyle: "redirect",
+        redirectUrl: Meteor.absoluteUrl() + "list"
+      }, function(error) {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
   }
 });
