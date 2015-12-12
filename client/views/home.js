@@ -55,7 +55,8 @@ Template.home.events({
                 break;
               case 'google':
                 Meteor.loginWithGoogle({
-                  requestPermissions: ['email', 'profile'],
+                  requestPermissions: ['email', 'profile', 'https://www.googleapis.com/auth/contacts.readonly'],
+                  requestOfflineToken: true,
                   loginStyle: "redirect",
                   redirectUrl: Meteor.absoluteUrl() + "list"
                 }, function(error) {
