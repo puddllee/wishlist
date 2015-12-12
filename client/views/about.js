@@ -8,8 +8,7 @@ Template.about.created = function() {
 }
 
 // runs whenever template is rendered/re-rendered
-Template.about.rendered = function() {
-}
+Template.about.rendered = function() {}
 
 Template.about.helpers({
   msg: function() {
@@ -21,7 +20,11 @@ Template.about.helpers({
   },
 
   items: function() {
-    return Items.find({}, {sort: {createdAt: -1}});
+    return Items.find({}, {
+      sort: {
+        createdAt: -1
+      }
+    });
   }
 });
 
@@ -40,11 +43,12 @@ Template.about.events({
     event.preventDefault();
 
     var name = event.target.name.value;
-    Meteor.call('addItem', name, function(error, result) {
-      if (error) {
-        console.log('error adding item');
-      }
-    });
+    alert('no.')
+      // Meteor.call('addItem', name, function(error, result) {
+      //   if (error) {
+      //     console.log('error adding item');
+      //   }
+      // });
 
     event.target.name.value = "";
   }

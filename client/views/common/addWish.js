@@ -33,17 +33,28 @@ Template.addWish.events({
       var price = event.target.price.value;
       var url = event.target.url.value;
       var detail = event.target.detail.value;
-
-      if (validateInput(name) && validateInput(seller) && validateInput(price)) {
-        Session.set('addWishError', '');
-        console.log('name: ' + name);
-        console.log('seller: ' + seller);
-        console.log('price: ' + price);
-        console.log('url: ' + url);
-        console.log('detai: ' + detail);
-      } else {
-        Session.set('addWishError', 'Missing required fields');
-      }
+      Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
+        wishlist = response
+        if (error) {
+          console.log(error);
+        }
+        if (validateInput(name) && validateInput(seller) && validateInput(price) && wishlist) {
+          Session.set('addWishError', '');
+          console.log('name: ' + name);
+          console.log('seller: ' + seller);
+          console.log('price: ' + price);
+          console.log('url: ' + url);
+          console.log('detail: ' + detail);
+          Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
+            if (error) {
+              Session.set('addWishError', 'Something went wrong. Maybe try again?');
+            }
+          });
+        } else {
+          Session.set('addWishError', 'Missing required fields');
+        }
+      })
+      console.log('wishlist: ' + wishlist)
     }
   }
 });
