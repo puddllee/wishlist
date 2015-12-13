@@ -9,7 +9,8 @@ Router.route('/', {
 });
 
 Router.route('/me', {
-  name: 'me'
+  name: 'me',
+  controller: 'MeController'
 });
 
 Router.route('/about', {
@@ -97,4 +98,10 @@ UserController = MainController.extend({
   }
 });
 
-MeController = UserController.extend({});
+MeController = UserController.extend({
+  onBeforeAction: function() {
+    Router.go('user', {
+      _id: Meteor.userId()
+    })
+  }
+});

@@ -15,15 +15,14 @@ Template.listItem.events({
   },
 
   'click .buy': function() {
-    Meteor.call('buyItem', this._id, function(error, response) {
+    Meteor.call('buyItem', Meteor.userId(), function(error, response) {
       if (error) {
         console.log(error);
       } else {
         // do something
       }
-    })
+    });
   }
-
 });
 
 
