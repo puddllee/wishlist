@@ -41,6 +41,12 @@ Meteor.methods({
   }
 });
 
+getAvatar = function(email) {
+  var md5Hash = Gravatar.hash(email);
+  avatar = Gravatar.imageUrl(email);
+  return avatar;
+}
+
 Accounts.onCreateUser(function(options, user) {
   // Instantiate the wishes
   w = Wishlists.insert({
@@ -56,5 +62,17 @@ Accounts.onCreateUser(function(options, user) {
     };
   }
   user.profile.friends = [];
+  if (user.services.facebook) {
+    user.profile.avatar = getAvatar(user.services.facebook.email);
+    user.profile.email = user.services.facebook.email;
+  } else if (user.services.google) {
+    user.profile.avatar = user.services.google.picture;
+    user.profile.email = user.services.google.email;
+  } else {
+    user.profile.avatar = getAvatar(user.emails[0].address);
+    user.profile.email = user.emails[0].address;
+  }
+  console.log('created new user with email: ' + user.profile.email);
+  console.log('and avatar url: ' + user.profile.avatar)
   return user;
 });

@@ -17,8 +17,8 @@ Template.notifications.helpers({
   }
 });
 
-createNoti = function(label, type) {
-  Meteor.call('addNoti', label, type);
+createNoti = function(label, type, owner, from) {
+  Meteor.call('addNoti', label, type, owner, from);
 };
 
 getNotis = function() {
@@ -63,13 +63,13 @@ Template.notifications.events({
       }
     })
     Meteor.users.update({
-      _id: this.owner
+      _id: this.from
     }, {
       $push: {
         'profile.friends': Meteor.userId()
       }
     })
-    createNoti(Meteor.user.profile.name + 'has accepted your friend request', 'ok');
+    createNoti(Meteor.user().profile.name + ' has accepted your friend request.', 'ok', this.owner);
     removeNoti(this, event);
   },
 

@@ -1,11 +1,12 @@
 Noti = {
-  addNoti: function(label, type, owner) {
+  addNoti: function(label, type, owner, from) {
     owner = owner || Meteor.userId();
     if (Meteor.user()) {
       Notis.insert({
         label: label,
         type: type,
-        owner: owner || Meteor.userId()
+        owner: owner || Meteor.userId(),
+        from: from || null
       });
     }
   },
@@ -23,7 +24,7 @@ Noti = {
     })
     console.log('sending request notification from ' + Meteor.user().profile.name + ' to ' + user.profile.name)
     var requestLabel = Meteor.user().profile.name + ' wants to be your friend';
-    this.addNoti(requestLabel, 'request', user._id);
+    this.addNoti(requestLabel, 'request', user._id, Meteor.user()._id);
 
     var sentLabel = 'Friend request sent.';
     this.addNoti(sentLabel, 'ok');
