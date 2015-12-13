@@ -24,7 +24,14 @@ Template.friendList.rendered = function() {
   Session.set('addFriendList', []);
   Session.set('email', '');
   Session.set('emailvalid', false);
-  Session.set('friendList', getFriends());
+  Meteor.call('getFriends', Meteor.user(), function(error, result) {
+    if (error) {
+      console.log(error);
+    }
+    console.log(result);
+    Session.set('friendList', result);
+  })
+
 }
 
 Template.friendList.events({

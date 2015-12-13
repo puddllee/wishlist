@@ -45,6 +45,23 @@ Friends = {
     }
     console.log('adding ' + userId + ' as friend to ' + Meteor.user().profile.name);
     Noti.addNoti(Meteor.user().profile.name + ' accepted your friend request', 'okay', userId);
+  },
+
+  getFriends: function() {
+    friends = [];
+    if (Meteor.userId()) {
+      console.log('getting friends for ' + Meteor.user());
+      Meteor.user().profile.friends.forEach(function(friendId) {
+        var friend = Meteor.users.findOne({
+          _id: friendId
+        });
+        friends.push(friend);
+        console.log('adding ' + friend.profile.name + ' to friends.')
+      });
+    } else {
+      console.log('error getting friends');
+    }
+    return friends;
   }
 }
 
