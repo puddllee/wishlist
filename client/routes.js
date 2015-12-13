@@ -30,9 +30,21 @@ Router.route('/user/:_id', {
 
 MainController = RouteController.extend({
   onBeforeAction: function() {
+    var friendrequest = '';
     var query = this.params.query;
-    if (Meteor.userId() && query && query.friendrequest && query.friendrequest !== '') {
-      Meteor.call('addFriendForHash', query.friendrequest);
+    if (query && query.friendrequest && query.friendrequest !== '') {
+      friendrequest = query.friendrequest;
+    }
+    // prioritize cookie value
+    var fr = Cookie.get('friendrequest');
+    if (fr && fr !== '') {
+      friendrequest = fr;
+    }
+
+    if (Meteor.userId() && friendrequest !== '') {
+      console.log('adding friend for hash ' + friendrequest);
+      Meteor.call('addFriendForHash', friendrequest);
+      Cookie.remove('friendrequest');
 
       // remove query from
       var uri = window.location.toString();

@@ -337,7 +337,7 @@ textarea {
 
     .user-info {
       .avatar {
-        @include span(2 of 12);
+        @include span(2 of 12 no-gutters);
         @include border-radius(150px);
       }
 

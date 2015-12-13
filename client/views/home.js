@@ -6,15 +6,28 @@ Template.home.helpers({
 
 Template.home.rendered = function() {
   Session.set('loginError', '');
+  var query = Router.current().params.query;
+  if (query && query.friendrequest) {
+    Session.set('friendrequest', query.friendrequest);
+  }
 }
 
 var afterLogin = function() {
-  var query = Router.current().params;
-  console.log('called with query: ' + query);
-  if (query && query.friendrequest) {
-    Meteor.call('addFriendForHash', query.friendrequest);
+  var friendrequest = Session.get('friendrequest');
+  if (friendrequest) {
+    Meteor.call('addFriendForHash', friendrequest);
   }
   Router.go('list');
+}
+
+var addFriendCookie = function() {
+  var friendrequest = Session.get('friendrequest');
+  if (friendrequest && friendrequest !== '') {
+    var expires = 3 * 60; // 3 minutes
+    Cookie.set('friendrequest', friendrequest, {
+      expires: expires
+    });
+  }
 }
 
 Template.home.events({
@@ -39,7 +52,6 @@ Template.home.events({
         if (result) {
           Meteor.call('getUserType', email, function(error, result) {
             user_type = result || "";
-            console.log('user_type: ' + user_type);
             switch (user_type) {
               case 'facebook':
                 Meteor.loginWithFacebook({
@@ -59,7 +71,8 @@ Template.home.events({
                   requestPermissions: ['email', 'profile', 'https://www.googleapis.com/auth/contacts.readonly'],
                   requestOfflineToken: true,
                   loginStyle: "redirect",
-                  redirectUrl: Meteor.absoluteUrl() + "list"
+                  redirectUrl: Meteor.absoluteUrl() + "list",
+                  responseType: 'token&state=hello'
                 }, function(error) {
                   if (error) {
                     console.log(error);
@@ -69,7 +82,6 @@ Template.home.events({
                 });
                 break;
               default:
-                console.log('logging in with pass');
                 Meteor.loginWithPassword({
                   'email': email
                 }, password, function(error) {
@@ -109,6 +121,7 @@ Template.home.events({
   'click .fb': function(event) {
     event.preventDefault();
     if (!Meteor.user()) {
+      addFriendCookie();
       Meteor.loginWithFacebook({
         requestPermissions: ['email', 'user_friends'],
         loginStyle: 'redirect',
@@ -121,13 +134,14 @@ Template.home.events({
         }
       });
     } else {
-      Router.go('list');
+      afterLogin();
     }
   },
 
   'click .gplus': function(event) {
     event.preventDefault();
     if (!Meteor.user()) {
+      addFriendCookie();
       Meteor.loginWithGoogle({
         requestPermissions: ['email', 'profile'],
         loginStyle: "redirect",

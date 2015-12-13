@@ -69,7 +69,6 @@ Meteor.methods({
               Noti.addRequestNoti(friend._id, user._id);
             } else {
               // Notify the user that they are friends already
-              var friend = userForEmail(email);
               Noti.addNoti('Already friends with ' + friend.profile.name, 'timed');
             }
           }
