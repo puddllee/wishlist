@@ -67,8 +67,10 @@ a:hover {
 
 button {
   padding: 0.5em 1em;
-  background-color: $main-colour;
+  background-color: $dark-main;
   border: none;
+  height: calc(2.4rem + 1px);
+  @include border-radius($bradius);
   cursor: pointer;
 
   [class*="entypo-"] {
@@ -85,13 +87,17 @@ button:disabled {
 }
 
 input {
-  padding: 0.5em 0.5em;
   box-sizing: border-box;
+  border: none;
+  height: 2.4rem;
+  padding-left: 1em;
+  @include border-radius($bradius);
 }
 
 textarea {
   padding-left: 0.5em;
   padding-top: 0.4em;
+  border: none;
 }
 
 .error {
@@ -263,11 +269,18 @@ textarea {
       }
 
       .icon-wrapper:first-child {
-        padding-left: 0
+        padding-left: 0;
+        @media(max-width: $mobile) {
+          padding: 0
+        }
       }
 
       .icon-wrapper:last-child {
         padding-right: 0;
+        @media(max-width: $mobile) {
+          padding: 0;
+          margin-top: 0.1em;
+        }
       }
     }
   }
@@ -330,7 +343,7 @@ textarea {
 
 .page-header {
   margin-bottom: 2em;
-  padding-bottom: 2em;
+  padding-bottom: 3em;
   background-color: $main-colour;
 
   @include span(12 of 12);
@@ -342,9 +355,15 @@ textarea {
   .user-actions {
     position: absolute;
     right: 2em;
+    margin-top: 1em;
 
     a {
       cursor: pointer;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: $accent-colour;
     }
   }
 }
@@ -448,7 +467,7 @@ textarea {
   }
 
   .add-wish-form {
-    margin-top: 1em;
+    margin-top: 1.15em;
   }
 
   .list-section {
@@ -498,6 +517,10 @@ textarea {
   text-align: center;
   background-color: $grey-back;
 
+  @media(max-width: $tablet) {
+    margin-bottom: 2em;
+  }
+
   .icon {
     font-size: 4em;
   }
@@ -518,6 +541,9 @@ textarea {
 .wish-list {
   @include container();
   padding-bottom: 3em;
+  @media(max-width: $tablet) {
+    padding-bottom: 0;
+  }
 
   // target firefox
   @-moz-document url-prefix() {
@@ -529,35 +555,41 @@ textarea {
 
     .add-wish-form {
       @include span(12 of 12);
-      padding-top: 0;
+      padding-top: 2em;
       padding-bottom: 1em;
       padding-left: 1em;
       padding-right: 1em;
-      border: solid 1px $main-colour;
+      background-color: $main-colour;
+      @include border-radius(2px);
     }
 
     h2 {
       @include span(12 of 12);
+      font-weight: 400;
       margin-bottom: 0.5em;
+      margin-top: 0;
       text-align: center;
     }
 
     .tab {
       @include span(50%);
       margin-bottom: 0.5em;
+      padding-top: 0.4em;
+      padding-bottom: 0.4em;
       text-align: center;
       font-size: 1.5em;
       padding: 0.4em 0;
       cursor: pointer;
-      background-color: rgba(255, 255, 101, 0.3);
+      background-color: $dark-main;
     }
 
     .tab:first-child {
-      border-right: solid 1px $light-text;
+      // border-right: solid 1px $light-text;
     }
 
     .active-tab {
-      background-color: $main-colour;
+      border-bottom: 2px solid $accent-colour;
+      padding-bottom: calc(0.4em - 2px);
       opacity: 1;
     }
 
@@ -588,7 +620,7 @@ textarea {
       @include container();
 
       p {
-        font-size: 0.8em;
+        font-size: 0.9em;
         margin-bottom: 0;
         margin-top: 0;
       }
@@ -647,6 +679,9 @@ textarea {
 .list {
   .list-body {
     @include container(94%);
+    @media(min-width: $desktop) {
+      @include container(86%);
+    }
 
     .your-list {
       @include span(50%);
@@ -675,22 +710,26 @@ textarea {
 
   .add-friend {
     @include container();
-    padding-top: 0;
-    padding-bottom: 1em;
+    padding-top: 2em;
+    padding-bottom: 1.9em;
     padding-left: 1em;
     padding-right: 1em;
-    border: solid 1px $main-colour;
+    background-color: $main-colour;
     text-align: center;
+    font-weight: 400;
+
+    h2 {
+      margin: 0;
+    }
 
     .friend-input {
       @include span(9 of 12 no-gutters);
-      margin-top: 1.6em;
-      margin-bottom: 1.6em;
+      margin-top: 2em;
     }
 
     .friend-submit {
       @include span(3 of 12);
-      margin-top: 1.4em;
+      margin-top: 1.8em;
       margin-bottom: 1.6em;
       font-size: 1.1em;
       border-bottom: solid 1px $dark-main;
@@ -777,6 +816,8 @@ textarea {
   padding: 0.5em 0;
   margin-bottom: 0.5em;
   background-color: $grey-back;
+  border-left: solid 4px $dark-main;
+  border-right: solid 4px $dark-main;
 
   .image-url {
     @include span(3 of 12);
