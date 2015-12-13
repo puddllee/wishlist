@@ -24,6 +24,15 @@ var addFriendList = [{
   avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
 }];
 
+getFriends = function() {
+  friends = [];
+  Meteor.user().profile.friends.forEach(function(friendId) {
+    friends.push(Meteor.users.findOne({
+      _id: friendId
+    }));
+  });
+  return friends;
+}
 
 searchFriendList = function(search) {
   var filterFunc = function(obj) {
@@ -38,6 +47,7 @@ Template.friendList.rendered = function() {
   Session.set('addFriendList', []);
   Session.set('email', '');
   Session.set('emailvalid', false);
+  Session.set('friendList', getFriends());
 }
 
 Template.friendList.events({

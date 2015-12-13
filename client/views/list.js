@@ -70,38 +70,12 @@ var yourList = [{
   type: 'text'
 }];
 
-var friendList = [{
-  name: 'Jake',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Jake',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Jake',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Jake',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Jake',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Jake',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Jake',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Jake',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}];
 
 var SAVE_WAIT_TIME = 1000; // ms
 var last_save;
 
 Template.list.rendered = function() {
   Session.set('yourList', []);
-  Session.set('friendList', friendList);
 
   Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
     Session.set('wishlist', wishlist);
