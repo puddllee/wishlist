@@ -1,5 +1,8 @@
 Template.user.helpers = ({
-
+  userId: function() {
+    var controller = User.controller();
+    return controller.state.get('userId');
+  }
 })
 
 Template.user.events = ({
@@ -7,7 +10,7 @@ Template.user.events = ({
 })
 
 Template.user.rendered = function() {
-  Router.go('user', {
-    _id: Meteor.userId()
-  });
+
+  console.log(this);
+  Session.set('user', this.data)
 }

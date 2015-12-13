@@ -94,7 +94,14 @@ UserController = MainController.extend({
   },
 
   action: function() {
-    this.render('user');
+    this.state.set('userId', this.params._id);
+    this.render('user', {
+      data: function() {
+        return Meteor.users.findOne({
+          _id: this.params._id
+        });
+      }
+    });
   }
 });
 
