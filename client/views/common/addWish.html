@@ -19,7 +19,7 @@
       {{#if amazonActive}}
       <span class="amazon">
         <input class='amazon-input' type="text" name='amazonurl' placeholder='Amazon url'>
-        <button class='amazon-submit' type='submit'><span class="entypo-moon"></span></button>
+        <button class='amazon-submit' type='submit' disabled="{{#if amazonDisabled}}true{{/if}}"><span class="entypo-moon"></span></button>
       </span>
       {{else}}
       <span class="text">

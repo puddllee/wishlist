@@ -76,6 +76,10 @@ button:active {
   opacity: 0.8;
 }
 
+button:disabled {
+  opacity: 0.5;
+}
+
 input {
   padding: 0.5em 0.5em;
   box-sizing: border-box;
@@ -523,10 +527,6 @@ textarea {
       font-size: 1.1em;
       border-bottom: solid 1px $main-colour;
     }
-
-    .friend-submit:disabled {
-      opacity: 0.5;
-    }
   }
 }
 
@@ -607,6 +607,7 @@ textarea {
   img {
     @include span(3 of 12);
     padding-left: 0.5em;
+    padding-top: 1em;
   }
 
   .info {
@@ -623,7 +624,7 @@ textarea {
       font-weight: 200;
 
       .title {
-        @include span(8 of 12);
+        @include span(11 of 12);
       }
 
       .type {
@@ -664,10 +665,13 @@ textarea {
       @include span(100%);
       margin-top: 0.5em;
       margin-bottom: -0.5em;
+      padding-bottom: 0.5em;
+      padding-top: 0.5em;
       textarea {
         resize: none;
         width: 100%;
         height: 4em;
+        border-color: $dark-main;
       }
     }
 
