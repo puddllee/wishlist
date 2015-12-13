@@ -12,7 +12,18 @@ Template.listItem.events({
           // console.log('deleted: ' + response)
         }
       });
+  },
+
+  'click .buy': function() {
+    Meteor.call('buyItem', this._id, function(error, response) {
+      if (error) {
+        console.log(error);
+      } else {
+        // do something
+      }
+    })
   }
+
 });
 
 

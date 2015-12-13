@@ -26,5 +26,9 @@ Wishlist = {
       owner: userId
     });
     return wishlist;
+  },
+
+  buyItem: function(itemId) {
+    //
   }
 }
