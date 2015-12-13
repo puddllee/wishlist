@@ -73,6 +73,17 @@ Wishlist = {
           }
         })
       }
+    },
+
+    getBoughtUserName: function(itemId) {
+      var item = Items.findOne({
+        _id: itemId
+      });
+      if (item) {
+        return Meteor.users.findOne({
+          _id: item.bought_id
+        })
+      }
     }
   }
   // Meteor.methods(Wishlist);

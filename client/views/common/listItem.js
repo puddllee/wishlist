@@ -22,6 +22,9 @@ Template.listItem.events({
         }
       });
     } else {
+      if (this.bought === undefined || this.bought === null) {
+        return;
+      }
       Meteor.call('buyItem', this._id, function(error, response) {
         if (error) {
           console.log(error);
@@ -44,12 +47,17 @@ Template.listItem.helpers({
   },
 
   bought_user: function() {
-    boughtUser = Meteor.users.findOne({
-      _id: this.bought_id
+    Meteor.call('getBoughtUserName', this._id, function(error, result) {
+      if (error) {
+        console.log(error);
+      } else {
+        boughtUser = result;
+        if (boughtUser) {
+          label = boughtUser.profile.name;
+          Session.set('bought_user', boughtUser);
+        }
+      }
     });
-    if (boughtUser) {
-      return boughtUser.profile.name
-    }
   },
 
   boughtByMe: function() {
