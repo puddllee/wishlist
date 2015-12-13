@@ -36,13 +36,16 @@ Template.addWish.events({
         Meteor.call('productForURL', url, function(err, res) {
           if (!err && res && res.length > 0) {
             var item = res[0];
-            console.log(item);
             var att = item.ItemAttributes[0];
             var name = att.Title[0];
             var seller = 'Amazon';
             var price = att.ListPrice[0].FormattedPrice[0];
             var image = item.MediumImage[0].URL[0];
             var detail = '';
+
+            if (item.Offers.length > 0 && item.Offers[0].Offer[0].OfferListing.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice) {
+              price = item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0];
+            }
 
             // get user wish list then add item to that list
             Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
