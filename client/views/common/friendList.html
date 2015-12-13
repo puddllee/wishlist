@@ -12,7 +12,7 @@
           <img src="/images/email.svg" alt="">
           <h2>Invite by email</h2>
           <p>An email will be sent to {{$.Session.get 'email'}} <br>
-          If they accept they will become your friend.</p>
+          If they accept they will become your friend</p>
        </div>
 
     {{else}}
@@ -23,11 +23,19 @@
           {{/each}}
         </ul>
       {{else}}
+        {{#if $.Session.get 'friendList'}}
         <ul>
           {{#each $.Session.get 'friendList'}}
             {{> friendItem}}
           {{/each}}
         </ul>
+        {{else}}
+        <div class="no-friends empty-state">
+          <span class="icon entypo-adjust"></span>
+          <h2>You have no friends ◔̯◔</h2>
+          <p>If you know there emails invite them above</p>
+        </div>
+        {{/if}}
       {{/if}}
     {{/if}}
   </div>

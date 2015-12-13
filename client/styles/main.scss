@@ -516,6 +516,13 @@ textarea {
 }
 
 .friend-list {
+  a:hover {
+    color: $dark-text;
+    .name {
+      border-bottom: solid 1px $dark-main;
+    }
+  }
+
   .add-friend {
     @include container();
     padding-top: 0;
@@ -536,7 +543,7 @@ textarea {
       margin-top: 1.4em;
       margin-bottom: 1.6em;
       font-size: 1.1em;
-      border-bottom: solid 1px $main-colour;
+      border-bottom: solid 1px $dark-main;
 
       // target firefox
       @-moz-document url-prefix() {

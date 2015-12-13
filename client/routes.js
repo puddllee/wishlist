@@ -8,6 +8,10 @@ Router.route('/', {
   controller: 'HomeController'
 });
 
+Router.route('/me', {
+  name: 'me'
+});
+
 Router.route('/about', {
   name: 'about',
   waitOn: function() {
@@ -28,6 +32,8 @@ MainController = RouteController.extend({
     var query = this.params.query;
     if (Meteor.userId() && query && query.friendrequest && query.friendrequest !== '') {
       Meteor.call('addFriendForHash', query.friendrequest);
+
+      // remove query from
       var uri = window.location.toString();
       if (uri.indexOf("?") > 0) {
         var clean_uri = uri.substring(0, uri.indexOf("?"));
@@ -90,3 +96,5 @@ UserController = MainController.extend({
     this.render('user');
   }
 });
+
+MeController = UserController.extend({});
