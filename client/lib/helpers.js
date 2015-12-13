@@ -7,6 +7,19 @@ helpers = {
 
   compare: function(v1, v2) {
     return v1 === v2;
+  },
+
+  favicon: function(url) {
+    if (!url || url === '') {
+      return false;
+    }
+    var pathArray = url.split('/');
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    if (host && protocol) {
+      return protocol + '//' + host + '/favicon.ico';
+    }
+    return false;
   }
 };
 Helpers.addScope('H', helpers);

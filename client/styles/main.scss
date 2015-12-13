@@ -628,7 +628,7 @@ textarea {
   margin-bottom: 0.5em;
   background-color: $grey-back;
 
-  img {
+  .image-url {
     @include span(3 of 12);
     padding-left: 0.5em;
     padding-top: 1em;
@@ -663,7 +663,16 @@ textarea {
 
     .seller {
       padding-left: 0.3em;
-      color: lightgray;
+      color: darkgray;
+      font-size: 1.2em;
+    }
+
+    .favicon-icon {
+      float: left;
+      padding-right: 1em;
+      padding-top: 3px;
+      color: darkgray;
+      height: 1.4em;
     }
 
     .price-bought {
