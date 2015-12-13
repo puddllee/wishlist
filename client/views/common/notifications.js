@@ -69,6 +69,7 @@ Template.notifications.events({
         'profile.friends': Meteor.userId()
       }
     })
+    createNoti(Meteor.user.profile.name + 'has accepted your friend request', 'ok');
     removeNoti(this, event);
   },
 
