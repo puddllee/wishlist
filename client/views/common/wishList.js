@@ -6,6 +6,7 @@ Template.wishList.helpers({
     var items = [];
     if (wishlist) {
       if (wishlist.owner === Meteor.userId()) {
+        console.log('getting user\'s own items')
         items = Items.find({
           wishlist: wishlist._id
         }, {
@@ -14,19 +15,20 @@ Template.wishList.helpers({
           },
           fields: {
             bought: 0,
-            boughtId: 0
+            bought_id: 0
+          }
+        }).fetch();
+      } else {
+        items = Items.find({
+          wishlist: wishlist._id
+        }, {
+          sort: {
+            created_at: -1
           }
         }).fetch();
       }
-
-      items = Items.find({
-        wishlist: wishlist._id
-      }, {
-        sort: {
-          created_at: -1
-        }
-      }).fetch();
     }
+    console.log(items);
     return items;
   },
 });

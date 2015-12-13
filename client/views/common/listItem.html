@@ -27,13 +27,17 @@
           <p class='price'>{{price}}</p>
         </span>
         <span class="bought">
+          {{#if bought}}
+          {{#if boughtByMe}}
+          <button class="buy">Unmark as bought</button>
+          {{else}}
+          <button class="buy">Bought by {{bought_user}}</button>
+          {{/if}}
+          {{else}}
           <button class="buy">
-            {{#if bought}}
-            Bought by {{bought_user}}
-            {{else}}
-            Buy for USER
-            {{/if}}
+            Mark as bought
           </button>
+          {{/if}}
         </span>
       </span>
 

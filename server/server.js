@@ -32,8 +32,20 @@ Meteor.methods({
     Wishlist.addItem(wishlist, name, seller, price, detail, url, image, callback);
   },
 
-  deleteItem: function(itemId) {
-    Wishlist.deleteItem(itemId);
+  deleteItem: function(itemId, wishlistId) {
+    Wishlist.deleteItem(itemId, wishlistId);
+  },
+
+  buyItem: function(itemId) {
+    Wishlist.buyItem(itemId);
+  },
+
+  unbuyItem: function(itemId) {
+    Wishlist.unbuyItem(itemId);
+  },
+
+  getBoughtUserName: function(itemId) {
+    return Wishlist.getBoughtUserName(itemId);
   },
 
   getWishlist: function(userId) {
