@@ -29,9 +29,13 @@
         <span class="bought">
           <button class="buy">
             {{#if bought}}
-            Bought by {{bought_user}}
+            {{#if boughtByMe}}
+            Unmark as bought 
             {{else}}
-            Buy for USER
+            Bought by {{bought_user}}
+            {{/if}}
+            {{else}}
+            Mark as bought
             {{/if}}
           </button>
         </span>

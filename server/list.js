@@ -60,6 +60,19 @@ Wishlist = {
           }
         });
       }
+    },
+
+    unbuyItem: function(itemId) {
+      if (Meteor.userId()) {
+        Items.update({
+          _id: itemId
+        }, {
+          $set: {
+            bought: false,
+            bought_id: null
+          }
+        })
+      }
     }
   }
   // Meteor.methods(Wishlist);

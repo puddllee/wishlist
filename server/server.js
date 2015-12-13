@@ -40,6 +40,10 @@ Meteor.methods({
     Wishlist.buyItem(itemId);
   },
 
+  unbuyItem: function(itemId) {
+    Wishlist.unbuyItem(itemId);
+  },
+
   getWishlist: function(userId) {
     return Wishlist.getWishlist(userId);
   }

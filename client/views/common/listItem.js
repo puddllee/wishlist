@@ -13,13 +13,23 @@ Template.listItem.events({
   },
 
   'click .buy': function() {
-    Meteor.call('buyItem', this._id, function(error, response) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('updated: ' + response);
-      }
-    });
+    if (this.bought_id === Meteor.userId()) {
+      Meteor.call('unbuyItem', this._id, function(error, result) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(result);
+        }
+      });
+    } else {
+      Meteor.call('buyItem', this._id, function(error, response) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('updated: ' + response);
+        }
+      });
+    }
   }
 });
 
@@ -40,5 +50,9 @@ Template.listItem.helpers({
     if (boughtUser) {
       return boughtUser.profile.name
     }
+  },
+
+  boughtByMe: function() {
+    return this.bought_id === Meteor.userId();
   }
 });
