@@ -23,6 +23,7 @@ $desktop: 1600px;
 html, body {
   padding: 0;
   margin: 0;
+  height: 100%;
 }
 
 body {
@@ -35,6 +36,10 @@ body {
 
 *, *:before, *:after {
   // box-sizing: inherit;
+}
+
+.footer-bot {
+  height: calc(100% - #{$footer-height})
 }
 
 textarea, input, button:focus {
@@ -274,7 +279,6 @@ textarea {
           padding-bottom: 0.2em;
           text-transform: uppercase;
         }
-
         .accept {
           color: $success-colour;
         }
@@ -287,6 +291,21 @@ textarea {
           color: $dark-main;
         }
       }
+
+      .progress {
+        @include span (12 of 12);
+        background-color: $dark-main;
+        height: 2px;
+        @include transform-origin(left);
+        @include transform(scaleX(0));
+      }
+
+      .progress-start {
+        @include transform-origin(left);
+        @include transform(scaleX(1));
+        @include transition(transform 3s ease-in-out);
+      }
+
     }
 
     .noti-out {
@@ -564,7 +583,7 @@ textarea {
   background-color: $grey-back;
 
   .avatar {
-    @include span(2 of 12);
+    @include span(2 of 12 no-gutters);
     @include border-radius(150px);
   }
 
@@ -674,7 +693,7 @@ textarea {
       padding-right: 1em;
       padding-left: 0.3em;
       padding-top: 3px;
-      color: darkgray;
+      color: $amazon-orange;
       height: 1.4em;
     }
 
@@ -753,10 +772,11 @@ textarea {
 }
 
 footer {
-  background-color: $main-colour;
+  height: $footer-height;
   padding-top: 1em;
   padding-bottom: 1em;
   padding-left: 2em;
+  background-color: $main-colour;
   color: $dark-text;
 
   p {

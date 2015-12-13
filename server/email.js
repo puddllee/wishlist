@@ -48,6 +48,13 @@ Meteor.methods({
 
   addFriendByEmail: function(email) {
     var user = Meteor.user();
+
+    // cannot send yourself an email
+    if (user.profile.email === email) {
+      Noti.addNoti('already friends with yourself', 'timed');
+      return;
+    }
+    console.log('add friend by email');
     if (user && validateEmail(email)) {
       var friend = userForEmail(email);
       if (friend) {
@@ -62,7 +69,8 @@ Meteor.methods({
               Noti.addRequestNoti(friend._id, user._id);
             } else {
               // Notify the user that they are friends already
-              console.log('already friends')
+              var friend = userForEmail(email);
+              Noti.addNoti('Already friends with ' + friend.profile.name, 'timed');
             }
           }
         });
@@ -74,6 +82,8 @@ Meteor.methods({
         text += '\r\nClick the following link to create and account and accept.';
         text += '\r\n' + url;
         Mail.sendMail(email, subject, text);
+
+        Noti.addRequestNoti(null, Meteor.userId());
       }
     } else {
       // email invalid

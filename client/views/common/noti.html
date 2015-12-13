@@ -1,0 +1,22 @@
+<template name='noti'>
+  <div id="noti-{{_id}}" class="noti">
+    <span class="icon entypo-gauge"></span>
+    <h3 class='label'>{{label}}</h3>
+
+    <span class="actions">
+      {{#if $.H.compare type "request"}}
+      <a class='action accept'>Accept</a>
+      <a class='action decline'>Decline</a>
+      {{else}}
+        {{#unless $.H.compare type "timed"}}
+          <a class="action okay">Okay</a>
+        {{/unless}}
+      {{/if}}
+    </span>
+    {{#if $.H.compare type "timed"}}
+      <div class="progress-container">
+        <div class='progress' id="progress-{{_id}}"></div>
+      </div>
+    {{/if}}
+  </div>
+</template>

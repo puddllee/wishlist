@@ -6,7 +6,8 @@ Noti = {
         label: label,
         type: type,
         owner: owner || Meteor.userId(),
-        from: from || null
+        from: from || null,
+        created_at: new Date()
       });
     }
   },
@@ -19,15 +20,18 @@ Noti = {
     if (!Meteor.userId()) {
       return;
     }
+
     user = Meteor.users.findOne({
       _id: friend_id
-    })
-    console.log('sending request notification from ' + Meteor.user().profile.name + '-' + fromId + ' to ' + user.profile.name)
-    var requestLabel = Meteor.user().profile.name + ' wants to be your friend';
-    this.addNoti(requestLabel, 'request', user._id, fromId);
+    });
 
-    var sentLabel = 'Friend request sent.';
-    this.addNoti(sentLabel, 'ok');
+    if (user) {
+      var requestLabel = Meteor.user().profile.name + ' wants to be your friend';
+      this.addNoti(requestLabel, 'request', user._id, fromId);
+    }
+
+    var sentLabel = 'Friend request sent';
+    this.addNoti(sentLabel, 'timed');
   }
 }
 
