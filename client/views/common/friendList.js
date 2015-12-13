@@ -1,16 +1,3 @@
-getFriends = function() {
-  friends = [];
-  if (!Meteor.userId()) {
-    Route.go('/')
-  }
-  Meteor.user().profile.friends.forEach(function(friendId) {
-    friends.push(Meteor.users.findOne({
-      _id: friendId
-    }));
-  });
-  return friends;
-}
-
 searchFriendList = function(search) {
   var filterFunc = function(obj) {
       return obj.name.toLowerCase().indexOf(search.toLowerCase()) != -1;
@@ -19,18 +6,27 @@ searchFriendList = function(search) {
     // Session.set('addFriendList', filtered);
 }
 
+var getFriends = function() {
+  Meteor.call('getFriends', Meteor.user(), function(error, result) {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    Session.set('friendList', result);
+  });
+}
+
 Template.friendList.rendered = function() {
   Session.set('typing', false);
   Session.set('addFriendList', []);
   Session.set('email', '');
   Session.set('emailvalid', false);
-  Meteor.call('getFriends', Meteor.user(), function(error, result) {
-    if (error) {
-      console.log(error);
-    }
-    console.log(result);
-    Session.set('friendList', result);
-  })
+
+  Streamy.on('friendupdate', function() {
+    getFriends();
+  });
+
+  getFriends();
 
 }
 

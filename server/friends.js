@@ -1,11 +1,3 @@
-Meteor.methods({
-  getUserFriends: function(accessToken) {
-    var fb = new Facebook(accessToken);
-    var data = fb.getUserFriends();
-    console.log('friends: ' + JSON.stringify(data))
-    return data;
-  }
-})
 Friends = {
   // adds user id as friend to current user
   addFriend: function(userId) {
@@ -38,6 +30,7 @@ Friends = {
     }).profile.name;
     console.log('from: ' + from_label)
     Meteor.call('addNoti', from_label + ' has accepted your friend request.', 'ok', requester);
+    Streamy.sessionsForUsers([accepter, requester]).emit('friendupdate', {});
   },
 
   removeFriend: function(userId) {
@@ -91,6 +84,13 @@ Friends = {
       });
       return flag;
     }
+  },
+
+  getUserFriends: function(accessToken) {
+    var fb = new Facebook(accessToken);
+    var data = fb.getUserFriends();
+    console.log('friends: ' + JSON.stringify(data))
+    return data;
   }
 }
 
