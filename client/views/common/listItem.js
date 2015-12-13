@@ -9,7 +9,7 @@ Template.listItem.events({
         if (error) {
           console.log(error);
         } else {
-          console.log('deleted: ' + response)
+          // console.log('deleted: ' + response)
         }
       });
   }

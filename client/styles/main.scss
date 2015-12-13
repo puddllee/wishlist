@@ -28,6 +28,8 @@ html, body {
 body {
   font-family: "Muli", "Helvetica", sans-serif;
   color: $dark-text;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   // box-sizing: border-box;
 }
 
@@ -74,6 +76,10 @@ button {
 
 button:active {
   opacity: 0.8;
+}
+
+button:disabled {
+  opacity: 0.5;
 }
 
 input {
@@ -284,7 +290,7 @@ textarea {
     }
 
     .noti-out {
-      @include fadeOut();
+      @include fadeOut(0.3);
     }
   }
 }
@@ -333,7 +339,7 @@ textarea {
     margin-top: 2em;
 
     @media(min-width: $tablet) {
-      max-height: 80em;
+      // max-height: 80em;
     }
   }
 }
@@ -364,6 +370,12 @@ textarea {
 }
 
 .wish-list {
+
+  // target firefox
+  @-moz-document url-prefix() {
+    margin-top: -0.7em;
+  }
+
   .add-wish {
     @include container();
 
@@ -412,6 +424,11 @@ textarea {
         @include span(2 of 12 no-gutters);
         font-size: 1.1em;
         border-bottom: solid 1px $main-colour;
+
+        @-moz-document url-prefix() {
+          border-bottom: none;
+          margin-top: -1px;
+        }
 
         span {
           margin-right: 0;
@@ -501,6 +518,13 @@ textarea {
 }
 
 .friend-list {
+  a:hover {
+    color: $dark-text;
+    .name {
+      border-bottom: solid 1px $dark-main;
+    }
+  }
+
   .add-friend {
     @include container();
     padding-top: 0;
@@ -521,11 +545,13 @@ textarea {
       margin-top: 1.4em;
       margin-bottom: 1.6em;
       font-size: 1.1em;
-      border-bottom: solid 1px $main-colour;
-    }
+      border-bottom: solid 1px $dark-main;
 
-    .friend-submit:disabled {
-      opacity: 0.5;
+      // target firefox
+      @-moz-document url-prefix() {
+        border-bottom: none;
+        margin-top: calc(1.4em - 1px);
+      }
     }
   }
 }
@@ -604,9 +630,10 @@ textarea {
   margin-bottom: 0.5em;
   background-color: $grey-back;
 
-  img {
+  .image-url {
     @include span(3 of 12);
     padding-left: 0.5em;
+    padding-top: 1em;
   }
 
   .info {
@@ -623,7 +650,7 @@ textarea {
       font-weight: 200;
 
       .title {
-        @include span(8 of 12);
+        @include span(11 of 12);
       }
 
       .type {
@@ -637,8 +664,18 @@ textarea {
     }
 
     .seller {
+      padding-left: 0.2em;
+      color: darkgray;
+      font-size: 1.2em;
+    }
+
+    .favicon-icon {
+      float: left;
+      padding-right: 1em;
       padding-left: 0.3em;
-      color: lightgray;
+      padding-top: 3px;
+      color: darkgray;
+      height: 1.4em;
     }
 
     .price-bought {
@@ -664,10 +701,13 @@ textarea {
       @include span(100%);
       margin-top: 0.5em;
       margin-bottom: -0.5em;
+      padding-bottom: 0.5em;
+      padding-top: 0.5em;
       textarea {
         resize: none;
         width: 100%;
         height: 4em;
+        border-color: $dark-main;
       }
     }
 

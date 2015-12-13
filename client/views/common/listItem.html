@@ -1,14 +1,22 @@
 <template name='listItem'>
   <li class='list-item'>
-    <img src="{{imageUrl}}" alt="{{title}}">
+    <img class='image-url' src="{{imageUrl}}" alt="{{title}}">
     <div class="info">
       <span class="title-icon">
-        <span class="type entypo-dribbble"></span>
+        <!-- <span class="type entypo-dribbble"></span> -->
         <p class='title'>{{name}}</p>
         <span class="delete entypo-cancel"></span>
       </span>
 
       <span class="seller-wrapper">
+        {{#if $.H.compare seller "Amazon"}}
+          <span class="favicon-icon zocial-amazon"></span>
+        {{else}}
+          {{#if $.H.favicon url}}
+            <img class='favicon-icon' src="{{$.H.favicon url}}" alt="">
+          {{/if}}
+        {{/if}}
+
         <p class='seller'>{{seller}}</p>
       </span>
 
@@ -34,7 +42,7 @@
 
       {{#if url}}
       <span class="url">
-        <a href="{{url}}">visit page</a>
+        <a href="{{url}}" target='_blank'>visit page</a>
       </span>
       {{/if}}
     </div>

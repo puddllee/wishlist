@@ -19,7 +19,7 @@
       {{#if amazonActive}}
       <span class="amazon">
         <input class='amazon-input' type="text" name='amazonurl' placeholder='Amazon url'>
-        <button class='amazon-submit' type='submit'><span class="entypo-moon"></span></button>
+        <button class='amazon-submit' type='submit' disabled="{{#if amazonDisabled}}true{{/if}}"><span class="entypo-moon"></span></button>
       </span>
       {{else}}
       <span class="text">
@@ -43,7 +43,7 @@
         </span>
         <span class="text-input image-url">
           <p>URL to image</p>
-          <input type="text" name='imageUrl' placeholder='imgur link'>
+          <input type="text" name='imageUrl' placeholder='image link'>
         </span>
 
         <span class="text-input detail">
