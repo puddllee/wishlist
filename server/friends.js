@@ -75,6 +75,11 @@ Friends = {
     } else {
       console.log('error getting friends');
     }
+    friends.sort(function(a, b) {
+      var aName = a.profile.name.toUpperCase();
+      var bName = b.profile.name.toUpperCase();
+      return (aName < bName) ? -1 : (aName > bName) ? 1 : 0;
+    });
     return friends;
   },
 
