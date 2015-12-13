@@ -43,6 +43,7 @@ Template.addWish.events({
             var image = item.MediumImage[0].URL[0];
             var detail = '';
 
+            console.log(item);
             if (item.Offers.length > 0 && item.Offers[0].Offer[0].OfferListing.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice) {
               price = item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0];
             }
