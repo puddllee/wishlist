@@ -22,10 +22,22 @@ Wishlist = {
   },
 
   getWishlist: function(userId) {
-    wishlist = Wishlists.findOne({
-      owner: userId
-    });
-    return wishlist;
+    // hide the bought status from the user if it is their own list
+    if (userId === Meteor.userId()) {
+      wishlist = Wishlists.findOne({
+        owner: userId
+      }, {
+        fields: {
+          'bought': 0,
+          'bought_id': 0
+        }
+      });
+    } else {
+      wishlist = Wishlists.findOne({
+        owner: userId
+      });
+    }
+    return wishlist
   },
 
   buyItem: function(itemId) {
