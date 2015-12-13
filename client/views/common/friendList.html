@@ -4,7 +4,7 @@
       <h2>Add Friend</h2>
 
       <input type="text" class="friend-input" name='search' placeholder='Enter name or email' autocomplete="off">
-      <button type='submit' class='friend-submit' disabled="{{#if addDisabled}}true{{/if}}"><span class="entypo-light-down"></span>Invite</button>
+      <button type='submit' class='friend-submit' disabled="{{#if addDisabled}}true{{/if}}"><span class="entypo-paper-plane"></span>Invite</button>
     </form>
 
     {{#if $.Session.get 'emailvalid'}}
