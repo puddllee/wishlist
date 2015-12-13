@@ -42,6 +42,8 @@ var removeNoti = function(noti, event) {
   hideNoti(event);
 }
 
+
+
 Template.notifications.events({
   'click .okay': function(event) {
     event.preventDefault();
@@ -51,7 +53,22 @@ Template.notifications.events({
 
   'click .accept': function(event) {
     event.preventDefault();
-
+    console.log(this);
+    console.log(event)
+    Meteor.users.update({
+      _id: Meteor.userId()
+    }, {
+      $push: {
+        'profile.friends': this.owner
+      }
+    })
+    Meteor.users.update({
+      _id: this.owner
+    }, {
+      $push: {
+        'profile.friends': Meteor.userId()
+      }
+    })
     removeNoti(this, event);
   },
 

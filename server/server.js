@@ -52,8 +52,9 @@ Accounts.onCreateUser(function(options, user) {
     user.profile = options.profile;
   } else if (options.email) {
     user.profile = {
-      name: nameFromEmail(options.email)
+      name: nameFromEmail(options.email),
     };
   }
+  user.profile.friends = [];
   return user;
 });
