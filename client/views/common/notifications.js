@@ -5,7 +5,7 @@ var notis = [{
   type: 'requfest',
 }];
 
-var FADE_TIME = 500;
+var FADE_TIME = 300;
 
 sendMail = function(subject, text) {
   Meteor.call('sendMail', 'jakerunzer@gmail.com', subject, text);
