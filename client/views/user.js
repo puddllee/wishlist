@@ -11,8 +11,14 @@ Template.user.events = ({
 
 Template.user.rendered = function() {
   console.log(this);
-  Session.set('user', this.data);
-  Session.set('wishList', Wishlists.findOne({
-    'owner': this.data._id
-  }));
+  Meteor.call('getUser', this.data, function(error, result) {
+    if (error) {
+      console.log(error);
+    } else {
+      Session.set('user', result)
+      Session.set('wishList', Wishlists.findOne({
+        owner: result._id
+      }))
+    }
+  });
 };
