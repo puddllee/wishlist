@@ -8,7 +8,7 @@ var client = amazon.createClient({
 });
 
 AMAZON = {
-  productForURL: function(url) {
+  productForURL: function (url) {
     var asin = validateAmazonURL(url);
     if (asin) {
       asin = asin.trim();
@@ -17,8 +17,8 @@ AMAZON = {
       var lookup = Meteor.wrapAsync(client.itemLookup);
       var result = lookup({
         IdType: 'ASIN',
-        itemId: asin,
-        responseGroup: 'ItemAttributes,Offers,Images'
+        itemId: asin
+          // responseGroup: 'ItemAttributes,Offers,Images,OfferFull,OfferListings'
       });
       return result;
     } else {

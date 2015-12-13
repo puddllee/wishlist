@@ -13,7 +13,8 @@ $susy: (
 
 $mobile: 600px;
 $tablet: 900px;
-$desktop: 1600px;
+$desktop: 1200px;
+$large: 1600px;
 
 /* Makes border-box properties */
 @include border-box-sizing;
@@ -101,14 +102,69 @@ textarea {
 
 .header-text {
   margin-top: 2em;
-  margin-bottom: 1em;
   text-align: center;
-  font-size: 4em;
+  font-size: 6em;
+  @media(max-width: $tablet) {
+    font-size: 4em;
+  }
+
+  @media(max-width: $mobile) {
+
+  }
 
   img {
     margin-bottom: -0.5em;
     margin-right: 0.5em;
     width: 2em;
+  }
+}
+
+.heading {
+  @include container(60%);
+
+  @media(max-width: $tablet) {
+    @include container(80%)
+  }
+
+  @media(max-width: $mobile) {
+    @include container(100%);
+  }
+
+  .head:first-child {
+    text-align: right;
+    @media(max-width: $mobile) {
+      // text-align: center;
+      padding-left: 0.2em;
+    }
+  }
+
+  .head:last-child {
+    text-align: left;
+    @media(max-width: $mobile) {
+      text-align: center;
+      padding-right: 0.2em;
+    }
+  }
+
+  .head {
+    @include span(40%);
+    @media(max-width: $tablet) {
+      text-align: center;
+    }
+  }
+
+  .head-image {
+    @include span(20%);
+    padding-top: 0.1em;
+
+    .logo {
+      width: 100%;
+      max-width: 1em;
+
+      @media(max-width: $mobile) {
+        margin-left: 0.3em;
+      }
+    }
   }
 }
 
@@ -124,15 +180,20 @@ textarea {
   }
 
   .header-info {
-    @include container(50%);
+    @include container(40%);
     text-align: center;
 
     @media(max-width: $mobile) {
-      @include container(94%);
+      @include container(80%);
+    }
+
+    @media(min-width: $desktop) {
+      @include container(30%);
     }
 
     p {
-      @include span(50%);
+      @include span(100%);
+      font-size: 1.2em;
     }
   }
 }
@@ -148,6 +209,9 @@ textarea {
 
   .login {
     @include container(50%);
+    @media(max-width: $tablet) {
+      @include container(70%);
+    }
     @media(max-width: $mobile) {
       @include container(94%);
     }
@@ -202,6 +266,58 @@ textarea {
       .icon-wrapper:last-child {
         padding-right: 0;
       }
+    }
+  }
+}
+
+.about {
+  @include container();
+  padding: 3em 0;
+  background-color: $accent-colour;
+  color: $light-text;
+
+  h1 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .star-container {
+    @include span(100%);
+    margin-top: 0;
+    margin-bottom: 2em;
+
+    img {
+      display: block;
+      margin: auto;
+      width: 4em;
+    }
+  }
+
+  .copy {
+    @include container(50%);
+    @media(max-width: $tablet) {
+      @include container(70%);
+    }
+    @media(max-width: $mobile) {
+      @include container(94%);
+    }
+
+    line-height: 1.5em;
+
+    p {
+      margin-top: 1em;
+    }
+
+    .thats {
+      font-size: 1.1em;
+      border-bottom: 2px solid $dark-main;
+    }
+
+    .icon-sep {
+      display: block;
+      margin: auto;
+      width: 1em;
     }
   }
 }
