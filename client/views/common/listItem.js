@@ -13,7 +13,7 @@ Template.listItem.events({
   },
 
   'click .buy': function() {
-    if (this.bought_id === Meteor.userId()) {
+    if (this.bought && this.bought_id === Meteor.userId()) {
       Meteor.call('unbuyItem', this._id, function(error, result) {
         if (error) {
           console.log(error);
