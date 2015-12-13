@@ -1,7 +1,28 @@
-Template.user.helpers = ({
+Template.user.helpers({
   userId: function() {
     var controller = User.controller();
     return controller.state.get('userId');
+  },
+
+  avatar: function() {
+    var profile = Session.get('profile');
+    if (profile) {
+      return profile.avatar;
+    }
+  },
+
+  email: function() {
+    var profile = Session.get('profile');
+    if (profile) {
+      return profile.email;
+    }
+  },
+
+  name: function() {
+    var profile = Session.get('profile');
+    if (profile) {
+      return profile.name;
+    }
   }
 });
 
@@ -24,6 +45,8 @@ Template.user.rendered = function() {
         }
       });
       Session.set('user', result);
+      Session.set('profile', result.profile);
+      console.log(result.profile);
     }
   });
 };

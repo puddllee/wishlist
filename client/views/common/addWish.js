@@ -30,8 +30,8 @@ Template.addWish.events({
     if (Session.get('amazon-active')) {
       // amazon wish
       var url = event.target.amazonurl.value;
+      event.target.amazonurl.value = '';
       if (validateAmazonURL(url)) {
-        event.target.amazonurl.value = '';
         Session.set('addWishError', '');
         Meteor.call('productForURL', url, function(err, res) {
           if (!err && res && res.length > 0) {
