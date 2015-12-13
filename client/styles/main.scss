@@ -274,7 +274,6 @@ textarea {
           padding-bottom: 0.2em;
           text-transform: uppercase;
         }
-
         .accept {
           color: $success-colour;
         }
@@ -287,6 +286,21 @@ textarea {
           color: $dark-main;
         }
       }
+
+      .progress {
+        @include span (12 of 12);
+        background-color: $dark-main;
+        height: 2px;
+        @include transform-origin(left);
+        @include transform(scaleX(0));
+      }
+
+      .progress-start {
+        @include transform-origin(left);
+        @include transform(scaleX(1));
+        @include transition(transform 3s ease-in-out);
+      }
+
     }
 
     .noti-out {
@@ -674,7 +688,7 @@ textarea {
       padding-right: 1em;
       padding-left: 0.3em;
       padding-top: 3px;
-      color: darkgray;
+      color: $amazon-orange;
       height: 1.4em;
     }
 

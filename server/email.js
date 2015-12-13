@@ -48,6 +48,7 @@ Meteor.methods({
 
   addFriendByEmail: function(email) {
     var user = Meteor.user();
+    console.log('add friend by email');
     if (user && validateEmail(email)) {
       var friend = userForEmail(email);
       if (friend) {
@@ -74,6 +75,8 @@ Meteor.methods({
         text += '\r\nClick the following link to create and account and accept.';
         text += '\r\n' + url;
         Mail.sendMail(email, subject, text);
+
+        Noti.addRequestNoti(null, Meteor.userId());
       }
     } else {
       // email invalid
