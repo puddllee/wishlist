@@ -66,8 +66,6 @@ Template.friendList.events({
 
   'click .addfriend': function(event) {
     event.preventDefault();
-
-    console.log('add: ' + this.name);
   }
 });
 

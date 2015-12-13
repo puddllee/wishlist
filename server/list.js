@@ -22,18 +22,13 @@ Wishlist = {
         wishlist = Wishlists.findOne({
           _id: wishlistId
         })
-        console.log(wishlist)
         if (!wishlist) {
           return;
         }
         ownerId = wishlist.owner;
         owner = User.getUser(ownerId);
-        console.log('owner: ' + owner);
-        if (owner) {
-          console.log('sending delete notification')
-          label = owner.profile.name + " has removed " + item.name + " from their wishlist"
-          Noti.addNoti(label, 'ok', item.bought_id, ownerId);
-        }
+        label = owner.profile.name + " has removed " + item.name + " from their wishlist"
+        Noti.addNoti(label, 'ok', item.bought_id, ownerId);
       }
       Items.remove(itemId);
     },
@@ -64,7 +59,6 @@ Wishlist = {
     buyItem: function(itemId) {
       console.log('buying: ' + itemId);
       if (Meteor.userId()) {
-        console.log('updating')
         Items.update({
           _id: itemId
         }, {

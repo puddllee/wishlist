@@ -10,7 +10,6 @@ Friends = {
       console.log('couldn\'t find user');
       return;
     }
-    console.log('adding ' + userId + ' as friend to ' + Meteor.user().profile.name);
     Meteor.call('insertFriends', Meteor.userId(), userId, function(error, result) {});
   },
 
@@ -37,7 +36,6 @@ Friends = {
     var from_label = Meteor.users.findOne({
       _id: accepter
     }).profile.name;
-    console.log('from: ' + from_label)
     Meteor.call('addNoti', from_label + ' has accepted your friend request.', 'timed', requester);
     updateFriendSessions(accepter, requester);
   },
@@ -68,13 +66,11 @@ Friends = {
   getFriends: function() {
     friends = [];
     if (Meteor.userId()) {
-      console.log('getting friends for ' + Meteor.user().profile.name);
       Meteor.user().profile.friends.forEach(function(friendId) {
         var friend = Meteor.users.findOne({
           _id: friendId
         });
         friends.push(friend);
-        console.log('adding ' + friend.profile.name + ' to friends.')
       });
     } else {
       console.log('error getting friends');
@@ -99,7 +95,6 @@ Friends = {
   getUserFriends: function(accessToken) {
     var fb = new Facebook(accessToken);
     var data = fb.getUserFriends();
-    console.log('friends: ' + JSON.stringify(data))
     return data;
   }
 }
