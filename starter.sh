@@ -7,7 +7,7 @@ then
   export SRC_DIR="/var/www/wishlist/"
   export PATH=/usr/local/bin:$PATH
   export ROOT_URL='http://wishlist.jakerunzer.xyz'
-  export PORT=7000
+  export PORT=3000
   export METEOR_SETTINGS="$(cat config/settings.json)"
   export MONGO_URL='mongodb://localhost:27017/wishlist'
 
