@@ -215,6 +215,9 @@ textarea {
     @media(max-width: $mobile) {
       @include container(94%);
     }
+    @media(min-width: $desktop) {
+      @include container(30%);
+    }
 
     h2 {
       text-align: center;
@@ -301,6 +304,9 @@ textarea {
     }
     @media(max-width: $mobile) {
       @include container(94%);
+    }
+    @media(min-width: $desktop) {
+      @include container(30%);
     }
 
     line-height: 1.5em;
