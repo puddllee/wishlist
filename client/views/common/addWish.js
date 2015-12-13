@@ -39,11 +39,16 @@ Template.addWish.events({
             var att = item.ItemAttributes[0];
             var name = att.Title[0];
             var seller = 'Amazon';
-            var price = att.ListPrice[0].FormattedPrice[0];
             var image = item.MediumImage[0].URL[0];
             var detail = '';
 
+            var price = '';
+            if (att.ListPrice && att.ListPrice.length > 0 && att.ListPrice[0].FormattedPrice.length > 0) {
+              price = att.ListPrice[0].FormattedPrice[0];
+            }
+
             console.log(item);
+
             if (item.Offers.length > 0 && item.Offers[0].Offer[0].OfferListing.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice) {
               price = item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0];
             }

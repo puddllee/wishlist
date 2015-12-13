@@ -23,6 +23,7 @@ $desktop: 1600px;
 html, body {
   padding: 0;
   margin: 0;
+  height: 100%;
 }
 
 body {
@@ -35,6 +36,10 @@ body {
 
 *, *:before, *:after {
   // box-sizing: inherit;
+}
+
+.footer-bot {
+  height: calc(100% - #{$footer-height})
 }
 
 textarea, input, button:focus {
@@ -578,7 +583,7 @@ textarea {
   background-color: $grey-back;
 
   .avatar {
-    @include span(2 of 12);
+    @include span(2 of 12 no-gutters);
     @include border-radius(150px);
   }
 
@@ -767,10 +772,11 @@ textarea {
 }
 
 footer {
-  background-color: $main-colour;
+  height: $footer-height;
   padding-top: 1em;
   padding-bottom: 1em;
   padding-left: 2em;
+  background-color: $main-colour;
   color: $dark-text;
 
   p {

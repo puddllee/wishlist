@@ -15,7 +15,6 @@ Friends = {
     }
     console.log('adding ' + userId + ' as friend to ' + Meteor.user().profile.name);
     Meteor.call('insertFriends', Meteor.userId(), userId, function(error, result) {});
-
   },
 
   insertFriends: function(accepter, requester) {

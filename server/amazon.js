@@ -20,9 +20,7 @@ AMAZON = {
         itemId: asin,
         responseGroup: 'ItemAttributes,Offers,Images'
       });
-      console.log(result);
       return result;
-
     } else {
       // not a amazon url
       return 'Not an amazon url';

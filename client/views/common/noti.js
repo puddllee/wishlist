@@ -43,6 +43,7 @@ Template.noti.events({
 
   'click .accept': function(event) {
     event.preventDefault();
+    console.log(this);
     Meteor.call('insertFriends', this.owner, this.from, function(error) {
       if (error) {
         console.log(error);
