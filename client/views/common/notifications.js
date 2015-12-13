@@ -11,7 +11,11 @@ sendMail = function(subject, text) {
 
 Template.notifications.helpers({
   notis: function() {
-    return Notis.find({});
+    return Notis.find({}, {
+      sort: {
+        created_at: -1
+      }
+    });
   }
 });
 

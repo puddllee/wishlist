@@ -1,3 +1,8 @@
+// send event to userIds to tell them to update friend list
+var updateFriendSessions = function(userId1, userId2) {
+  Streamy.sessionsForUsers([userId1, userId2]).emit('friendupdate', {});
+};
+
 Friends = {
   // adds user id as friend to current user
   addFriend: function(userId) {
@@ -10,6 +15,10 @@ Friends = {
   },
 
   insertFriends: function(accepter, requester) {
+    // dont allow adding yourself as friend
+    if (accepter === requester) {
+      return;
+    }
     Meteor.users.update({
       _id: accepter
     }, {
@@ -29,8 +38,8 @@ Friends = {
       _id: accepter
     }).profile.name;
     console.log('from: ' + from_label)
-    Meteor.call('addNoti', from_label + ' has accepted your friend request.', 'ok', requester);
-    Streamy.sessionsForUsers([accepter, requester]).emit('friendupdate', {});
+    Meteor.call('addNoti', from_label + ' has accepted your friend request.', 'timed', requester);
+    updateFriendSessions(accepter, requester);
   },
 
   removeFriend: function(userId) {
@@ -46,12 +55,13 @@ Friends = {
         }
       });
       Meteor.users.update({
-        _id: Meteor.userId,
+        _id: Meteor.userId(),
       }, {
         $pull: {
           'profile.friends': userId
         }
       });
+      updateFriendSessions(userId, Meteor.userId());
     }
   },
 
@@ -76,8 +86,8 @@ Friends = {
     var flag = false; // I should probably figure out more JS so I don't need to do this
     if (Meteor.userId()) {
       var user = Meteor.user();
+      var friend = null;
       user.profile.friends.forEach(function(id) {
-        console.log('comparing ' + friendId + ' with ' + id);
         if (id === friendId) {
           flag = true;
         }

@@ -48,6 +48,12 @@ Meteor.methods({
 
   addFriendByEmail: function(email) {
     var user = Meteor.user();
+
+    // cannot send yourself an email
+    if (user.profile.email === email) {
+      Noti.addNoti('already friends with yourself', 'timed');
+      return;
+    }
     console.log('add friend by email');
     if (user && validateEmail(email)) {
       var friend = userForEmail(email);
@@ -63,7 +69,8 @@ Meteor.methods({
               Noti.addRequestNoti(friend._id, user._id);
             } else {
               // Notify the user that they are friends already
-              console.log('already friends')
+              var friend = userForEmail(email);
+              Noti.addNoti('Already friends with ' + friend.profile.name, 'timed');
             }
           }
         });

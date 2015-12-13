@@ -23,11 +23,12 @@ Template.friendList.rendered = function() {
   Session.set('emailvalid', false);
 
   Streamy.on('friendupdate', function() {
-    getFriends();
+    setTimeout(function() {
+      getFriends();
+    }, 500)
   });
 
   getFriends();
-
 }
 
 Template.friendList.events({
@@ -38,6 +39,9 @@ Template.friendList.events({
     if (validateEmail(search)) {
       Meteor.call('addFriendByEmail', search);
       event.target.search.value = '';
+      Session.set('typing', false);
+      Session.set('email', '');
+      Session.set('emailvalid', false);
     }
   },
 

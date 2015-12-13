@@ -6,7 +6,8 @@ Noti = {
         label: label,
         type: type,
         owner: owner || Meteor.userId(),
-        from: from || null
+        from: from || null,
+        created_at: new Date()
       });
     }
   },
