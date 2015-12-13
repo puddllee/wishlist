@@ -13,7 +13,28 @@ Wishlist = {
       }, callback);
     },
 
-    deleteItem: function(itemId) {
+    deleteItem: function(itemId, wishlistId) {
+      var item = Items.findOne({
+        _id: itemId
+      });
+      if (item && item.bought) {
+        // send notification to buyer
+        wishlist = Wishlists.findOne({
+          _id: wishlistId
+        })
+        console.log(wishlist)
+        if (!wishlist) {
+          return;
+        }
+        ownerId = wishlist.owner;
+        owner = User.getUser(ownerId);
+        console.log('owner: ' + owner);
+        if (owner) {
+          console.log('sending delete notification')
+          label = owner.profile.name + " has removed " + item.name + " from their wishlist"
+          Noti.addNoti(label, 'ok', item.bought_id, ownerId);
+        }
+      }
       Items.remove(itemId);
     },
 

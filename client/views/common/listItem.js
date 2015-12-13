@@ -2,7 +2,8 @@ Template.listItem.rendered = function() {}
 
 Template.listItem.events({
   'click .delete': function() {
-    Meteor.call('deleteItem', this._id,
+    console.log('deleting');
+    Meteor.call('deleteItem', this._id, this.wishlist,
       function(error, response) {
         if (error) {
           console.log(error);
