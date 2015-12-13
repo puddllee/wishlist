@@ -13,11 +13,11 @@ Template.listItem.events({
   },
 
   'click .buy': function() {
-    Meteor.call('buyItem', Meteor.userId(), function(error, response) {
+    Meteor.call('buyItem', this._id, function(error, response) {
       if (error) {
         console.log(error);
       } else {
-        // do something
+        console.log('updated: ' + response);
       }
     });
   }
@@ -31,5 +31,14 @@ Template.listItem.helpers({
       image = '/images/star.svg';
     }
     return image;
+  },
+
+  bought_user: function() {
+    boughtUser = Meteor.users.findOne({
+      _id: this.bought_id
+    });
+    if (boughtUser) {
+      return boughtUser.profile.name
+    }
   }
 });

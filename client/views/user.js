@@ -31,10 +31,12 @@ Template.user.events = ({
 });
 
 Template.user.rendered = function() {
+  console.log(this.data)
   Meteor.call('getUser', this.data, function(error, result) {
     if (error) {
       console.log(error);
     } else {
+      console.log(result);
       var user = result._id
       Meteor.call('getWishlist', result._id, function(error, result) {
         if (error) {

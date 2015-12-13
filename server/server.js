@@ -36,6 +36,10 @@ Meteor.methods({
     Wishlist.deleteItem(itemId);
   },
 
+  buyItem: function(itemId) {
+    Wishlist.buyItem(itemId);
+  },
+
   getWishlist: function(userId) {
     return Wishlist.getWishlist(userId);
   }

@@ -1,4 +1,5 @@
 {
-    "greg": "0.0.2",
-    "amazon-product-api": "0.3.5"
+	"greg": "0.0.2",
+	"amazon-product-api": "0.3.5",
+	"aws-lib": "0.3.0"
 }
