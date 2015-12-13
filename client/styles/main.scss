@@ -38,10 +38,6 @@ body {
   // box-sizing: inherit;
 }
 
-.footer-bot {
-  height: calc(100% - #{$footer-height})
-}
-
 textarea, input, button:focus {
   outline: 0;
 }
@@ -117,12 +113,15 @@ textarea {
 }
 
 .header {
-  margin-top: -2em;
-  margin-bottom: 2em;
   padding-bottom: 2em;
+  padding-top: 2em;
   background-color: $main-colour;
 
-  @include span(12 of 12);
+  @include container(100% no-gutters);
+
+  .header-text {
+    margin-top: 0.5em;
+  }
 
   .header-info {
     @include container(50%);
@@ -138,8 +137,15 @@ textarea {
   }
 }
 
+#wrapper {
+  @include container();
+  min-height: calc(100% - #{$footer-height});
+}
+
 .auth {
-  margin-bottom: 2em;
+  @include container();
+  padding: 3em 0;
+
   .login {
     @include container(50%);
     @media(max-width: $mobile) {
@@ -148,6 +154,7 @@ textarea {
 
     h2 {
       text-align: center;
+      margin-top: 0;
     }
 
     input {
@@ -164,7 +171,6 @@ textarea {
 
     .social {
       @include container();
-      margin-bottom: 2em;
       font-size: 2em;
       text-align: center;
 
@@ -365,7 +371,6 @@ textarea {
 
 .empty-state {
   @include container();
-  margin-bottom: 2em;
   margin-top: 2em;
   padding: 2em;
   text-align: center;
@@ -389,6 +394,8 @@ textarea {
 }
 
 .wish-list {
+  @include container();
+  padding-bottom: 3em;
 
   // target firefox
   @-moz-document url-prefix() {
@@ -772,6 +779,7 @@ textarea {
 }
 
 footer {
+  @include container();
   height: $footer-height;
   padding-top: 1em;
   padding-bottom: 1em;

@@ -46,7 +46,6 @@ Template.user.rendered = function() {
       });
       Session.set('user', result);
       Session.set('profile', result.profile);
-      console.log(result.profile);
     }
   });
 };

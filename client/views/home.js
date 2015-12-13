@@ -87,6 +87,9 @@ Template.home.events({
                 }, password, function(error) {
                   if (error) {
                     console.log(error);
+                    if (error.error === 403) {
+                      Session.set('loginError', 'Incorrect password');
+                    }
                   } else {
                     afterLogin();
                   }

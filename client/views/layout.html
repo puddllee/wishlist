@@ -10,5 +10,11 @@
 </body>
 
 <template name="layout">
-  {{> yield}}
+  <div id="wrapper">
+    {{> yield}}
+  </div>
+
+  {{> footer}}
+  {{> notifications}}
 </template>
+
