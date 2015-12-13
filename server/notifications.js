@@ -28,31 +28,7 @@ Noti = {
 
     var sentLabel = 'Friend request sent.';
     this.addNoti(sentLabel, 'ok');
-  },
-
-  insertFriends: function(accepter, requester) {
-    Meteor.users.update({
-      _id: accepter
-    }, {
-      $push: {
-        'profile.friends': requester
-      }
-    });
-    Meteor.users.update({
-      _id: requester
-    }, {
-      $push: {
-        'profile.friends': accepter
-      }
-    });
-    // Send a notification back to the sender notifying them their request was accepted
-    var from_label = Meteor.users.findOne({
-      _id: accepter
-    }).profile.name;
-    console.log('from: ' + from_label)
-    Meteor.call('addNoti', from_label + ' has accepted your friend request.', 'ok', requester);
   }
-
 }
 
 Meteor.methods(Noti);
