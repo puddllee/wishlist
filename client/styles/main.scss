@@ -368,6 +368,8 @@ textarea {
 }
 
 .wish-list {
+
+  // target firefox
   @-moz-document url-prefix() {
     margin-top: -0.7em;
   }
@@ -420,6 +422,11 @@ textarea {
         @include span(2 of 12 no-gutters);
         font-size: 1.1em;
         border-bottom: solid 1px $main-colour;
+
+        @-moz-document url-prefix() {
+          border-bottom: none;
+          margin-top: -1px;
+        }
 
         span {
           margin-right: 0;
@@ -530,6 +537,12 @@ textarea {
       margin-bottom: 1.6em;
       font-size: 1.1em;
       border-bottom: solid 1px $main-colour;
+
+      // target firefox
+      @-moz-document url-prefix() {
+        border-bottom: none;
+        margin-top: calc(1.4em - 1px);
+      }
     }
   }
 }
