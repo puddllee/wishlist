@@ -76,16 +76,16 @@ var last_save;
 
 Template.list.rendered = function() {
   Session.set('yourList', []);
-
-  Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
-    Session.set('wishlist', wishlist);
-  });
-
   // var wishlist = Wishlists.findOne({
   //   owner: Meteor.userId()
   // });
   // Session.set('wishlist', wishlist);
   // console.log(wishlist);
+
+  Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
+    Session.set('wishlist', wishlist);
+    Session.set('isMine', Meteor.userId() === wishlist.owner);
+  });
 }
 
 Template.list.events({});

@@ -43,17 +43,24 @@ Template.addWish.events({
             var detail = '';
 
             var price = '';
-            if (att.ListPrice && att.ListPrice.length > 0 && att.ListPrice[0].FormattedPrice.length > 0) {
-              price = att.ListPrice[0].FormattedPrice[0];
-            }
 
-            if (item.Offers.length > 0 && item.Offers[0].Offer[0].OfferListing.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice) {
-              price = item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0];
-            }
+            console.log(item);
+
+            // prevent parsing errors
+            try {
+              if (att.ListPrice && att.ListPrice.length > 0 && att.ListPrice[0].FormattedPrice.length > 0) {
+                price = att.ListPrice[0].FormattedPrice[0];
+              }
+
+              if (item.Offers && item.Offers.length > 0 && item.Offers[0].Offer[0].OfferListing.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice) {
+                price = item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0];
+              }
+            } catch (err) {}
 
             // get user wish list then add item to that list
             Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
               wishlist = response;
+              console.log(wishlist);
               if (error) {
                 console.log(error);
                 return;

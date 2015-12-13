@@ -1,8 +1,9 @@
+Template.wishList.rendered = function() {}
+
 Template.wishList.helpers({
   yourItems: function() {
-    var wishlist = Session.get('wishList');
+    var wishlist = Session.get('wishlist');
     var items = [];
-    console.log(wishlist)
     if (wishlist) {
       if (wishlist.owner === Meteor.userId()) {
         items = Items.find({
