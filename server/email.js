@@ -51,8 +51,8 @@ Meteor.methods({
     if (user && validateEmail(email)) {
       var friend = userForEmail(email);
       if (friend) {
-        console.log('someone wiht that email already exists');
-        Noti.addRequestNoti(friend._id);
+        console.log('someone with that email already exists');
+        Noti.addRequestNoti(friend._id, user._id);
       } else {
         var hash = Hash.createHash(Meteor.userId());
         var url = Meteor.absoluteUrl() + '?friendrequest=' + hash;

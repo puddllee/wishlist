@@ -53,23 +53,12 @@ Template.notifications.events({
 
   'click .accept': function(event) {
     event.preventDefault();
-    console.log(this);
-    console.log(event)
-    Meteor.users.update({
-      _id: Meteor.userId()
-    }, {
-      $push: {
-        'profile.friends': this.owner
+    Meteor.call('insertFriends', this.owner, this.from, function(error) {
+      if (error) {
+        console.log(error);
       }
-    })
-    Meteor.users.update({
-      _id: this.from
-    }, {
-      $push: {
-        'profile.friends': Meteor.userId()
-      }
-    })
-    createNoti(Meteor.user().profile.name + ' has accepted your friend request.', 'ok', this.owner);
+    });
+
     removeNoti(this, event);
   },
 

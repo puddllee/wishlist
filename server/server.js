@@ -76,3 +76,4 @@ Accounts.onCreateUser(function(options, user) {
   console.log('and avatar url: ' + user.profile.avatar)
   return user;
 });
+Accounts.users

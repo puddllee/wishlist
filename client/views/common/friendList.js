@@ -1,31 +1,8 @@
-var addFriendList = [{
-  name: 'Hello',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Hello',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Hello',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Hello',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Test',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Single',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Test',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}, {
-  name: 'Test',
-  avatar: 'https://avatars1.githubusercontent.com/u/3044853?v=3&s=460'
-}];
-
 getFriends = function() {
   friends = [];
+  if (!Meteor.userId()) {
+    Route.go('/')
+  }
   Meteor.user().profile.friends.forEach(function(friendId) {
     friends.push(Meteor.users.findOne({
       _id: friendId
@@ -36,10 +13,10 @@ getFriends = function() {
 
 searchFriendList = function(search) {
   var filterFunc = function(obj) {
-    return obj.name.toLowerCase().indexOf(search.toLowerCase()) != -1;
-  }
-  var filtered = addFriendList.filter(filterFunc);
-  Session.set('addFriendList', filtered);
+      return obj.name.toLowerCase().indexOf(search.toLowerCase()) != -1;
+    }
+    // var filtered = addFriendList.filter(filterFunc);
+    // Session.set('addFriendList', filtered);
 }
 
 Template.friendList.rendered = function() {
