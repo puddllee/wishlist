@@ -28,6 +28,8 @@ html, body {
 body {
   font-family: "Muli", "Helvetica", sans-serif;
   color: $dark-text;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   // box-sizing: border-box;
 }
 
@@ -662,7 +664,7 @@ textarea {
     }
 
     .seller {
-      padding-left: 0.3em;
+      padding-left: 0.2em;
       color: darkgray;
       font-size: 1.2em;
     }
@@ -670,6 +672,7 @@ textarea {
     .favicon-icon {
       float: left;
       padding-right: 1em;
+      padding-left: 0.3em;
       padding-top: 3px;
       color: darkgray;
       height: 1.4em;
