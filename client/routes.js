@@ -63,7 +63,8 @@ MainController = RouteController.extend({
 
 HomeController = MainController.extend({
   onBeforeAction: function() {
-    if (Meteor.user()) {
+    if (Meteor.userId()) {
+      Session.set('wishlist', []);
       this.render('list');
     } else {
       this.next();
