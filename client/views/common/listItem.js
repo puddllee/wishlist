@@ -1,6 +1,4 @@
-Template.listItem.rendered = function() {
-
-}
+Template.listItem.rendered = function() {}
 
 Template.listItem.events({
   'click .delete': function() {

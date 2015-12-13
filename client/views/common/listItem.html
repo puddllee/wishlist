@@ -5,7 +5,9 @@
       <span class="title-icon">
         <!-- <span class="type entypo-dribbble"></span> -->
         <p class='title'>{{name}}</p>
+        {{#if $.Session.get 'isMine'}}
         <span class="delete entypo-cancel"></span>
+        {{/if}}
       </span>
 
       <span class="seller-wrapper">
@@ -24,7 +26,6 @@
         <span class="price">
           <p class='price'>{{price}}</p>
         </span>
-
         <span class="bought">
           <button class="buy">
             {{#if bought}}

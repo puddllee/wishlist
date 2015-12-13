@@ -15,10 +15,17 @@ Template.user.rendered = function() {
     if (error) {
       console.log(error);
     } else {
-      Session.set('user', result)
-      Session.set('wishList', Wishlists.findOne({
-        owner: result._id
-      }))
+      var user = result._id
+      Meteor.call('getWishlist', result._id, function(error, result) {
+        if (error) {
+          console.log(error);
+        } else {
+          Session.set('isMine', Meteor.userId() === user);
+          Session.set('wishList', result);
+        }
+      });
+      Session.set('user', result);
+      console.log(result);
     }
   });
 };

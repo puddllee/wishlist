@@ -44,3 +44,4 @@ Wishlist = {
     //
   }
 }
+// Meteor.methods(Wishlist);

@@ -27,5 +27,5 @@ Template.wishList.helpers({
       }).fetch();
     }
     return items;
-  }
+  },
 });
