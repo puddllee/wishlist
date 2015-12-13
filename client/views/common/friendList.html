@@ -3,7 +3,7 @@
     <form class="add-friend">
       <h2>Add Friend</h2>
 
-      <input type="text" class="friend-input" name='search' placeholder='Enter name or email' autocomplete="off">
+      <input type="text" class="friend-input" name='search' placeholder='Enter email' autocomplete="off">
       <button type='submit' class='friend-submit' disabled="{{#if addDisabled}}true{{/if}}"><span class="entypo-paper-plane"></span>Invite</button>
     </form>
 
@@ -31,9 +31,9 @@
         </ul>
         {{else}}
         <div class="no-friends empty-state">
-          <span class="icon entypo-adjust"></span>
-          <h2>You have no friends ◔̯◔</h2>
-          <p>If you know their emails invite them above</p>
+          <span class="icon">{{$.H.sadFace}}</span>
+          <h2>You have no friends</h2>
+          <p>Maybe type in some emails above?</p>
         </div>
         {{/if}}
       {{/if}}

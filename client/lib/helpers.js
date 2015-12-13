@@ -20,6 +20,27 @@ helpers = {
       return protocol + '//' + host + '/favicon.ico';
     }
     return false;
+  },
+
+  sadFace: function() {
+    var soSadFaces = [
+      'o͡͡͡╮༼ • ʖ̯ • ༽╭o͡͡͡',
+      'ლ(ಥ Д ಥ )ლ',
+      '┌(˵༎ຶ  ل͟  ༎ຶ˵)┐',
+      '(-_-｡)',
+      '( ຈ ﹏ ຈ )',
+      '໒( ݓ Ĺ̯ ݓ )७',
+      '໒( •́ ‸ •̀ )७',
+      '〳 ‾́ ﹏ ‾́ 〵',
+      '┏༼ ◉ ╭╮ ◉༽┓',
+      '┏༼ •́ ╭╮ •̀ ༽┓',
+      'ʕ ಡ ﹏ ಡ ʔ',
+      '໒( , ⊙ – ⊙ , )७',
+      'ლ(ಠ益ಠ)ლ'
+    ]
+
+    return soSadFaces[Math.floor(Math.random() * soSadFaces.length)];
+
   }
 };
 Helpers.addScope('H', helpers);
