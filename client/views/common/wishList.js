@@ -1,6 +1,6 @@
 Template.wishList.helpers({
   yourItems: function() {
-    var wishlist = Session.get('wishlist');
+    var wishlist = Session.get('wishList');
     var items = [];
     if (wishlist) {
       items = Items.find({
