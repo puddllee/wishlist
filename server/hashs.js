@@ -28,6 +28,7 @@ Hash = {
   // as a friend to the currently logged in user
   addFriendForHash: function(hash) {
     if (!Meteor.user()) {
+      console.log('error.')
       return;
     }
 
@@ -42,6 +43,4 @@ Hash = {
 }
 
 
-Meteor.methods({
-  addFriendForHash: Hash.addFriendForHash
-});
+Meteor.methods(Hash);

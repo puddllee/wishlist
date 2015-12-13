@@ -10,6 +10,7 @@ Template.home.rendered = function() {
 
 var afterLogin = function() {
   var query = Router.current().params;
+  console.log('called with query: ' + query);
   if (query && query.friendrequest) {
     Meteor.call('addFriendForHash', query.friendrequest);
   }

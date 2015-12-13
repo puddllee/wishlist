@@ -52,7 +52,20 @@ Meteor.methods({
       var friend = userForEmail(email);
       if (friend) {
         console.log('someone with that email already exists');
-        Noti.addRequestNoti(friend._id, user._id);
+
+        // check if the friend is already a friend
+        Meteor.call('isFriend', friend._id, function(error, response) {
+          if (error) {
+            console.log(error);
+          } else {
+            if (!response) {
+              Noti.addRequestNoti(friend._id, user._id);
+            } else {
+              // Notify the user that they are friends already
+              console.log('already friends')
+            }
+          }
+        });
       } else {
         var hash = Hash.createHash(Meteor.userId());
         var url = Meteor.absoluteUrl() + '?friendrequest=' + hash;

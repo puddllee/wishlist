@@ -48,16 +48,9 @@ Template.friendList.events({
   'input .friend-input': function(event) {
     event.preventDefault();
 
-    // Meteor.call('getfbContacts', Meteor.user().services.facebook.id, function(error) {
-    //   if (errror) {
-    //     console.log(error);
-    //   }
-    // })
-
     var search = event.target.value;
     if (validateInput(search)) {
       Session.set('typing', true);
-      // Meteor.call('getGContacts', Meteor.user());
       searchFriendList(search);
     } else {
       Session.set('typing', false);
