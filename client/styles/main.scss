@@ -107,6 +107,17 @@ textarea {
   color: $error-colour;
 }
 
+.text-link {
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+  color: $accent-colour;
+  cursor: pointer;
+}
+
 .header-text {
   margin-top: 2em;
   text-align: center;
@@ -184,6 +195,8 @@ textarea {
     padding-top: 0.1em;
 
     .logo {
+      display: block;
+      margin: auto;
       width: 100%;
       height: 100%;
       max-width: 1em;
@@ -235,6 +248,10 @@ textarea {
   min-height: calc(100% - #{$footer-height});
 }
 
+.changepassword {
+  @include container();
+}
+
 .auth {
   @include container();
   padding: 3em 0;
@@ -267,6 +284,12 @@ textarea {
       font-size: 1.5em;
       height: 2em;
       margin-bottom: 0.5em;
+    }
+
+    .forgot {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      text-align: right;
     }
 
     .social {
@@ -510,15 +533,68 @@ textarea {
     }
 
     .user-info {
-      .avatar {
-        @include span(2 of 12 no-gutters);
-        @include border-radius(150px);
+      @include container(100%);
+
+      .avatar-cont {
+        @include span(100%);
+        .avatar {
+          display: block;
+          margin: auto;
+          width: 8em;
+          @include border-radius(150px);
+        }
+      }
+
+      .user-input {
+        @include span(100%);
+        padding-top: 0.2em;
+        text-align: center;
+
+        input, span {
+          display: block;
+          padding: 0;
+          margin: 0;
+          height: 2em;
+          font-size: 2em;
+          font-weight: 200;
+          text-align: center;
+        }
       }
 
       .name {
-        @include span(10 of 12);
-        padding-left: 2em;
-        padding-top: 0.2em;
+        @extend .user-input;
+        margin-top: 1em;
+
+        input, span {
+          height: 1.5em;
+        }
+        span {
+          padding-top: 0.19em;
+        }
+      }
+
+      .email {
+        @extend .user-input;
+
+        input, span {
+          height: 1.2em;
+          font-size: 1em;
+        }
+      }
+
+      .changepass {
+        @extend .user-input;
+
+        input, span {
+          height: 1.2em;
+          font-size: 1em;
+        }
+      }
+
+      .passtext:hover {
+        text-decoration: underline;
+        color: $accent-colour;
+        cursor: pointer;
       }
     }
   }
@@ -553,7 +629,8 @@ textarea {
   }
 
   .icon {
-    font-size: 4em;
+    font-size: 3em;
+    font-family: monospace;
   }
 
   p {

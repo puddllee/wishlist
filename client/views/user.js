@@ -26,7 +26,12 @@ Template.user.helpers({
   }
 });
 
-Template.user.events = ({});
+Template.user.events = ({
+  'click .passtext': function(event) {
+    event.preventDefault();
+    Router.go('changepass')
+  }
+});
 
 Template.user.rendered = function() {
 

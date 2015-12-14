@@ -4,8 +4,34 @@
 
     <div class="user-body">
       <div class="user-info">
-        <img class='avatar' src="{{avatar}}" alt="">
-        <h1 class='name'>{{name}}</h1>
+        <div class="avatar-cont">
+          <img class='avatar' src="{{avatar}}" alt="">
+        </div>
+
+        <div class="name">
+          {{#if $.Session.get 'isMine'}}
+          {{#with currentUser}}
+          {{> editableText collection="users" field="profile.name" placeholder="Enter name"}}
+          {{/with}}
+          {{else}}
+          <span>{{name}}</span>
+          {{/if}}
+        </div>
+
+        {{#if $.Session.get 'isMine'}}
+        <div class="email">
+          {{#with currentUser}}
+          {{> editableText collection="users" field="profile.email" placeholder="Enter email"}}
+          {{/with}}
+        </div>
+        {{/if}}
+
+        {{#if $.Session.get 'isMine'}}
+          <div class="changepass">
+            <span class='passtext'>Change password</span>
+          </div>
+        {{/if}}
+
       </div>
 
       {{> wishList}}
