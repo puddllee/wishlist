@@ -111,6 +111,7 @@ textarea {
   margin-top: 2em;
   text-align: center;
   font-size: 6em;
+  cursor: pointer;
   @media(max-width: $smallish) {
     font-size: 4em;
   }
@@ -187,6 +188,10 @@ textarea {
       height: 100%;
       max-width: 1em;
       max-height: 1em;
+
+      svg {
+        cursor: pointer;
+      }
 
       @media(max-width: $mobile) {
         margin-left: 0.3em;

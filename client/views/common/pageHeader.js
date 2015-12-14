@@ -8,5 +8,10 @@ Template.pageHeader.events({
   'click .profile': function(event) {
     event.preventDefault();
     Router.go('/me');
+  },
+
+  'click .header-text': function(event) {
+    event.preventDefault();
+    Router.go('/');
   }
 });
