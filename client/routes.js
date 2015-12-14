@@ -95,9 +95,17 @@ AboutController = MainController.extend({
 });
 
 ChangePasswordController = MainController.extend({
+  onBeforeAction: function() {
+    this.next()
+  },
 
   action: function() {
     this.render('changePassword', {
+      onBeforeAction: function() {
+        Accounts._resetPasswordToken = this.params.token;
+        this.next();
+      },
+
       data: function() {
         return this.params.token;
       }

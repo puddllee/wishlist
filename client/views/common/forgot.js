@@ -3,6 +3,10 @@ Template.forgot.rendered = function() {
   Session.set('forgotSuccess', '');
 }
 
+if (Accounts._resetPasswordToken) {
+  Session.set('resetPasswordToken', Accounts._resetPasswordToken);
+}
+
 Template.forgot.events({
   'submit .login': function(event, template) {
     event.preventDefault();
@@ -12,18 +16,19 @@ Template.forgot.events({
 
     if (validateEmail(email)) {
       Accounts.forgotPassword({
-        email: email
-      }, function(err) {
-        if (err) {
-          if (err.message === 'User not found [403]') {
-            Session.set('forgotError', 'We couldn\'t find anyone with that email');
+          email: email
+        },
+        function(err) {
+          if (err) {
+            if (err.message === 'User not found [403]') {
+              Session.set('forgotError', 'We couldn\'t find anyone with that email');
+            } else {
+              console.log('error resetting password');
+            }
           } else {
-            console.log('error resetting password');
+            Session.set('forgotSuccess', 'We\'ve emailed you a link to reset your password.');
           }
-        } else {
-          Session.set('forgotSuccess', 'We\'ve emailed you a link to reset your password.');
-        }
-      });
+        });
     } else {
       Session.set('forgotSuccess', '');
       Session.set('forgotError', 'Invalid email address');
