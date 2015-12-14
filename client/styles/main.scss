@@ -54,7 +54,7 @@ a {
 }
 
 a:hover {
-  color: grey;
+  color: $accent-colour;
 }
 
 .nostyle {
@@ -363,35 +363,57 @@ textarea {
       width: 4em;
     }
   }
+}
+
+.hack {
+  @extend .about;
+  background-color: $main-colour;
+  color: $dark-text;
+  text-align: center;
 
   .copy {
-    @include container(50%);
-    @media(max-width: $tablet) {
-      @include container(70%);
-    }
-    @media(max-width: $mobile) {
-      @include container(94%);
-    }
-    @media(min-width: $desktop) {
-      @include container(30%);
-    }
-
-    line-height: 1.5em;
-
     p {
-      margin-top: 1em;
+      font-size: 1.2em;
+      margin-top: 0;
     }
 
-    .thats {
-      font-size: 1.1em;
-      border-bottom: 2px solid $dark-main;
+    a {
+      text-decoration: none;
     }
+  }
+}
 
-    .icon-sep {
-      display: block;
-      margin: auto;
-      width: 1em;
-    }
+.copy {
+  @include container(50%);
+  @media(max-width: $tablet) {
+    @include container(70%);
+  }
+  @media(max-width: $mobile) {
+    @include container(94%);
+  }
+  @media(min-width: $desktop) {
+    @include container(30%);
+  }
+
+  line-height: 1.5em;
+
+  p {
+    margin-top: 1em;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  .thats {
+    font-size: 1.1em;
+    border-bottom: 2px solid $dark-main;
+  }
+
+  .icon-sep {
+    display: block;
+    margin: auto;
+    width: 1em;
   }
 }
 
@@ -1105,7 +1127,7 @@ footer {
   padding-top: 1em;
   padding-bottom: 1em;
   padding-left: 2em;
-  background-color: $main-colour;
+  background-color: $dark-main;
   color: $dark-text;
 
   p {
@@ -1121,5 +1143,10 @@ footer {
   a:hover {
     color: $accent-colour;
     text-decoration: underline;
+  }
+
+  .about-link {
+    position: absolute;
+    right: 2em;
   }
 }
