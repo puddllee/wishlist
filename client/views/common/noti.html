@@ -1,6 +1,10 @@
 <template name='noti'>
   <div id="noti-{{_id}}" class="noti">
-    <span class="icon entypo-gauge"></span>
+      {{#if $.H.compare type "request"}}
+        <span class="icon entypo-user-add"></span>
+      {{else}}
+        <span class="icon entypo-bell"></span>
+      {{/if}}
     <h3 class='label'>{{label}}</h3>
 
     <span class="actions">

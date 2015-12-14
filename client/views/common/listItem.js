@@ -21,19 +21,23 @@ Template.listItem.events({
       });
   },
 
-  'click .buy': function() {
+  'click .buy-mark': function(event) {
+    event.preventDefault();
+    if (this.bought === undefined || this.bought === null) {
+      return;
+    }
+    Meteor.call('buyItem', this._id, function(error, response) {
+      if (error) {
+        return;
+      } else {}
+    });
+  },
+
+  'click .buy-unmark': function(event) {
+    event.preventDefault();
     if (this.bought && this.bought_id === Meteor.userId()) {
       Meteor.call('unbuyItem', this._id, function(error, result) {
         if (error) {} else {}
-      });
-    } else {
-      if (this.bought === undefined || this.bought === null) {
-        return;
-      }
-      Meteor.call('buyItem', this._id, function(error, response) {
-        if (error) {
-          return;
-        } else {}
       });
     }
   }

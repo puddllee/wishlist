@@ -848,7 +848,7 @@ textarea {
 
     .friends {
       h1 {
-        margin-bottom: 0.5em;
+        margin-bottom: 0.65em;
       }
 
       @include span(50%);
@@ -1053,12 +1053,16 @@ textarea {
         }
 
         .buy:hover {
-          opacity: 0.8;
+          opacity: 0.6;
         }
 
         .buy-already {
-          cursor: normal;
+          cursor: text;
           color: $error-colour;
+        }
+
+        .buy-already:hover {
+          opacity: 1;
         }
 
         .buy-mark {
