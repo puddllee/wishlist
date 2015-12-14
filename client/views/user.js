@@ -36,14 +36,12 @@ Template.user.events = ({
 Template.user.rendered = function() {
 
   var data = this.data;
-  console.log(data);
   this.autorun(function() {
     data = Template.currentData();
     Meteor.call('getUser', data, function(error, result) {
       if (error) {
         console.log(error);
       } else {
-        console.log('result' + result)
         if (!result) {
           //bad address
           console.log('user not found, going home')
@@ -51,7 +49,6 @@ Template.user.rendered = function() {
           return;
         }
         var user = result._id
-        console.log(result)
         Meteor.call('getWishlist', result._id, function(error, result) {
           if (error) {
             console.log(error);
@@ -65,5 +62,4 @@ Template.user.rendered = function() {
       }
     });
   })
-
 };

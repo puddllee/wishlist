@@ -8,10 +8,10 @@ var client = amazon.createClient({
   // awsTag: "Wish List"
 });
 
-var prodAdv = aws.createProdAdvClient(AMAZON_ID, AMAZON_SECRET, "Wish List");
+var prodAdv = aws.createProdAdvClient(AMAZON_ID, AMAZON_SECRET, AMAZON_TAG);
 
 AMAZON = {
-  productForURL: function (url) {
+  productForURL: function(url) {
     try {
       var asin = validateAmazonURL(url);
       if (asin) {
@@ -29,7 +29,7 @@ AMAZON = {
           IdType: 'ASIN',
           itemId: asin,
           responseGroup: 'ItemAttributes,Offers,Images'
-        }, function (err, result) {
+        }, function(err, result) {
           if (err) {
             console.log(err);
           } else {

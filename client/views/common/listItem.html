@@ -50,7 +50,7 @@
           <span class="buy buy-unmark">Unmark as bought</span>
           <!-- <button class="buy">Unmark as bought</button> -->
           {{else}}
-          <span class="buy buy-already">Bought by {{bought_user}}</span>
+          <span class="buy buy-already">Bought by {{$.Session.get 'bought_user'}}</span>
           {{/if}}
           {{else}}
           <span class="buy buy-mark">
