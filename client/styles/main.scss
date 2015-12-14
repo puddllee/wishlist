@@ -516,7 +516,7 @@ textarea {
 }
 
 .user {
-  @include span(100%);
+  @include span(100% no-gutters);
   .page-header {
     // margin-top: -1.4em;
   }
