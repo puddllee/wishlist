@@ -1,4 +1,4 @@
-Meteor.subscribe('items');
-Meteor.subscribe('wishlists');
-Meteor.subscribe('notis');
-Meteor.subscribe('users');
+// Meteor.subscribe('items');
+// Meteor.subscribe('wishlists');
+// Meteor.subscribe('notis');
+// Meteor.subscribe('users');

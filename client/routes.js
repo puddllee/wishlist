@@ -26,16 +26,17 @@ Router.route('/me', {
 //   }
 // });
 
-Router.route('/changepass', function() {
-  this.render('changePassword')
-})
+Router.route('/changepass', {
+  name: 'changepass',
+  controller: 'ChangePasswordController'
+});
 
 Router.route('/changepass/:token', {
   name: 'changepass.token',
   controller: 'ChangePasswordController'
 });
 
-Router.route('/forgot', function() {
+Router.route('/forgot', function () {
   this.render('forgot');
 });
 
@@ -52,7 +53,14 @@ Router.route('/user/:_id', {
 // });
 
 MainController = RouteController.extend({
-  onBeforeAction: function() {
+  waitOn: function () {
+    Meteor.subscribe('items');
+    Meteor.subscribe('wishlists');
+    Meteor.subscribe('notis');
+    Meteor.subscribe('users');
+  },
+
+  onBeforeAction: function () {
     var friendrequest = '';
     var query = this.params.query;
     if (query && query.friendrequest && query.friendrequest !== '') {
@@ -81,15 +89,15 @@ MainController = RouteController.extend({
     this.next();
   },
 
-  action: function() {
+  action: function () {
     this.render('home');
   }
 });
 
 HomeController = MainController.extend({
-  onBeforeAction: function() {
+  onBeforeAction: function () {
     var path = Router.current().route.path(this);
-    if (path !== '/home' && Meteor.userId()) {
+    if (path !== '/home' && Meteor.userId() && !Meteor.loggingIn()) {
       Session.set('wishlist', []);
       this.render('list');
     } else {
@@ -97,24 +105,26 @@ HomeController = MainController.extend({
     }
   },
 
-  action: function() {
+  action: function () {
     this.render('home');
   }
 });
 
 ChangePasswordController = MainController.extend({
-  onBeforeAction: function() {
-    this.next()
+  onBeforeAction: function () {
+    if (this.params.token) {
+      Accounts._resetPasswordToken = this.params.token;
+      this.next();
+    } else if (Meteor.userId() || Meteor.loggingIn()) {
+      this.next();
+    } else {
+      this.render('home');
+    }
   },
 
-  action: function() {
+  action: function () {
     this.render('changePassword', {
-      onBeforeAction: function() {
-        Accounts._resetPasswordToken = this.params.token;
-        this.next();
-      },
-
-      data: function() {
+      data: function () {
         return this.params.token;
       }
     });
@@ -122,32 +132,32 @@ ChangePasswordController = MainController.extend({
 });
 
 ListController = MainController.extend({
-  onBeforeAction: function() {
-    if (!Meteor.userId()) {
+  onBeforeAction: function () {
+    if (!Meteor.userId() && !Meteor.loggingIn()) {
       this.render('home');
     } else {
       this.next();
     }
   },
 
-  action: function() {
+  action: function () {
     this.render('list');
   }
 });
 
 UserController = MainController.extend({
-  onBeforeAction: function() {
-    if (!Meteor.userId()) {
+  onBeforeAction: function () {
+    if (!Meteor.userId() && !Meteor.loggingIn()) {
       this.render('home');
     } else {
       this.next();
     }
   },
 
-  action: function() {
+  action: function () {
     // this.state.set('userId', this.params._id);
     this.render('user', {
-      data: function() {
+      data: function () {
         return this.params._id
       }
     });
@@ -155,18 +165,18 @@ UserController = MainController.extend({
 });
 
 MeController = MainController.extend({
-  onBeforeAction: function() {
-    if (!Meteor.userId()) {
+  onBeforeAction: function () {
+    if (!Meteor.userId() && !Meteor.loggingIn()) {
       this.render('home');
     } else {
       this.next();
     }
   },
 
-  action: function() {
+  action: function () {
     this.state.set('data', Meteor.userId());
     this.render('user', {
-      data: function() {
+      data: function () {
         return Meteor.userId()
       }
     })
