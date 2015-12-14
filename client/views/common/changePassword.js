@@ -27,6 +27,8 @@ Template.changePassword.events({
       } else {
         Session.set('passwordError', 'Passwords do not match');
       }
+    } else if (validateInput(newpass) && validateInput(passagain) && Meteor.userId()) {
+      //
     } else {
       Session.set('passwordError', 'Both passwords are required');
       return;
