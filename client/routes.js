@@ -25,8 +25,12 @@ Router.route('/me', {
 //   }
 // });
 
+Router.route('/changepass', function() {
+  this.render('changePassword')
+})
+
 Router.route('/changepass/:token', {
-  name: 'changepass',
+  name: 'changepass.token',
   controller: 'ChangePasswordController'
 });
 
