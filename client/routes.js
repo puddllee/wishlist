@@ -13,11 +13,20 @@ Router.route('/me', {
   controller: 'MeController'
 });
 
-Router.route('/about', {
-  name: 'about',
-  waitOn: function() {
-    // return Meteor.subscribe('items');
-  }
+// Router.route('/about', {
+//   name: 'about',
+//   waitOn: function() {
+//     // return Meteor.subscribe('items');
+//   }
+// });
+
+Router.route('/changepass', {
+  name: 'changepass',
+  controller: 'ChangePasswordController'
+});
+
+Router.route('/forgot', function() {
+  this.render('forgot');
 });
 
 Router.route('/list', {
@@ -80,6 +89,20 @@ HomeController = MainController.extend({
 AboutController = MainController.extend({
   action: function() {
     this.render('about');
+  }
+});
+
+ChangePasswordController = MainController.extend({
+  onBeforeAction: function() {
+    if (!Meteor.userId()) {
+      Router.go('/');
+    } else {
+      this.next();
+    }
+  },
+
+  action: function() {
+    this.render('changePassword');
   }
 });
 

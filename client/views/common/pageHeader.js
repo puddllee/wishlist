@@ -12,6 +12,7 @@ Template.pageHeader.events({
 
   'click .header-text': function(event) {
     event.preventDefault();
+    console.log('pressed');
     Router.go('/');
   }
 });

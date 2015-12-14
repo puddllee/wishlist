@@ -3,9 +3,12 @@
     <div class="header-text">
       {{> heading}}
     </div>
+
+    {{#if currentUser}}
     <span class="user-actions">
       <a class="profile">Your Profile</a> |
       <a class='logout'>Logout</a>
     </span>
+    {{/if}}
   </div>
 </template>
