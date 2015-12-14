@@ -8,7 +8,6 @@ Template.wishList.helpers({
     var items = [];
     if (wishlist) {
       if (wishlist.owner === Meteor.userId()) {
-        console.log('getting user\'s own items')
         items = Items.find({
           wishlist: wishlist._id
         }, {
