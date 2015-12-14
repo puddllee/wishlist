@@ -26,28 +26,39 @@ Template.user.helpers({
   }
 });
 
-Template.user.events = ({
-
-});
+Template.user.events = ({});
 
 Template.user.rendered = function() {
-  console.log(this.data)
-  Meteor.call('getUser', this.data, function(error, result) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(result);
-      var user = result._id
-      Meteor.call('getWishlist', result._id, function(error, result) {
-        if (error) {
-          console.log(error);
-        } else {;
-          Session.set('isMine', Meteor.userId() === user);
-          Session.set('wishlist', result);
+
+  var data = this.data;
+  console.log(data);
+  this.autorun(function() {
+    data = Template.currentData();
+    Meteor.call('getUser', data, function(error, result) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('result' + result)
+        if (!result) {
+          //bad address
+          console.log('user not found, going home')
+          Router.go('home');
+          return;
         }
-      });
-      Session.set('user', result);
-      Session.set('profile', result.profile);
-    }
-  });
+        var user = result._id
+        console.log(result)
+        Meteor.call('getWishlist', result._id, function(error, result) {
+          if (error) {
+            console.log(error);
+          } else {;
+            Session.set('isMine', Meteor.userId() === user);
+            Session.set('wishlist', result);
+          }
+        });
+        Session.set('user', result);
+        Session.set('profile', result.profile);
+      }
+    });
+  })
+
 };
