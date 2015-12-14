@@ -27,13 +27,17 @@ AMAZON = {
         // return result;
         var lookup = prodAdv.call("ItemLookup", {
           IdType: 'ASIN',
-          itemId: asin,
+          ItemId: asin,
           responseGroup: 'ItemAttributes,Offers,Images'
         }, function(err, result) {
           if (err) {
             console.log(err);
           } else {
-            console.log(result);
+            console.log(result)
+            result.OperationRequest.Arguments.Argument.forEach(function(item) {
+              console.log(JSON.stringify(item))
+            });
+            console.log(JSON.stringify(result.Items.Request.Errors))
             return result;
           }
         });
