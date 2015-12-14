@@ -23,10 +23,13 @@ helpers = {
   },
 
   sadFace: function() {
-    var lessSadFaces = [
-      '◔̯◔',
+    var soSadFaces = [
       '٩◔̯◔۶',
-    ];
+      '◔̯◔',
+      'ಠ_ಠ┐',
+      '⊙﹏⊙'
+    ]
+
 
     return lessSadFaces[Math.floor(Math.random() * lessSadFaces.length)];
   }

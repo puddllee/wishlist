@@ -26,11 +26,12 @@
     </div>
     {{else}}
     <div class="no-items empty-state">
+      <div class="col">
+        <span class="icon">{{$.H.sadFace}}</span>
 
-      <span class="icon">{{$.H.sadFace}}</span>
-
-      <h2>This user has no wishes! </h2>
-      <p><small>At least you tried.</small></p>
+        <h2>This user has no wishes! </h2>
+        <p><small>At least you tried.</small></p>
+      </div>
     </div>
     {{/if}}
     {{/unless}}

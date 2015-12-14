@@ -4,6 +4,11 @@ Router.configure({
 });
 
 Router.route('/', {
+  name: 'index',
+  controller: 'HomeController'
+});
+
+Router.route('/home', {
   name: 'home',
   controller: 'HomeController'
 });
@@ -36,6 +41,10 @@ Router.route('/list', {
 Router.route('/user/:_id', {
   name: 'user'
 });
+
+// Router.route('/home', function() {
+//   this.render('home');
+// });
 
 MainController = RouteController.extend({
   onBeforeAction: function() {
@@ -74,7 +83,8 @@ MainController = RouteController.extend({
 
 HomeController = MainController.extend({
   onBeforeAction: function() {
-    if (Meteor.userId()) {
+    var path = Router.current().route.path(this);
+    if (path !== '/home' && Meteor.userId()) {
       Session.set('wishlist', []);
       this.render('list');
     } else {
@@ -84,13 +94,6 @@ HomeController = MainController.extend({
 
   action: function() {
     this.render('home');
-  }
-});
-
-
-AboutController = MainController.extend({
-  action: function() {
-    this.render('about');
   }
 });
 

@@ -1,4 +1,6 @@
-Template.wishList.rendered = function() {}
+Template.wishList.rendered = function() {
+
+}
 
 Template.wishList.helpers({
   yourItems: function() {

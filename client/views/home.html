@@ -12,6 +12,7 @@
     </div>
   </div>
 
+  {{#unless currentUser}}
   <div class="auth">
     <form class="login">
       <h2>Login or Register to Get Started</h2>
@@ -35,6 +36,7 @@
       <p class="text-link forgot">Forgot Password</p>
     </form>
   </div>
+  {{/unless}}
 
   {{> about}}
 

@@ -54,7 +54,7 @@ a {
 }
 
 a:hover {
-  color: grey;
+  color: $accent-colour;
 }
 
 .nostyle {
@@ -369,35 +369,57 @@ textarea {
       width: 4em;
     }
   }
+}
+
+.hack {
+  @extend .about;
+  background-color: $main-colour;
+  color: $dark-text;
+  text-align: center;
 
   .copy {
-    @include container(50%);
-    @media(max-width: $tablet) {
-      @include container(70%);
-    }
-    @media(max-width: $mobile) {
-      @include container(94%);
-    }
-    @media(min-width: $desktop) {
-      @include container(30%);
-    }
-
-    line-height: 1.5em;
-
     p {
-      margin-top: 1em;
+      font-size: 1.2em;
+      margin-top: 0;
     }
 
-    .thats {
-      font-size: 1.1em;
-      border-bottom: 2px solid $dark-main;
+    a {
+      text-decoration: none;
     }
+  }
+}
 
-    .icon-sep {
-      display: block;
-      margin: auto;
-      width: 1em;
-    }
+.copy {
+  @include container(50%);
+  @media(max-width: $tablet) {
+    @include container(70%);
+  }
+  @media(max-width: $mobile) {
+    @include container(94%);
+  }
+  @media(min-width: $desktop) {
+    @include container(30%);
+  }
+
+  line-height: 1.5em;
+
+  p {
+    margin-top: 1em;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  .thats {
+    font-size: 1.1em;
+    border-bottom: 2px solid $dark-main;
+  }
+
+  .icon-sep {
+    display: block;
+    margin: auto;
+    width: 1em;
   }
 }
 
@@ -522,6 +544,7 @@ textarea {
 }
 
 .user {
+  @include span(100% no-gutters);
   .page-header {
     // margin-top: -1.4em;
   }
@@ -572,6 +595,7 @@ textarea {
       }
 
       .name {
+
         @extend .user-input;
         margin-top: 1em;
 
@@ -636,6 +660,10 @@ textarea {
 
   @media(max-width: $tablet) {
     margin-bottom: 2em;
+  }
+
+  .col {
+    @include span(100%);
   }
 
   .icon {
@@ -713,6 +741,7 @@ textarea {
       border-bottom: 2px solid $accent-colour;
       padding-bottom: calc(0.4em - 2px);
       opacity: 1;
+      // transition: border-bottom .5s ease-out;
     }
 
     .amazon {
@@ -726,11 +755,6 @@ textarea {
         @include span(2 of 12 no-gutters);
         font-size: 1.1em;
         border-bottom: solid 1px $main-colour;
-
-        @-moz-document url-prefix() {
-          border-bottom: none;
-          margin-top: -1px;
-        }
 
         span {
           margin-right: 0;
@@ -765,6 +789,7 @@ textarea {
 
       .price {
         @include span(6 of 12 no-gutters);
+        padding-left: 0;
       }
 
       .url {
@@ -811,9 +836,21 @@ textarea {
       @media(max-width: $tablet) {
         @include span(100%);
       }
+
+      h1 {
+        margin-bottom: 0.5em;
+
+        @-moz-document url-prefix() {
+          margin-bottom: 0.8em;
+        }
+      }
     }
 
     .friends {
+      h1 {
+        margin-bottom: 0.5em;
+      }
+
       @include span(50%);
       @media(max-width: $tablet) {
         @include span(100%);
@@ -857,7 +894,6 @@ textarea {
       // target firefox
       @-moz-document url-prefix() {
         border-bottom: none;
-        margin-top: calc(1.4em - 1px);
       }
     }
   }
@@ -945,6 +981,9 @@ textarea {
       @include container();
       font-size: 1.5em;
       font-weight: 200;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       .type {
         @include span(2 of 12);
@@ -964,8 +1003,13 @@ textarea {
       height: 1.2em;
     }
 
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .seller {
-      padding-left: 0.2em;
+      @include span(10 of 12 no-gutters);
       color: darkgray;
       font-size: 1.2em;
     }
@@ -973,7 +1017,6 @@ textarea {
     .seller-wrapper {
       @include container();
       input, span {
-        @include span(8 of 12);
         color: darkgray;
         margin-top: 0.2em;
       }
@@ -986,14 +1029,13 @@ textarea {
       padding-top: 3px;
       color: $amazon-orange;
     }
-
     .price-bought {
       @include container();
 
       .price {
         font-size: 1.5em;
         input,span {
-          @include span(6 of 12);
+          @include span(6 of 12 no-gutters);
         }
       }
 
@@ -1091,7 +1133,7 @@ footer {
   padding-top: 1em;
   padding-bottom: 1em;
   padding-left: 2em;
-  background-color: $main-colour;
+  background-color: $dark-main;
   color: $dark-text;
 
   p {
@@ -1105,6 +1147,12 @@ footer {
   }
 
   a:hover {
+    color: $accent-colour;
     text-decoration: underline;
+  }
+
+  .about-link {
+    position: absolute;
+    right: 2em;
   }
 }
