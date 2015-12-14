@@ -45,7 +45,7 @@ Template.noti.events({
     event.preventDefault();
     Meteor.call('insertFriends', this.owner, this.from, function(error) {
       if (error) {
-        console.log(error);
+        return;
       }
     });
 

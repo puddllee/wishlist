@@ -1,7 +1,7 @@
 Template.listItem.rendered = function() {
   Meteor.call('getBoughtUserName', this.data._id, function(error, result) {
     if (error) {
-      console.log(error);
+      return;
     } else {
       boughtUser = result;
       if (boughtUser) {
@@ -13,12 +13,9 @@ Template.listItem.rendered = function() {
 
 Template.listItem.events({
   'click .delete': function() {
-    console.log('deleting');
     Meteor.call('deleteItem', this._id, this.wishlist,
       function(error, response) {
-        if (error) {
-          console.log(error);
-        } else {
+        if (error) {} else {
           // console.log('deleted: ' + response)
         }
       });
@@ -27,11 +24,7 @@ Template.listItem.events({
   'click .buy': function() {
     if (this.bought && this.bought_id === Meteor.userId()) {
       Meteor.call('unbuyItem', this._id, function(error, result) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(result);
-        }
+        if (error) {} else {}
       });
     } else {
       if (this.bought === undefined || this.bought === null) {
@@ -39,10 +32,8 @@ Template.listItem.events({
       }
       Meteor.call('buyItem', this._id, function(error, response) {
         if (error) {
-          console.log(error);
-        } else {
-          console.log('updated: ' + response);
-        }
+          return;
+        } else {}
       });
     }
   }

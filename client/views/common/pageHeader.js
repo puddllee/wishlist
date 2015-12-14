@@ -12,7 +12,7 @@ Template.pageHeader.events({
 
   'click .home': function(event) {
     event.preventDefault();
-    Router.go('/');
+    Router.go('/home');
   },
 
   'click .header-text': function(event) {
