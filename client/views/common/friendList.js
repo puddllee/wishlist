@@ -9,7 +9,6 @@ searchFriendList = function(search) {
 var getFriends = function() {
   Meteor.call('getFriends', Meteor.user(), function(error, result) {
     if (error) {
-      console.log(error);
       return;
     }
     Session.set('friendList', result);

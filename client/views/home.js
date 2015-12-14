@@ -31,6 +31,11 @@ var addFriendCookie = function() {
 }
 
 Template.home.events({
+  'click .heading': function(event) {
+    event.preventDefault();
+    Router.go('/');
+  },
+
   'click .forgot': function(event) {
     event.preventDefault();
     Router.go('/forgot');
