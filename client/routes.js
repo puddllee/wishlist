@@ -1,6 +1,7 @@
 Router.configure({
   layoutTemplate: 'layout',
-  loadingTemplate: 'loading'
+  loadingTemplate: 'loading',
+  trackPageView: true
 });
 
 Router.route('/', {
