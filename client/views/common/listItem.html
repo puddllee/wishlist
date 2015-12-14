@@ -4,9 +4,17 @@
     <div class="info">
       <span class="title-icon">
         <!-- <span class="type entypo-dribbble"></span> -->
-        <p class='title'>{{name}}</p>
+        <!-- <p class='title'>{{name}}</p> -->
+        <!-- <input type="text" class="noinput title" value="{{name}}" disabled="{{#unless $.
+        Session.get 'isMine'}}true{{/unless}}"> -->
         {{#if $.Session.get 'isMine'}}
-        <span class="delete entypo-cancel"></span>
+          {{> editableText collection="items" field="name" class='sinput'}}
+        {{else}}
+          <span class='sinput'>{{name}}</span>
+        {{/if}}
+
+        {{#if $.Session.get 'isMine'}}
+          <span class="delete entypo-cancel"></span>
         {{/if}}
       </span>
 
@@ -19,13 +27,23 @@
           {{/if}}
         {{/if}}
 
-        <p class='seller'>{{seller}}</p>
+        {{#if $.Session.get 'isMine'}}
+          {{> editableText collection="items" field="seller" class='sinput'}}
+        {{else}}
+          <span>{{seller}}</span>
+        {{/if}}
       </span>
 
       <span class="price-bought">
         <span class="price">
-          <p class='price'>{{price}}</p>
+          {{#if $.Session.get 'isMine'}}
+          {{> editableText collection="items" field="price" class='sinput'}}
+        {{else}}
+          <span class='sinput'>{{price}}</span>
+        {{/if}}
         </span>
+
+        {{#unless $.Session.get 'isMine'}}
         <span class="bought">
           {{#if bought}}
           {{#if boughtByMe}}
@@ -39,10 +57,17 @@
           </button>
           {{/if}}
         </span>
+        {{/unless}}
+
       </span>
 
       <span class="detail">
-        <textarea class='detail-text' name="detail" id="" placeholder='detail' cols='3'></textarea>
+        <!-- <textarea class='detail-text' name="detail" id="" placeholder='detail' cols='3'></textarea> -->
+        {{#if $.Session.get 'isMine'}}
+          {{> editableText collection="items" field="detail" placeholder="detail" substitute='<span class="empty-detail">detail</span>' textarea=true acceptEmpty=true}}
+        {{else}}
+          <span>{{detail}}</span>
+        {{/if}}
       </span>
 
       {{#if url}}

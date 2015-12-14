@@ -42,7 +42,7 @@ Template.listItem.helpers({
   imageUrl: function() {
     var image = this.image;
     if (!image || image === '') {
-      image = '/images/star.svg';
+      image = '/images/gift.svg';
     }
     return image;
   },

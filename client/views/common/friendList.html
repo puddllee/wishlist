@@ -14,14 +14,21 @@
           <p>An email will be sent to {{$.Session.get 'email'}} <br>
           If they accept they will become your friend</p>
        </div>
-
     {{else}}
       {{#if $.Session.get 'typing'}}
-        <ul>
-          {{#each $.Session.get 'addFriendList'}}
-            {{> addFriendItem}}
-          {{/each}}
-        </ul>
+        {{#if $.Session.get 'addFriendList'}}
+          <ul>
+            {{#each $.Session.get 'addFriendList'}}
+              {{> addFriendItem}}
+            {{/each}}
+          </ul>
+        {{else}}
+          <div class="sending-email empty-state">
+            <span class="icon entypo-adjust"></span>
+            <h2>You have no friends ◔̯◔</h2>
+            <p>If you know their emails invite them above</p>
+          </div>
+        {{/if}}
       {{else}}
         {{#if $.Session.get 'friendList'}}
         <ul>
