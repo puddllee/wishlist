@@ -67,7 +67,9 @@
         {{#if $.Session.get 'isMine'}}
           {{> editableText collection="items" field="detail" placeholder="detail" substitute='<span class="empty-detail">detail</span>' textarea=true acceptEmpty=true}}
         {{else}}
+          {{#if detail}}
           <span>{{detail}}</span>
+          {{/if}}
         {{/if}}
       </span>
 

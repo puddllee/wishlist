@@ -21,15 +21,17 @@
         {{#if $.Session.get 'isMine'}}
         <div class="email">
           {{#with currentUser}}
-          {{> editableText collection="users" field="profile.email" placeholder="Enter email"}}
+            <span>{{profile.email}}</span>
           {{/with}}
         </div>
         {{/if}}
 
         {{#if $.Session.get 'isMine'}}
-          <div class="changepass">
-            <span class='passtext'>Change password</span>
-          </div>
+          {{#if $.Session.get 'emailUser'}}
+            <div class="changepass">
+              <span class='passtext'>Change password</span>
+            </div>
+          {{/if}}
         {{/if}}
 
       </div>

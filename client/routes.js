@@ -62,6 +62,8 @@ MainController = RouteController.extend({
         window.history.replaceState({}, document.title, clean_uri);
       }
     }
+
+    Session.set('emailUser', isEmailUser());
     this.next();
   },
 

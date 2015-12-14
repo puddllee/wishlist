@@ -40,7 +40,6 @@ helpers = {
     ]
 
     return soSadFaces[Math.floor(Math.random() * soSadFaces.length)];
-
   }
 };
 Helpers.addScope('H', helpers);

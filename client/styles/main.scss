@@ -648,6 +648,10 @@ textarea {
 
 .invite-mail {
   padding-bottom: 2.2em;
+
+  .email {
+    color: $accent-colour;
+  }
 }
 
 .wish-list {
