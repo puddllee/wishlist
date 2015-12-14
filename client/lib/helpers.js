@@ -31,7 +31,7 @@ helpers = {
     ]
 
 
-    return lessSadFaces[Math.floor(Math.random() * lessSadFaces.length)];
+    return soSadFaces[Math.floor(Math.random() * soSadFaces.length)];
   }
 };
 Helpers.addScope('H', helpers);
