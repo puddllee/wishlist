@@ -39,7 +39,7 @@ Template.addWish.events({
             if (!item) {
               console.log('Amazon\'s fault, not ours');
               Session.set('addWishError', 'This amazon link is not available to be embedded. Sorry about that.');
-
+              return;
             } else {
               var att = item.ItemAttributes;
               var name = att.Title;
@@ -52,7 +52,6 @@ Template.addWish.events({
               Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
                 wishlist = response;
                 if (error) {
-                  console.log(error);
                   Session.set('addWishError', 'This amazon link is not available to be embedded. Sorry about that.');
                   return;
                 }
@@ -60,11 +59,8 @@ Template.addWish.events({
                   Session.set('addWishError', '');
                   Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
                     if (error) {
-                      console.log(error);
                       Session.set('addWishError', 'This amazon link is not available to be embedded. Sorry about that.');
-                    } else {
-
-                    }
+                    } else {}
                   });
                 } else {
 
@@ -87,14 +83,14 @@ Template.addWish.events({
       Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
         wishlist = response;
         if (error) {
-          console.log(error);
+          return;
         }
         if (validateInput(name) && validateInput(seller) && wishlist) {
           Session.set('addWishError', '');
           Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
             if (error) {
-              console.log(error);
               Session.set('addWishError', 'Something went wrong. Maybe try again?');
+              return;
             } else {
               event.target.seller.value = '';
               event.target.price.value = '';

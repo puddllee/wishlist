@@ -12,7 +12,6 @@ Template.forgot.events({
     event.preventDefault();
 
     var email = event.target.email.value;
-    console.log('email: ' + email);
 
     if (validateEmail(email)) {
       Accounts.forgotPassword({
@@ -22,9 +21,7 @@ Template.forgot.events({
           if (err) {
             if (err.message === 'User not found [403]') {
               Session.set('forgotError', 'We couldn\'t find anyone with that email');
-            } else {
-              console.log('error resetting password');
-            }
+            } else {}
           } else {
             Session.set('forgotSuccess', 'We\'ve emailed you a link to reset your password.');
           }

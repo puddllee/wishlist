@@ -40,18 +40,17 @@ Template.user.rendered = function() {
     data = Template.currentData();
     Meteor.call('getUser', data, function(error, result) {
       if (error) {
-        console.log(error);
+        return;
       } else {
         if (!result) {
           //bad address
-          console.log('user not found, going home')
           Router.go('home');
           return;
         }
         var user = result._id
         Meteor.call('getWishlist', result._id, function(error, result) {
           if (error) {
-            console.log(error);
+            return;
           } else {;
             Session.set('isMine', Meteor.userId() === user);
             Session.set('wishlist', result);
