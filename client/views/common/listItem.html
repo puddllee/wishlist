@@ -49,7 +49,7 @@
           {{#if boughtByMe}}
           <button class="buy">Unmark as bought</button>
           {{else}}
-          <button class="buy">Bought by {{bought_user}}</button>
+          <button class="buy">Bought by {{$.Session.get 'bought_user'}}</button>
           {{/if}}
           {{else}}
           <button class="buy">

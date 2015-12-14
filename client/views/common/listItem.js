@@ -1,4 +1,15 @@
-Template.listItem.rendered = function() {}
+Template.listItem.rendered = function() {
+  Meteor.call('getBoughtUserName', this.data._id, function(error, result) {
+    if (error) {
+      console.log(error);
+    } else {
+      boughtUser = result;
+      if (boughtUser) {
+        Session.set('bought_user', boughtUser);
+      }
+    }
+  });
+}
 
 Template.listItem.events({
   'click .delete': function() {
@@ -45,20 +56,6 @@ Template.listItem.helpers({
       image = '/images/gift.svg';
     }
     return image;
-  },
-
-  bought_user: function() {
-    Meteor.call('getBoughtUserName', this._id, function(error, result) {
-      if (error) {
-        console.log(error);
-      } else {
-        boughtUser = result;
-        if (boughtUser) {
-          label = boughtUser.profile.name;
-          Session.set('bought_user', boughtUser);
-        }
-      }
-    });
   },
 
   boughtByMe: function() {

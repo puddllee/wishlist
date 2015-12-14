@@ -91,13 +91,19 @@ Wishlist = {
     },
 
     getBoughtUserName: function(itemId) {
+      console.log('geting username for ' + itemId);
       var item = Items.findOne({
         _id: itemId
       });
       if (item) {
-        return Meteor.users.findOne({
+        user = Meteor.users.findOne({
           _id: item.bought_id
-        })
+        });
+        if (user) {
+          return user.profile.name;
+        }
+      } else {
+        console.log('item not found');
       }
     }
   }

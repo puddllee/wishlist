@@ -28,7 +28,6 @@ Template.wishList.helpers({
         }).fetch();
       }
     }
-    console.log(items);
     return items;
   },
 });
