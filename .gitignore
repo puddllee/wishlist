@@ -147,3 +147,4 @@ packages
 packages/
 
 secret.js
+config/
