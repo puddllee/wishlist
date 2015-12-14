@@ -34,54 +34,43 @@ Template.addWish.events({
       if (validateAmazonURL(url)) {
         Session.set('addWishError', '');
         Meteor.call('productForURL', url, function(err, res) {
-          if (!err && res && res.length > 0) {
-            var item = res[0];
-            var att = item.ItemAttributes[0];
-            var name = att.Title[0];
-            var seller = 'Amazon';
-            var image = item.MediumImage[0].URL[0];
-            var detail = '';
+          if (!err && res) {
+            var item = res.Items.Item;
+            if (!item) {
+              console.log('Amazon\'s fault, not ours');
+              Session.set('addWishError', 'This amazon link is not available to be embedded. Sorry about that.');
 
-            var price = '';
+            } else {
+              var att = item.ItemAttributes;
+              var name = att.Title;
+              var seller = 'Amazon';
+              var image = item.MediumImage.URL;
+              var url = item.DetailPageURL;
+              var price = att.ListPrice.FormattedPrice + 'USD';
+              var detail = '';
 
-            console.log(item);
+              Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
+                wishlist = response;
+                if (error) {
+                  console.log(error);
+                  Session.set('addWishError', 'This amazon link is not available to be embedded. Sorry about that.');
+                  return;
+                }
+                if (validateInput(name) & validateInput(seller) && wishlist) {
+                  Session.set('addWishError', '');
+                  Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
+                    if (error) {
+                      console.log(error);
+                      Session.set('addWishError', 'This amazon link is not available to be embedded. Sorry about that.');
+                    } else {
 
-            // prevent parsing errors
-            try {
-              if (att.ListPrice && att.ListPrice.length > 0 && att.ListPrice[0].FormattedPrice.length > 0) {
-                price = att.ListPrice[0].FormattedPrice[0];
-              }
+                    }
+                  });
+                } else {
 
-              if (item.Offers && item.Offers.length > 0 && item.Offers[0].Offer[0].OfferListing.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price.length > 0 && item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice) {
-                price = item.Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0];
-              }
-            } catch (err) {}
-
-            // get user wish list then add item to that list
-            Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
-              wishlist = response;
-              console.log(wishlist);
-              if (error) {
-                console.log(error);
-                return;
-              }
-              if (validateInput(name) && validateInput(seller) && wishlist) {
-                Session.set('addWishError', '');
-                Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
-                  if (error) {
-                    console.log(error);
-                    Session.set('addWishError', 'Something went wrong. Maybe try again?');
-                  } else {
-
-                  }
-                });
-              } else {
-                Session.set('addWishError', 'Missing required fields');
-              }
-            });
-
-          } else {
-            Session.set('addWishError', 'Error fetching results from Amazon')
+                }
+              });
+            }
           }
         });
       } else {

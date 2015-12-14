@@ -16,41 +16,22 @@ AMAZON = {
       var asin = validateAmazonURL(url);
       if (asin) {
         asin = asin.trim();
-        console.log('looking up amazon id: ' + asin);
 
-        // var lookup = Meteor.wrapAsync(client.itemLookup);
-        // var result = lookup({
-        //   IdType: 'ASIN',
-        //   itemId: asin,
-        //   responseGroup: 'ItemAttributes,Offers,Images'
-        // });
-        // return result;
-        var lookup = prodAdv.call("ItemLookup", {
+        var lookup = Meteor.wrapAsync(prodAdv.call);
+        var result = lookup('ItemLookup', {
           IdType: 'ASIN',
           ItemId: asin,
-          responseGroup: 'ItemAttributes,Offers,Images'
-        }, function(err, result) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(result)
-            result.OperationRequest.Arguments.Argument.forEach(function(item) {
-              console.log(JSON.stringify(item))
-            });
-            console.log(JSON.stringify(result.Items.Request.Errors))
-            return result;
-          }
+          ResponseGroup: 'Large'
         });
+        return result;
       } else {
         // not a amazon url
         return 'Not an amazon url';
       }
     } catch (err) {
-      console.log(err.stack);
+      console.log(err);
     }
   }
-
-
 }
 
 Meteor.methods(AMAZON);
