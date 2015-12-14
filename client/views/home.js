@@ -40,6 +40,7 @@ Template.home.events({
     event.preventDefault();
 
     var email = event.target.email.value;
+    Session.set('email', email);
     var password = event.target.password.value;
 
     if (validateInput(email) && validateInput(password)) {

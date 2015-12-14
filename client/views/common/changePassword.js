@@ -1,6 +1,4 @@
-Template.changePassword.rendered = function() {
-  Session.set('passwordError', '');
-}
+Template.changePassword.rendered = function() {}
 
 Template.changePassword.events({
   'submit .login': function(event, template) {

@@ -20,7 +20,7 @@ Router.route('/me', {
 //   }
 // });
 
-Router.route('/changepass', {
+Router.route('/changepass/:token', {
   name: 'changepass',
   controller: 'ChangePasswordController'
 });
@@ -95,16 +95,13 @@ AboutController = MainController.extend({
 });
 
 ChangePasswordController = MainController.extend({
-  onBeforeAction: function() {
-    if (!Meteor.userId()) {
-      Router.go('/');
-    } else {
-      this.next();
-    }
-  },
 
   action: function() {
-    this.render('changePassword');
+    this.render('changePassword', {
+      data: function() {
+        return this.params.token;
+      }
+    });
   }
 });
 

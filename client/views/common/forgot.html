@@ -10,6 +10,9 @@
       {{#if $.Session.get 'forgotError'}}
         <p class='error'>{{$.Session.get 'forgotError'}}</p>
       {{/if}}
+      {{#if $.Session.get 'forgotSuccess'}}
+        <p class='success'>{{$.Session.get 'forgotSuccess'}}</p>
+      {{/if}}
 
       <input type="email" name='email' placeholder='Email'>
       <button type='submit'>Reset</button>
