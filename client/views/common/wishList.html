@@ -1,33 +1,38 @@
 <template name='wishList'>
   <div class="wish-list list-section">
+
+    {{#if $.Session.get 'isMine'}}
     {{> addWish}}
+    {{/if}}
 
     {{#if yourItems}}
-    <ul>
-      {{#each yourItems}}
-      {{> listItem}}
-      {{/each}}
-    </ul>
+    <div class="ul-container">
+      <ul>
+        {{#each yourItems}}
+        {{> listItem}}
+        {{/each}}
+      </ul>
+    </div>
     {{/if}}
 
     {{#unless yourItems}}
     {{#if $.Session.get 'isMine'}}
-      <div class="no-items empty-state">
+    <div class="no-items empty-state">
 
-        <span class="icon">{{$.H.sadFace}}</span>
-        
-        <h2>You have no Wishes</h2>
-        <p>Add some items to your wishlist above</p>
-      </div>
-       {{else}}
-        <div class="no-items empty-state">
+      <span class="icon">{{$.H.sadFace}}</span>
 
-        <span class="icon">{{$.H.sadFace}}</span>
-        
-        <h2>This user has no wishes! </h2>
-        <p><small>At least you tried.</small></p>
-      </div>
-       {{/if}}
+      <h2>You have no Wishes</h2>
+      <p>Add some items to your wishlist above</p>
+    </div>
+    {{else}}
+    <div class="no-items empty-state">
+
+      <span class="icon">{{$.H.sadFace}}</span>
+
+      <h2>This user has no wishes! </h2>
+      <p><small>At least you tried.</small></p>
+    </div>
+    {{/if}}
     {{/unless}}
   </div>
 </template>

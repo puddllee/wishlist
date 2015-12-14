@@ -47,14 +47,15 @@
         <span class="bought">
           {{#if bought}}
           {{#if boughtByMe}}
-          <button class="buy">Unmark as bought</button>
+          <span class="buy buy-unmark">Unmark as bought</span>
+          <!-- <button class="buy">Unmark as bought</button> -->
           {{else}}
-          <button class="buy">Bought by {{$.Session.get 'bought_user'}}</button>
+          <span class="buy buy-already">Bought by {{$.Session.get 'bought_user'}}</span>
           {{/if}}
           {{else}}
-          <button class="buy">
+          <span class="buy buy-mark">
             Mark as bought
-          </button>
+          </span>
           {{/if}}
         </span>
         {{/unless}}

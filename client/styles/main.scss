@@ -12,7 +12,8 @@ $susy: (
   );
 
 $mobile: 600px;
-$tablet: 1000px;
+$tablet: 900px;
+$smallish: 1000px;
 $desktop: 1600px;
 $large: 2600px;
 
@@ -110,7 +111,8 @@ textarea {
   margin-top: 2em;
   text-align: center;
   font-size: 6em;
-  @media(max-width: $tablet) {
+  cursor: pointer;
+  @media(max-width: $smallish) {
     font-size: 4em;
   }
 
@@ -125,10 +127,28 @@ textarea {
   }
 }
 
+.list-style {
+  list-style-type: none;
+  margin-bottom: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: $grey-back;
+  border-left: solid 4px $dark-main;
+  border-right: solid 4px $dark-main;
+  @include border-radius($bradius);
+}
+
+.list-style:hover {
+  border-left: solid 4px $accent-colour;
+  border-right: solid 4px $accent-colour;
+}
+
 .heading {
   @include container(60%);
 
-  @media(max-width: $tablet) {
+  @media(max-width: $smallish) {
     @include container(80%)
   }
 
@@ -154,7 +174,7 @@ textarea {
 
   .head {
     @include span(40%);
-    @media(max-width: $tablet) {
+    @media(max-width: $smallish) {
       text-align: center;
     }
   }
@@ -165,8 +185,13 @@ textarea {
 
     .logo {
       width: 100%;
+      height: 100%;
       max-width: 1em;
-      max-height: 11em;
+      max-height: 1em;
+
+      svg {
+        cursor: pointer;
+      }
 
       @media(max-width: $mobile) {
         margin-left: 0.3em;
@@ -500,8 +525,11 @@ textarea {
 }
 
 .list-section {
-  ul {
+  .ul-container {
     @include container();
+  }
+  ul {
+    @include span(100%);
     padding-left: 0;
     overflow-y: auto;
     margin-top: 2em;
@@ -706,9 +734,6 @@ textarea {
 .friend-list {
   a:hover {
     color: $dark-text;
-    .name {
-      border-bottom: solid 1px $dark-main;
-    }
   }
 
   .add-friend {
@@ -749,10 +774,7 @@ textarea {
 
 .friend-item {
   @include container(100%);
-  margin-bottom: 0.5em;
-  padding: 1em 0.5em;
-  list-style-type: none;
-  background-color: $grey-back;
+  @extend .list-style;
 
   .avatar {
     @include span(2 of 12 no-gutters);
@@ -764,7 +786,7 @@ textarea {
 
     .name {
       @include span(10 of 12);
-      margin-top: 0.9em;
+      margin-top: 0.7em;
       margin-bottom: 0;
       padding-left: 2em;
       font-size: 2em;
@@ -774,7 +796,6 @@ textarea {
       @include span(2 of 12);
       margin-top: 0.9em;
       font-size: 2em;
-      margin-top: 1em;
       cursor: pointer;
     }
   }
@@ -816,23 +837,14 @@ textarea {
 
 .list-item {
   @include container();
-  list-style-type: none;
-  padding: 0.5em 0;
-  margin-bottom: 0.5em;
-  background-color: $grey-back;
-  border-left: solid 4px $dark-main;
-  border-right: solid 4px $dark-main;
+  @extend .list-style;
 
   .image-url {
     @include span(3 of 12);
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: 1em;
   }
 
   .info {
     @include span(9 of 12);
-    padding-top: 1em;
 
     p {
       margin: 0;
@@ -886,9 +898,9 @@ textarea {
 
     .price-bought {
       @include container();
-      font-size: 1.5em;
 
       .price {
+        font-size: 1.5em;
         input,span {
           @include span(6 of 12);
         }
@@ -896,11 +908,25 @@ textarea {
 
       .bought {
         @include span(6 of 12);
+        padding-top: 0.4em;
 
-        button {
-          padding: 0.2em 0.5em;
-          font-size: 0.8em;
-          width: 100%;
+        .buy {
+          font-size: 1em;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+
+        .buy:hover {
+          opacity: 0.8;
+        }
+
+        .buy-already {
+          cursor: normal;
+          color: $error-colour;
+        }
+
+        .buy-mark {
+          color: $success-colour;
         }
       }
     }
