@@ -1020,8 +1020,11 @@ textarea {
         color: darkgray;
         margin-top: 0.2em;
       }
-    }
 
+      .zocial-amazon {
+        color: $amazon-orange;
+      }
+    }
     .favicon-icon {
       @include span(2 of 12);
       width: 2.5em;
