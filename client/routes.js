@@ -107,7 +107,7 @@ UserController = MainController.extend({
   },
 
   action: function() {
-    this.state.set('userId', this.params._id);
+    // this.state.set('userId', this.params._id);
     this.render('user', {
       data: function() {
         return this.params._id
@@ -116,10 +116,21 @@ UserController = MainController.extend({
   }
 });
 
-MeController = UserController.extend({
+MeController = MainController.extend({
   onBeforeAction: function() {
-    Router.go('user', {
-      _id: Meteor.userId()
+    if (!Meteor.userId()) {
+      this.render('home');
+    } else {
+      this.next();
+    }
+  },
+
+  action: function() {
+    this.state.set('data', Meteor.userId());
+    this.render('user', {
+      data: function() {
+        return Meteor.userId()
+      }
     })
   }
 });

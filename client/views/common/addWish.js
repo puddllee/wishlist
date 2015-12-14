@@ -100,7 +100,7 @@ Template.addWish.events({
         if (error) {
           console.log(error);
         }
-        if (validateInput(name) && validateInput(seller) && validateInput(price) && wishlist) {
+        if (validateInput(name) && validateInput(seller) && wishlist) {
           Session.set('addWishError', '');
           Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
             if (error) {

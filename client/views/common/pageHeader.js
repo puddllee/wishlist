@@ -3,5 +3,10 @@ Template.pageHeader.events({
     event.preventDefault();
     Meteor.logout();
     Router.go('/');
+  },
+
+  'click .profile': function(event) {
+    event.preventDefault();
+    Router.go('/me');
   }
 });
