@@ -252,88 +252,88 @@ textarea {
   @include container();
 }
 
-.auth {
-  @include container();
-  padding: 3em 0;
+.login {
+  @include container(50%);
+  @media(max-width: $tablet) {
+    @include container(70%);
+  }
+  @media(max-width: $mobile) {
+    @include container(94%);
+  }
+  @media(min-width: $desktop) {
+    @include container(30%);
+  }
 
-  .login {
-    @include container(50%);
-    @media(max-width: $tablet) {
-      @include container(70%);
-    }
-    @media(max-width: $mobile) {
-      @include container(94%);
-    }
-    @media(min-width: $desktop) {
-      @include container(30%);
-    }
+  h2 {
+    text-align: center;
+    margin-top: 0;
+  }
 
-    h2 {
-      text-align: center;
-      margin-top: 0;
-    }
+  input {
+    @include span(100%);
+    margin-bottom: 0.5em;
+    border: solid 1px $main-colour;
+  }
 
-    input {
-      @include span(100%);
-      margin-bottom: 0.5em;
-      border: solid 1px $main-colour;
-    }
+  button {
+    @include span(100%);
+    font-size: 1.5em;
+    height: 2em;
+    margin-bottom: 0.5em;
+  }
 
-    button {
-      @include span(100%);
-      font-size: 1.5em;
-      height: 2em;
-      margin-bottom: 0.5em;
-    }
+  .forgot {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: right;
+  }
 
-    .forgot {
-      margin-top: 0.5em;
-      margin-bottom: 0.5em;
-      text-align: right;
-    }
+  .social {
+    @include container();
+    font-size: 2em;
+    text-align: center;
 
-    .social {
-      @include container();
-      font-size: 2em;
-      text-align: center;
-
-      .icon-wrapper {
-        @include span(50%);
-        @media(max-width: $mobile) {
-          @include span(100%);
-        }
-        color: white;
-        span {
-          @include span(100%);
-          padding: 0.2em 0;
-          cursor: pointer;
-        }
-
-        .fb {
-          background-color: #3b5998;
-        }
-
-        .gplus {
-          background-color: #dd4b39;
-        }
+    .icon-wrapper {
+      @include span(50%);
+      @media(max-width: $mobile) {
+        @include span(100%);
+      }
+      color: white;
+      span {
+        @include span(100%);
+        padding: 0.2em 0;
+        cursor: pointer;
       }
 
-      .icon-wrapper:first-child {
-        padding-left: 0;
-        @media(max-width: $mobile) {
-          padding: 0
-        }
+      .fb {
+        background-color: #3b5998;
       }
 
-      .icon-wrapper:last-child {
-        padding-right: 0;
-        @media(max-width: $mobile) {
-          padding: 0;
-          margin-top: 0.1em;
-        }
+      .gplus {
+        background-color: #dd4b39;
+      }
+    }
+
+    .icon-wrapper:first-child {
+      padding-left: 0;
+      @media(max-width: $mobile) {
+        padding: 0
+      }
+    }
+
+    .icon-wrapper:last-child {
+      padding-right: 0;
+      @media(max-width: $mobile) {
+        padding: 0;
+        margin-top: 0.1em;
       }
     }
   }
+}
+
+.auth {
+  @include container();
+  padding: 3em 0;
 }
 
 .about {

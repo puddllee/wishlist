@@ -94,9 +94,8 @@ AboutController = MainController.extend({
 
 ChangePasswordController = MainController.extend({
   onBeforeAction: function() {
-    if (Meteor.userId()) {
-      Session.set('wishlist', []);
-      this.render('list');
+    if (!Meteor.userId()) {
+      Router.go('/');
     } else {
       this.next();
     }
