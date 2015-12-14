@@ -1,80 +1,7 @@
-var yourList = [{
-  title: 'Product Title',
-  url: 'http://puddllee.io',
-  seller: 'Walmart',
-  detail: 'This is some detail about the product',
-  image: 'https://store.storeimages.cdn-apple.com/4876/as-images.apple.com/is/image/AppleInc/aos/published/images/M/KX/MKXJ2/MKXJ2?wid=445&hei=445&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1441818627105',
-  price: '$40',
-  bought: false,
-  bought_user: 'Jake',
-  type: 'text'
-}, {
-  title: 'Another Title',
-  url: 'http://puddllee.io',
-  seller: 'Walmart',
-  detail: 'This is some detail about the product',
-  image: 'https://store.storeimages.cdn-apple.com/4876/as-images.apple.com/is/image/AppleInc/aos/published/images/M/KX/MKXJ2/MKXJ2?wid=445&hei=445&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1441818627105',
-  price: '$40',
-  bought: false,
-  bought_user: 'Jake',
-  type: 'text'
-}, {
-  title: 'Product Title',
-  url: 'http://puddllee.io',
-  seller: 'Walmart',
-  detail: 'This is some detail about the product',
-  image: 'https://store.storeimages.cdn-apple.com/4876/as-images.apple.com/is/image/AppleInc/aos/published/images/M/KX/MKXJ2/MKXJ2?wid=445&hei=445&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1441818627105',
-  price: '$40',
-  bought: false,
-  bought_user: 'Jake',
-  type: 'text'
-}, {
-  title: 'Product Title',
-  url: 'http://puddllee.io',
-  seller: 'Walmart',
-  detail: 'This is some detail about the product',
-  image: 'https://store.storeimages.cdn-apple.com/4876/as-images.apple.com/is/image/AppleInc/aos/published/images/M/KX/MKXJ2/MKXJ2?wid=445&hei=445&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1441818627105',
-  price: '$40',
-  bought: false,
-  bought_user: 'Jake',
-  type: 'text'
-}, {
-  title: 'Product Title',
-  url: 'http://puddllee.io',
-  seller: 'Walmart',
-  detail: 'This is some detail about the product',
-  image: 'https://store.storeimages.cdn-apple.com/4876/as-images.apple.com/is/image/AppleInc/aos/published/images/M/KX/MKXJ2/MKXJ2?wid=445&hei=445&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1441818627105',
-  price: '$40',
-  bought: false,
-  bought_user: 'Jake',
-  type: 'text'
-}, {
-  title: 'Product Title',
-  url: 'http://puddllee.io',
-  seller: 'Walmart',
-  detail: 'This is some detail about the product',
-  image: 'https://store.storeimages.cdn-apple.com/4876/as-images.apple.com/is/image/AppleInc/aos/published/images/M/KX/MKXJ2/MKXJ2?wid=445&hei=445&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1441818627105',
-  price: '$40',
-  bought: false,
-  bought_user: 'Jake',
-  type: 'text'
-}, {
-  title: 'Product Title',
-  url: 'http://puddllee.io',
-  seller: 'Walmart',
-  detail: 'This is some detail about the product',
-  image: 'https://store.storeimages.cdn-apple.com/4876/as-images.apple.com/is/image/AppleInc/aos/published/images/M/KX/MKXJ2/MKXJ2?wid=445&hei=445&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1441818627105',
-  price: '$40',
-  bought: false,
-  bought_user: 'Jake',
-  type: 'text'
-}];
-
-
 var SAVE_WAIT_TIME = 1000; // ms
 var last_save;
 
-Template.list.rendered = function() {
+Template.list.rendered = function () {
   Session.set('yourList', []);
   // var wishlist = Wishlists.findOne({
   //   owner: Meteor.userId()
@@ -82,10 +9,25 @@ Template.list.rendered = function() {
   // Session.set('wishlist', wishlist);
   // console.log(wishlist);
 
-  Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
-    Session.set('wishlist', wishlist);
-    Session.set('isMine', Meteor.userId() === wishlist.owner);
+  Meteor.call('getWishlist', Meteor.userId(), function (error, wishlist) {
+    if (wishlist) {
+      Session.set('wishlist', wishlist);
+      Session.set('isMine', Meteor.userId() === wishlist.owner);
+    }
   });
 }
+
+Template.list.helpers({
+  wishlist: function () {
+    var user = Meteor.userId(); // should make this get recalled when user changes
+    Meteor.call('getWishlist', Meteor.userId(), function (error, wishlist) {
+      if (wishlist) {
+        console.log('setting here');
+        Session.set('wishlist', wishlist);
+        Session.set('isMine', Meteor.userId() === wishlist.owner);
+      }
+    });
+  }
+});
 
 Template.list.events({});
