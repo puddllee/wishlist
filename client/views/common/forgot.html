@@ -2,4 +2,18 @@
 
   {{> pageHeader}}
 
+  <div class="auth">
+    <form class="login">
+      <h1>Reset Password</h1>
+      <p class='center'>Enter your email and a we will send you a reset link.</p>
+
+      {{#if $.Session.get 'forgotError'}}
+        <p class='error'>{{$.Session.get 'forgotError'}}</p>
+      {{/if}}
+
+      <input type="email" name='email' placeholder='Email'>
+      <button type='submit'>Reset</button>
+    </form>
+  </div>
+
 </template>

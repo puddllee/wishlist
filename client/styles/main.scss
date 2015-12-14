@@ -138,6 +138,10 @@ textarea {
   }
 }
 
+.center {
+  text-align: center;
+}
+
 .list-style {
   list-style-type: none;
   margin-bottom: 0.5em;
@@ -264,7 +268,7 @@ textarea {
     @include container(30%);
   }
 
-  h2 {
+  h1, h2 {
     text-align: center;
     margin-top: 0;
   }
