@@ -4,6 +4,48 @@ Template.addWish.rendered = function() {
   Session.set('amazonDisabled', true);
 }
 
+var addWish = function(params, callback) {
+  var name = params.name || '';
+  var price = params.price || '';
+  var seller = params.seller || '';
+  var url = params.url || '';
+  var image = params.image || '';
+  var detail = params.detail || '';
+
+  Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
+    wishlist = response;
+    if (error) {
+      return;
+    }
+    if (validateInput(name) && validateInput(seller) && wishlist) {
+      Session.set('addWishError', '');
+      Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
+        if (error) {
+          Session.set('addWishError', 'Something went wrong. Maybe try again?');
+          if (callback) {
+            callback({
+              isValid: false
+            });
+          }
+          return;
+        } else {
+          if (callback) {
+            callback(null);
+          }
+        }
+      });
+    } else {
+      console.log(wishlist);
+      Session.set('addWishError', 'Missing required fields');
+      if (callback) {
+        callback({
+          isValid: false
+        });
+      }
+    }
+  });
+}
+
 Template.addWish.events({
   'click #amazon-tab': function() {
     Session.set('amazon-active', true);
@@ -35,37 +77,61 @@ Template.addWish.events({
         Session.set('addWishError', '');
         Meteor.call('productForURL', url, function(err, res) {
           if (!err && res) {
-            var item = res.Items.Item;
+            var item = res.Item;
+
             if (!item) {
-              console.log('Amazon\'s fault, not ours');
-              Session.set('addWishError', 'This amazon link is not available to be embedded. Sorry about that.');
+              // console.log('Amazon\'s fault, not ours');
+              console.log(res);
+              addWish({
+                name: res.name,
+                price: res.price,
+                seller: 'Amazon',
+                url: res.url,
+                image: res.image,
+                detail: res.detail
+              });
               return;
             } else {
-              var att = item.ItemAttributes;
-              var name = att.Title;
-              var seller = 'Amazon';
-              var image = item.MediumImage.URL;
-              var url = item.DetailPageURL;
-              var price = att.ListPrice.FormattedPrice + 'USD';
+              var name = '';
+              var seller = '';
+              var image = '';
+              var price = '';
               var detail = '';
 
-              Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
-                wishlist = response;
-                if (error) {
-                  Session.set('addWishError', 'This amazon link is not available to be embedded. Sorry about that.');
-                  return;
+              // returns current code if usd or can, otherwise empty string
+              // takes in amazon price object
+              var getCurrencyCode = function(price) {
+                if (price.CurrencyCode === 'USD' || price.CurrencyCode === 'CAN') {
+                  return ' ' + price.CurrencyCode;
                 }
-                if (validateInput(name) & validateInput(seller) && wishlist) {
-                  Session.set('addWishError', '');
-                  Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
-                    if (error) {
-                      Session.set('addWishError', 'This amazon link is not available to be embedded. Sorry about that.');
-                    } else {}
-                  });
-                } else {
+                return '';
+              }
 
+              try {
+                var att = item.ItemAttributes;
+                name = att.Title;
+                seller = 'Amazon';
+                image = item.MediumImage.URL;
+                url = item.DetailPageURL;
+                price = att.ListPrice.FormattedPrice + getCurrencyCode(att.ListPrice);
+                detail = '';
+
+                if (item.Offers && item.Offers.Offer && item.Offers.Offer.OfferListing && item.Offers.Offer.OfferListing.Price) {
+                  price = item.Offers.Offer.OfferListing.Price.FormattedPrice + getCurrencyCode(item.Offers.Offer.OfferListing.Price);
                 }
-              });
+
+              } catch (error) {
+                // parse error, don't do anything
+              }
+
+              addWish({
+                name: name,
+                seller: seller,
+                image: image,
+                url: url,
+                price: price,
+                detail: detail
+              }, function(error) {});
             }
           }
         });
@@ -80,28 +146,23 @@ Template.addWish.events({
       var url = event.target.url.value;
       var detail = event.target.detail.value;
       var image = event.target.imageUrl.value;
-      Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
-        wishlist = response;
-        if (error) {
-          return;
-        }
-        if (validateInput(name) && validateInput(seller) && wishlist) {
-          Session.set('addWishError', '');
-          Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
-            if (error) {
-              Session.set('addWishError', 'Something went wrong. Maybe try again?');
-              return;
-            } else {
-              event.target.seller.value = '';
-              event.target.price.value = '';
-              event.target.url.value = '';
-              event.target.detail.value = '';
-              event.target.imageUrl.value = '';
-              event.target.name.value = '';
-            }
-          });
-        } else {
-          Session.set('addWishError', 'Missing required fields');
+
+      addWish({
+        name: name,
+        seller: seller,
+        price: price,
+        url: url,
+        detail: detail,
+        image: image
+      }, function(error) {
+        if (!error) {
+          // remove items from form
+          event.target.seller.value = '';
+          event.target.price.value = '';
+          event.target.url.value = '';
+          event.target.detail.value = '';
+          event.target.imageUrl.value = '';
+          event.target.name.value = '';
         }
       });
     }
