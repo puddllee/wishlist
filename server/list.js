@@ -57,8 +57,17 @@ Wishlist = {
     },
 
     buyItem: function(itemId) {
-      console.log('buying: ' + itemId);
       if (Meteor.userId()) {
+        var item = Items.findOne({
+          _id: itemId
+        });
+        if (!item) {
+          console.log('Buy Item: Item not found');
+        }
+        if (item.bought) {
+          console.log('Cannot buy already bought item');
+          return;
+        }
         Items.update({
           _id: itemId
         }, {
@@ -91,7 +100,6 @@ Wishlist = {
     },
 
     getBoughtUserName: function(itemId) {
-      console.log('geting username for ' + itemId);
       var item = Items.findOne({
         _id: itemId
       });
