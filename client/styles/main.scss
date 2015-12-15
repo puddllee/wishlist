@@ -1065,13 +1065,13 @@ textarea {
         width: 100%;
         height: 4em;
         border-color: $dark-main;
-
-        .empty-detail {
-          padding: 0;
-          display: inline;
-          color: darkgray;
-        }
       }
+    }
+
+    .empty-detail {
+      padding: 0;
+      display: inline;
+      color: darkgray;
     }
 
     .url {
