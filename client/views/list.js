@@ -9,17 +9,23 @@ Template.list.rendered = function() {
   // Session.set('wishlist', wishlist);
   // console.log(wishlist);
 
-  Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
-    if (wishlist) {
-      Session.set('wishlist', wishlist);
-      Session.set('isMine', Meteor.userId() === wishlist.owner);
+  // runs when user changes changes
+  Tracker.autorun(function() {
+    if (Meteor.userId()) {
+      Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
+        if (wishlist) {
+          Session.set('wishlist', wishlist);
+          Session.set('isMine', Meteor.userId() === wishlist.owner);
+        }
+      });
     }
-  });
+  })
 }
 
 Template.list.helpers({
   wishlist: function() {
     var user = Meteor.userId(); // should make this get recalled when user changes
+    console.log(user);
     console.log('getting wishlist');
     Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
       if (wishlist) {
