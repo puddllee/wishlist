@@ -11,6 +11,7 @@ $susy: (
   gutter-position: inside
   );
 
+$noti-small: 400px;
 $small: 500px;
 $mobile: 600px;
 $tablet: 900px;
@@ -456,6 +457,16 @@ textarea {
   top: 2em;
   right: 2em;
 
+  @media(max-width: $noti-small) {
+    right: 0.5em;
+  }
+
+  ul {
+    @media(max-width: $noti-small) {
+      padding-left: 0.5em;
+    }
+  }
+
   .noti-list {
     .noti {
       @include container(25em);
@@ -467,6 +478,10 @@ textarea {
       @include box-shadow(darkgray, 0px, 0px, 10px);
 
       @include fadeIn();
+
+      @media(max-width: $noti-small) {
+        min-width: calc(100% - 1em);
+      }
 
       .icon {
         @include span(2 of 12);
@@ -515,6 +530,10 @@ textarea {
 
         .decline {
           color: $error-colour;
+
+          @media(max-width: $noti-small) {
+            padding-left: 1em;
+          }
         }
 
         .okay {
@@ -1005,11 +1024,15 @@ textarea {
 
     .title-icon {
       @include container();
-      font-size: 1.5em;
+      font-size: 1.4em;
       font-weight: 200;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      @media(max-width: $mobile) {
+        font-size: 1.3em;
+      }
 
       .type {
         @include span(2 of 12);
