@@ -903,6 +903,12 @@ textarea {
       @-moz-document url-prefix() {
         border-bottom: none;
       }
+
+      .entypo-paper-plane {
+        @media(max-width: $small) {
+          margin-right: 0;
+        }
+      }
     }
   }
 }
