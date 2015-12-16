@@ -271,6 +271,7 @@ textarea {
 #wrapper {
   @include container();
   min-height: calc(100% - #{$footer-height});
+  // height: 100%;
 }
 
 .changepassword {

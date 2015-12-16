@@ -4,6 +4,11 @@ Router.configure({
   trackPageView: true
 });
 
+// default route transitions
+// Transitioner.default({ in : 'transition.fadeIn',
+//   out: 'transition.fadeOut'
+// });
+
 Router.route('/', {
   name: 'index',
   controller: 'HomeController'

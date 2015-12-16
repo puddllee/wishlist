@@ -20,6 +20,7 @@ boilerplate-generator@1.0.4
 caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
+ccorcos:transitioner@2.0.2
 check@1.1.0
 chuangbo:cookie@1.1.0
 coffeescript@1.0.11
@@ -128,6 +129,7 @@ velocity:meteor-internals@1.1.0_7
 velocity:meteor-stubs@1.1.1
 velocity:shim@0.1.0
 velocity:source-map-support@0.3.2_1
+velocityjs:velocityjs@1.2.1
 webapp@1.2.3
 webapp-hashing@1.0.5
 wizonesolutions:underscore-string@1.0.0
