@@ -48,7 +48,7 @@ Template.listItem.helpers({
   imageUrl: function() {
     var image = this.image;
     if (!image || image === '') {
-      image = '/images/gift.svg';
+      image = '/images/gift_180.png';
     }
     return image;
   },

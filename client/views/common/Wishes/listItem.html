@@ -1,6 +1,8 @@
 <template name='listItem'>
   <li class='list-item'>
-    <img class='image-url' src="{{imageUrl}}" alt="{{title}}">
+    <div class="item-image-container">
+      <img class='image-url' src="{{imageUrl}}" alt="{{title}}">
+    </div>
     <div class="info">
       <span class="title-icon">
         <!-- <span class="type entypo-dribbble"></span> -->
@@ -8,7 +10,7 @@
         <!-- <input type="text" class="noinput title" value="{{name}}" disabled="{{#unless $.
         Session.get 'isMine'}}true{{/unless}}"> -->
         {{#if $.Session.get 'isMine'}}
-        {{> editableText collection="items" field="name" class='sinput'}}
+        {{> editableText collection="items" field="name" class='sinput' placeholder="Name" substitute='<span class="empty-detail">Name</span>'}}
         {{else}}
         <span class='sinput'>{{name}}</span>
         {{/if}}
@@ -23,23 +25,25 @@
           <span class="favicon-icon zocial-amazon"></span>
         {{else}}
           {{#if $.H.favicon url}}
-            <img class='favicon-icon' src="{{$.H.favicon url}}" alt="">
+            <img id='favicon-icon-image' class='favicon-icon' src="{{$.H.favicon url}}" alt="">
+            {{else}}
+            <span class="favicon-icon entypo-basket"></span>
           {{/if}}
         {{/if}}
 
-        <div class="seller">
+        <span class="seller">
           {{#if $.Session.get 'isMine'}}
-            {{> editableText collection="items" field="seller" class='sinput'}}
+            {{> editableText collection="items" field="seller" class='sinput' placeholder="Seller" substitute='<span class="empty-detail">Seller</span>'}}
           {{else}}
             <span>{{seller}}</span>
           {{/if}}
-        </div>
+        </span>
       </span>
 
       <span class="price-bought">
         <span class="price">
           {{#if $.Session.get 'isMine'}}
-          {{> editableText collection="items" field="price" class='sinput'}}
+          {{> editableText collection="items" field="price" class='sinput' placeholder="Price" substitute='<span id="empty-detail-price" class="empty-detail">Price</span>'}}
           {{else}}
           <span class='sinput'>{{price}}</span>
           {{/if}}

@@ -6,13 +6,13 @@ Template.pageHeader.events({
   },
 
   'click .profile': function(event) {
-    event.preventDefault();
-    Router.go('/me');
+    // event.preventDefault();
+    // Router.go('/me');
   },
 
   'click .home': function(event) {
-    event.preventDefault();
-    Router.go('/home');
+    // event.preventDefault();
+    // Router.go('/');
   },
 
   'click .header-text': function(event) {

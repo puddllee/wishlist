@@ -11,6 +11,8 @@ $susy: (
   gutter-position: inside
   );
 
+$noti-small: 400px;
+$small: 500px;
 $mobile: 600px;
 $tablet: 900px;
 $smallish: 1000px;
@@ -33,7 +35,7 @@ body {
   color: $dark-text;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  // box-sizing: border-box;
+  // box-sizing: border-box
 }
 
 *, *:before, *:after {
@@ -101,6 +103,18 @@ textarea {
   border: none;
 }
 
+.hide-on-mobile {
+  @media(max-width: $mobile) {
+    display: none;
+  }
+}
+
+.hide-on-small {
+  @media(max-width: $small) {
+    display: none;
+  }
+}
+
 .error {
   padding: 0;
   margin: 0;
@@ -111,6 +125,21 @@ textarea {
   padding: 0;
   margin: 0;
   color: $success-colour;
+}
+
+.required:after {
+  content: "*";
+  padding-left: 2px;
+  color: $accent-colour;
+}
+
+.spinner-container {
+  @include span(100%)
+  position: relative;
+  height: 2.5em;
+
+  .spinner {
+  }
 }
 
 .text-link {
@@ -175,6 +204,7 @@ textarea {
 
   @media(max-width: $mobile) {
     @include container(100%);
+    padding-left: 0.3em;
   }
 
   .head:first-child {
@@ -436,6 +466,16 @@ textarea {
   top: 2em;
   right: 2em;
 
+  @media(max-width: $noti-small) {
+    right: 0.5em;
+  }
+
+  ul {
+    @media(max-width: $noti-small) {
+      padding-left: 0.5em;
+    }
+  }
+
   .noti-list {
     .noti {
       @include container(25em);
@@ -447,6 +487,10 @@ textarea {
       @include box-shadow(darkgray, 0px, 0px, 10px);
 
       @include fadeIn();
+
+      @media(max-width: $noti-small) {
+        min-width: calc(100% - 1em);
+      }
 
       .icon {
         @include span(2 of 12);
@@ -495,6 +539,10 @@ textarea {
 
         .decline {
           color: $error-colour;
+
+          @media(max-width: $noti-small) {
+            padding-left: 1em;
+          }
         }
 
         .okay {
@@ -659,6 +707,10 @@ textarea {
   img {
     width: 6em;
   }
+
+  [class*="entypo-"]:before {
+    font-size: 6em;
+  }
 }
 
 .invite-mail {
@@ -712,6 +764,9 @@ textarea {
       padding: 0.4em 0;
       cursor: pointer;
       background-color: $dark-main;
+
+      border-bottom: none;
+      // transition: border-bottom .2s ease-out;
     }
 
     .tab:first-child {
@@ -722,7 +777,9 @@ textarea {
       border-bottom: 2px solid $accent-colour;
       padding-bottom: calc(0.4em - 2px);
       opacity: 1;
-      // transition: border-bottom .5s ease-out;
+
+      // transition: padding-bottom .1s ease-out;
+      // transition: border-bottom .1s ease-out;
     }
 
     .amazon {
@@ -745,6 +802,10 @@ textarea {
 
     .text {
       @include container();
+
+      .spinner-container {
+        height: 19em;
+      }
 
       p {
         font-size: 0.9em;
@@ -789,6 +850,13 @@ textarea {
           resize: none;
           width: 100%;
           height: 4em;
+        }
+
+        span {
+          padding-top: 0.2em;
+          word-wrap: break-word;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 
@@ -876,6 +944,12 @@ textarea {
       @-moz-document url-prefix() {
         border-bottom: none;
       }
+
+      .entypo-paper-plane {
+        @media(max-width: $small) {
+          margin-right: 0;
+        }
+      }
     }
   }
 }
@@ -883,6 +957,8 @@ textarea {
 .friend-item {
   @include container(100%);
   @extend .list-style;
+
+  @include fadeIn();
 
   .avatar {
     @include span(2 of 12 no-gutters);
@@ -947,8 +1023,18 @@ textarea {
   @include container();
   @extend .list-style;
 
-  .image-url {
-    @include span(3 of 12);
+  @include fadeIn();
+
+  .item-image-container {
+    max-width: 25%;
+    padding-left: 0.83333%;
+    padding-right: 0.83333%;
+    float: left;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 
   .info {
@@ -960,11 +1046,15 @@ textarea {
 
     .title-icon {
       @include container();
-      font-size: 1.5em;
+      font-size: 1.4em;
       font-weight: 200;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      @media(max-width: $mobile) {
+        font-size: 1.3em;
+      }
 
       .type {
         @include span(2 of 12);
@@ -990,7 +1080,7 @@ textarea {
     }
 
     .seller {
-      @include span(10 of 12 no-gutters);
+      @include span(8 of 12 no-gutters);
       color: darkgray;
       font-size: 1.2em;
     }
@@ -999,25 +1089,40 @@ textarea {
       @include container();
       input, span {
         color: darkgray;
-        margin-top: 0.2em;
+        margin-top: 0.1em;
+        margin-bottom: 0.1em;
+        padding-left: 0.4em;
       }
 
-      .zocial-amazon {
+      .zocial-amazon, .entypo-basket {
         color: $amazon-orange;
+        padding-top: 4px;
       }
     }
+
     .favicon-icon {
-      @include span(2 of 12);
-      width: 2.5em;
+      @include span(40px no-gutters);
       padding-right: 1em;
       padding-top: 3px;
       color: $amazon-orange;
     }
+
+    // favicon
+    #favicon-icon-image {
+      // width: 42px;
+    }
+
     .price-bought {
       @include container();
 
       .price {
-        font-size: 1.5em;
+        font-family: Arial;
+        font-size: 1.4em;
+
+        @media(max-width: $mobile) {
+          font-size: 1.35em;
+        }
+
         input,span {
           @include span(6 of 12 no-gutters);
         }
@@ -1026,6 +1131,12 @@ textarea {
       .bought {
         @include span(6 of 12);
         padding-top: 0.4em;
+
+        @media(max-width: $mobile) {
+          text-align: center;
+          padding-left: 0.3em;
+          padding-top: 0;
+        }
 
         .buy {
           font-size: 1em;
@@ -1057,21 +1168,45 @@ textarea {
       margin-bottom: -0.5em;
       padding-bottom: 0.5em;
       padding-top: 0.5em;
+      padding-left: 0;
       span,textarea {
         display: block;
-        padding: 0.5em;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+        padding-top: 0.2em;
         background-color: white;
         resize: none;
         width: 100%;
         height: 4em;
         border-color: $dark-main;
-
-        .empty-detail {
-          padding: 0;
-          display: inline;
-          color: darkgray;
-        }
       }
+
+      span {
+        padding-top: 0.2em;
+        padding-left: 0.2em;
+        word-wrap: break-word;
+      }
+
+      .editable-text {
+        overflow-y: auto;
+      }
+
+      .empty-detail {
+        overflow-y: none;
+        height: 2em;
+        padding: 0;
+      }
+    }
+
+    .empty-detail {
+      font-size: 1em;
+      padding: 0;
+      display: inline;
+      color: darkgray;
+    }
+
+    #empty-detail-price {
+      font-size: 0.9em;
     }
 
     .url {
