@@ -1,8 +1,8 @@
 Template.loading.rendered = function() {
   if (!Session.get('loadingSplash')) {
     this.loading = window.pleaseWait({
-      logo: '/images/Meteor-logo.png',
-      backgroundColor: '#7f8c8d',
+      logo: '/images/gift_large.png',
+      backgroundColor: '#FFE165',
       loadingHtml: message + spinner
     });
     Session.set('loadingSplash', true); // just show loading splash once
@@ -15,5 +15,5 @@ Template.loading.destroyed = function() {
   }
 };
 
-var message = '<p class="loading-message">Loading Message</p>';
+var message = '<p class="loading-message">Loading Wish List...</p>';
 var spinner = '<div class="sk-spinner sk-spinner-rotating-plane"></div>';

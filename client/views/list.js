@@ -9,9 +9,13 @@ Template.list.rendered = function() {
   // Session.set('wishlist', wishlist);
   // console.log(wishlist);
 
+  var path = Router.current().route.path(this);
+  Session.set('isMine', path === '/me' || path === '/');
+
   // runs when user changes changes
   Tracker.autorun(function() {
     if (Meteor.userId()) {
+      console.log('ran here');
       Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
         if (wishlist) {
           Session.set('wishlist', wishlist);
