@@ -7,12 +7,13 @@
     {{#if currentUser}}
     <span class="user-actions">
       {{#if showHome}}
-        <a class="home">Home</a> |
+        <a href='/' class="home">Home</a> |
       {{else}}
-        <a class="profile">Your Profile</a> |
+        <a href='/me' class="profile">Your Profile</a> |
       {{/if}}
       <a class='logout'>Logout</a>
     </span>
     {{/if}}
+
   </div>
 </template>
