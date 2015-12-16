@@ -11,6 +11,7 @@ $susy: (
   gutter-position: inside
   );
 
+$small: 500px;
 $mobile: 600px;
 $tablet: 900px;
 $smallish: 1000px;
@@ -99,6 +100,18 @@ textarea {
   padding-left: 0.5em;
   padding-top: 0.4em;
   border: none;
+}
+
+.hide-on-mobile {
+  @media(max-width: $mobile) {
+    display: none;
+  }
+}
+
+.hide-on-small {
+  @media(max-width: $small) {
+    display: none;
+  }
 }
 
 .error {
