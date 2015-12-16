@@ -764,6 +764,9 @@ textarea {
       padding: 0.4em 0;
       cursor: pointer;
       background-color: $dark-main;
+
+      border-bottom: none;
+      // transition: border-bottom .2s ease-out;
     }
 
     .tab:first-child {
@@ -774,7 +777,9 @@ textarea {
       border-bottom: 2px solid $accent-colour;
       padding-bottom: calc(0.4em - 2px);
       opacity: 1;
-      // transition: border-bottom .5s ease-out;
+
+      // transition: padding-bottom .1s ease-out;
+      // transition: border-bottom .1s ease-out;
     }
 
     .amazon {
