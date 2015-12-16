@@ -25,10 +25,12 @@ Noti = {
       _id: friend_id
     });
 
-    var noti = Notis.findOne({
-      owner: user._id,
-      from: fromId
-    });
+    if (user) {
+      var noti = Notis.findOne({
+        owner: user._id,
+        from: fromId
+      });
+    }
 
     var sentLabel = 'Friend request sent';
     this.addNoti(sentLabel, 'timed');
