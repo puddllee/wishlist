@@ -18,32 +18,32 @@
 
       {{#if amazonActive}}
       <span class="amazon">
-        <input class='required amazon-input' type="text" name='amazonurl' placeholder='Amazon url'>
+        <input class='required amazon-input' type="text" name='amazonurl' placeholder='Amazon url' autocomplete="false">
         <button class='amazon-submit' type='submit' disabled="{{#if amazonDisabled}}true{{/if}}"><span class="entypo-right"></span></button>
       </span>
       {{else}}
       <span class="text">
         <span class="text-input product-name">
           <p class="required">Product Name</p>
-          <input type="text" name='name' placeholder='Blue Socks'>
+          <input type="text" name='name' placeholder='Blue Socks' autocomplete="false">
         </span>
 
         <span class="text-input seller">
           <p class="required">Seller</p>
-          <input type="text" name='seller' placeholder='Sock Store'>
+          <input type="text" name='seller' placeholder='Sock Store' autocomplete="false">
         </span>
         <span class='text-input price'>
           <p>Price</p>
-          <input type="text" name='price' placeholder='$10.00'>
+          <input type="text" name='price' placeholder='$10.00' autocomplete="false">
         </span>
 
         <span class="text-input url">
           <p>Store Url</p>
-          <input type="text" name='url' placeholder='http://'>
+          <input type="text" name='url' placeholder='http://' autocomplete="false">
         </span>
         <span class="text-input image-url">
           <p>Image Url</p>
-          <input type="text" name='imageUrl' placeholder='image link'>
+          <input type="text" name='imageUrl' placeholder='image link' autocomplete="false">
         </span>
 
         <span class="text-input detail">
