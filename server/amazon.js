@@ -50,10 +50,11 @@ var amazonFallback = function(result, url) {
     var image = websiteData.image || '';
 
     // parse title to remove 'Amazon.ca: Electronics' or ', Amazon.com'
+    if (title.indexOf(':') !== -1) {
+      title = title.split(':')[0];
+    }
     if (title.indexOf(',') !== -1) {
       title = title.split(',')[0];
-    } else if (title.indexOf(':') !== -1) {
-      title = title.split(':')[0];
     }
 
     price = getPriceFromText(websiteData.text);

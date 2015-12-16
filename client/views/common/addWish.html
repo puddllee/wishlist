@@ -18,18 +18,18 @@
 
       {{#if amazonActive}}
       <span class="amazon">
-        <input class='amazon-input' type="text" name='amazonurl' placeholder='Amazon url'>
+        <input class='required amazon-input' type="text" name='amazonurl' placeholder='Amazon url'>
         <button class='amazon-submit' type='submit' disabled="{{#if amazonDisabled}}true{{/if}}"><span class="entypo-right"></span></button>
       </span>
       {{else}}
       <span class="text">
         <span class="text-input product-name">
-          <p>Product Name</p>
+          <p class="required">Product Name</p>
           <input type="text" name='name' placeholder='Blue Socks'>
         </span>
 
         <span class="text-input seller">
-          <p>Seller</p>
+          <p class="required">Seller</p>
           <input type="text" name='seller' placeholder='Sock Store'>
         </span>
         <span class='text-input price'>

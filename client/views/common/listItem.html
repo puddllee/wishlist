@@ -23,17 +23,17 @@
           <span class="favicon-icon zocial-amazon"></span>
         {{else}}
           {{#if $.H.favicon url}}
-            <img class='favicon-icon' src="{{$.H.favicon url}}" alt="">
+            <img id='favicon-icon-image' class='favicon-icon' src="{{$.H.favicon url}}" alt="">
           {{/if}}
         {{/if}}
 
-        <div class="seller">
+        <span class="seller">
           {{#if $.Session.get 'isMine'}}
             {{> editableText collection="items" field="seller" class='sinput' placeholder="Seller" substitute='<span class="empty-detail">Seller</span>'}}
           {{else}}
             <span>{{seller}}</span>
           {{/if}}
-        </div>
+        </span>
       </span>
 
       <span class="price-bought">
