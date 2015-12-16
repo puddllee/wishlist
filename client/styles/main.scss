@@ -679,6 +679,10 @@ textarea {
   img {
     width: 6em;
   }
+
+  [class*="entypo-"]:before {
+    font-size: 6em;
+  }
 }
 
 .invite-mail {
