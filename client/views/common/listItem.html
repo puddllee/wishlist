@@ -26,6 +26,8 @@
         {{else}}
           {{#if $.H.favicon url}}
             <img id='favicon-icon-image' class='favicon-icon' src="{{$.H.favicon url}}" alt="">
+            {{else}}
+            <span class="favicon-icon entypo-basket"></span>
           {{/if}}
         {{/if}}
 
