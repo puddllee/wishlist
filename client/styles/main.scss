@@ -940,6 +940,8 @@ textarea {
   @include container(100%);
   @extend .list-style;
 
+  @include fadeIn();
+
   .avatar {
     @include span(2 of 12 no-gutters);
     @include border-radius(150px);
@@ -1002,6 +1004,8 @@ textarea {
 .list-item {
   @include container();
   @extend .list-style;
+
+  @include fadeIn();
 
   .item-image-container {
     max-width: 25%;
@@ -1181,6 +1185,10 @@ textarea {
       padding: 0;
       display: inline;
       color: darkgray;
+    }
+
+    #empty-detail-price {
+      font-size: 0.9em;
     }
 
     .url {

@@ -41,7 +41,7 @@
       <span class="price-bought">
         <span class="price">
           {{#if $.Session.get 'isMine'}}
-          {{> editableText collection="items" field="price" class='sinput' placeholder="Price" substitute='<span class="empty-detail">Price</span>'}}
+          {{> editableText collection="items" field="price" class='sinput' placeholder="Price" substitute='<span id="empty-detail-price" class="empty-detail">Price</span>'}}
           {{else}}
           <span class='sinput'>{{price}}</span>
           {{/if}}
