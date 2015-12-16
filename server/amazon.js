@@ -24,6 +24,11 @@ var getPriceFromText = function(text) {
     match = priceString.match(PRICE_REG);
     if (match && match.length >= 2) {
       price = match[2] + ' ' + match[1];
+
+      // add dollar sign if needed
+      if (match[1] === 'USD' || match[1] === 'CDN') {
+        price = '$' + price;
+      }
     }
   }
   return price;

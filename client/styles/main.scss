@@ -133,6 +133,15 @@ textarea {
   color: $accent-colour;
 }
 
+.spinner-container {
+  @include span(100%)
+  position: relative;
+  height: 2.5em;
+
+  .spinner {
+  }
+}
+
 .text-link {
   font-size: 1em;
   text-decoration: none;
@@ -788,6 +797,10 @@ textarea {
 
     .text {
       @include container();
+
+      .spinner-container {
+        height: 19em;
+      }
 
       p {
         font-size: 0.9em;

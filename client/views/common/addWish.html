@@ -13,51 +13,65 @@
       </div>
 
       {{#unless $.Session.equals 'addWishError' ''}}
-      <p class='error'>{{$.Session.get 'addWishError'}}</p>
+        <p class='error'>{{$.Session.get 'addWishError'}}</p>
       {{/unless}}
 
       {{#if amazonActive}}
-      <span class="amazon">
-        <input class='required amazon-input' type="text" name='amazonurl' placeholder='Amazon url' autocomplete="false">
-        <button class='amazon-submit' type='submit' disabled="{{#if amazonDisabled}}true{{/if}}"><span class="entypo-right"></span></button>
-      </span>
+
+        <span class="amazon">
+          {{#if $.Session.get 'showWishingLoading'}}
+            {{> wishLoading}}
+          {{else}}
+            <input class='required amazon-input' type="text" name='amazonurl' placeholder='Amazon url' autocomplete="false">
+            <button class='amazon-submit' type='submit' disabled="{{#if amazonDisabled}}true{{/if}}"><span class="entypo-right"></span></button>
+          {{/if}}
+        </span>
+
+
       {{else}}
-      <span class="text">
-        <span class="text-input product-name">
-          <p class="required">Product Name</p>
-          <input type="text" name='name' placeholder='Blue Socks' autocomplete="false">
-        </span>
 
-        <span class="text-input seller">
-          <p class="required">Seller</p>
-          <input type="text" name='seller' placeholder='Sock Store' autocomplete="false">
-        </span>
-        <span class='text-input price'>
-          <p>Price</p>
-          <input type="text" name='price' placeholder='$10.00' autocomplete="false">
-        </span>
+          <span class="text">
 
-        <span class="text-input url">
-          <p>Store Url</p>
-          <input type="text" name='url' placeholder='http://' autocomplete="false">
-        </span>
-        <span class="text-input image-url">
-          <p>Image Url</p>
-          <input type="text" name='imageUrl' placeholder='image link' autocomplete="false">
-        </span>
+            {{#if $.Session.get 'showWishingLoading'}}
+              {{> wishLoading}}
+            {{else}}
+              <span class="text-input product-name">
+                <p class="required">Product Name</p>
+                <input type="text" name='name' placeholder='Blue Socks' autocomplete="false">
+              </span>
 
-        <span class="text-input detail">
-          <p>Detail</p>
-          <textarea name="detail" cols="3" placeholder='If the blue ones arent available, red will do'></textarea>
-        </span>
+              <span class="text-input seller">
+                <p class="required">Seller</p>
+                <input type="text" name='seller' placeholder='Sock Store' autocomplete="false">
+              </span>
+              <span class='text-input price'>
+                <p>Price</p>
+                <input type="text" name='price' placeholder='$10.00' autocomplete="false">
+              </span>
 
-        <span class="text-input submit">
-          <button class="text-submit" type='submit'>
-            Add
-            <span class="entypo-right"></span>
-          </button>
-        </span>
-      </span>
+              <span class="text-input url">
+                <p>Store Url</p>
+                <input type="text" name='url' placeholder='http://' autocomplete="false">
+              </span>
+              <span class="text-input image-url">
+                <p>Image Url</p>
+                <input type="text" name='imageUrl' placeholder='image link' autocomplete="false">
+              </span>
+
+              <span class="text-input detail">
+                <p>Detail</p>
+                <textarea name="detail" cols="3" placeholder='If the blue ones arent available, red will do'></textarea>
+              </span>
+
+              <span class="text-input submit">
+                <button class="text-submit" type='submit'>
+                  Add
+                  <span class="entypo-right"></span>
+                </button>
+              </span>
+            {{/if}}
+          </span>
+
       {{/if}}
     </form>
   </div>

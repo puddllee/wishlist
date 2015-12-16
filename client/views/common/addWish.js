@@ -2,48 +2,33 @@ Template.addWish.rendered = function() {
   Session.set('amazon-active', true);
   Session.set('addWishError', '');
   Session.set('amazonDisabled', true);
+  Session.set('isWishing', false);
+
+  // only show loading animation if loading more than 300ms
+  Tracker.autorun(function() {
+    var isWishing = Session.get('isWishing');
+    if (!isWishing) {
+      Session.set('showWishingLoading', false);
+    }
+    setTimeout(function() {
+      if (Session.get('isWishing')) {
+        Session.set('showWishingLoading', true);
+      } else {
+        Session.set('showWishingLoading', false);
+      }
+    }, 300);
+  });
 }
 
-var addWish = function(params, callback) {
-  var name = params.name || '';
-  var price = params.price || '';
-  var seller = params.seller || '';
-  var url = params.url || '';
-  var image = params.image || '';
-  var detail = params.detail || '';
-
-  Meteor.call('getWishlist', Meteor.user()._id, function(error, response) {
-    wishlist = response;
-    if (error) {
-      return;
-    }
-    if (validateInput(name) && validateInput(seller) && wishlist) {
-      Session.set('addWishError', '');
-      Meteor.call('addItem', wishlist._id, name, seller, price, detail, url, image, function(error, result) {
-        if (error) {
-          Session.set('addWishError', 'Something went wrong. Maybe try again?');
-          if (callback) {
-            callback({
-              isValid: false
-            });
-          }
-          return;
-        } else {
-          if (callback) {
-            callback(null);
-          }
-        }
-      });
-    } else {
-      console.log(wishlist);
-      Session.set('addWishError', 'Missing required fields');
-      if (callback) {
-        callback({
-          isValid: false
-        });
-      }
-    }
-  });
+// sets all input values to blank
+var emptyInputs = function() {
+  $('.amazon-input').val('');
+  $('.add-wish-form').find('input[name="name"]').val('');
+  $('.add-wish-form').find('input[name="seller"]').val('');
+  $('.add-wish-form').find('input[name="price"]').val('');
+  $('.add-wish-form').find('input[name="url"]').val('');
+  $('.add-wish-form').find('input[name="imageUrl"]').val('');
+  $('.add-wish-form').find('input[name="detail"]').val('');
 }
 
 Template.addWish.events({
@@ -72,66 +57,15 @@ Template.addWish.events({
     if (Session.get('amazon-active')) {
       // amazon wish
       var url = event.target.amazonurl.value;
-      event.target.amazonurl.value = '';
       if (validateAmazonURL(url)) {
         Session.set('addWishError', '');
-        Meteor.call('productForURL', url, function(err, res) {
-          if (!err && res) {
-            var item = res.Item;
-
-            if (!item) {
-              // console.log('Amazon\'s fault, not ours');
-              addWish({
-                name: res.name,
-                price: res.price,
-                seller: 'Amazon',
-                url: res.url,
-                image: res.image,
-                detail: res.detail
-              });
-              return;
-            } else {
-              var name = '';
-              var seller = '';
-              var image = '';
-              var price = '';
-              var detail = '';
-
-              // returns current code if usd or can, otherwise empty string
-              // takes in amazon price object
-              var getCurrencyCode = function(price) {
-                if (price.CurrencyCode === 'USD' || price.CurrencyCode === 'CAN') {
-                  return ' ' + price.CurrencyCode;
-                }
-                return '';
-              }
-
-              try {
-                var att = item.ItemAttributes;
-                name = att.Title;
-                seller = 'Amazon';
-                image = item.MediumImage.URL;
-                url = item.DetailPageURL;
-                price = att.ListPrice.FormattedPrice + getCurrencyCode(att.ListPrice);
-                detail = '';
-
-                if (item.Offers && item.Offers.Offer && item.Offers.Offer.OfferListing && item.Offers.Offer.OfferListing.Price) {
-                  price = item.Offers.Offer.OfferListing.Price.FormattedPrice + getCurrencyCode(item.Offers.Offer.OfferListing.Price);
-                }
-
-              } catch (error) {
-                // parse error, don't do anything
-              }
-
-              addWish({
-                name: name,
-                seller: seller,
-                image: image,
-                url: url,
-                price: price,
-                detail: detail
-              }, function(error) {});
-            }
+        Session.set('isWishing', true);
+        Meteor.call('addWishFromAmazon', url, function(err, res) {
+          Session.set('isWishing', false);
+          if (err) {
+            Session.set('addWishError', err.reason);
+          } else {
+            emptyInputs();
           }
         });
       } else {
@@ -145,23 +79,25 @@ Template.addWish.events({
       var url = event.target.url.value;
       var detail = event.target.detail.value;
       var image = event.target.imageUrl.value;
+      var event = event;
 
-      addWish({
-        name: name,
-        seller: seller,
-        price: price,
-        url: url,
-        detail: detail,
-        image: image
-      }, function(error) {
-        if (!error) {
-          // remove items from form
-          event.target.seller.value = '';
-          event.target.price.value = '';
-          event.target.url.value = '';
-          event.target.detail.value = '';
-          event.target.imageUrl.value = '';
-          event.target.name.value = '';
+      var params = {
+        name: name || '',
+        price: price || '',
+        seller: seller || '',
+        url: url || '',
+        image: image || '',
+        detail: detail || ''
+      }
+
+      Session.set('addWishError', '');
+      Session.set('isWishing', true);
+      Meteor.call('addWish', params, function(err, res) {
+        Session.set('isWishing', false);
+        if (err) {
+          Session.set('addWishError', err.reason);
+        } else {
+          emptyInputs();
         }
       });
     }
