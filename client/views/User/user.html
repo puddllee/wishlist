@@ -36,7 +36,9 @@
 
       </div>
 
-      {{> wishList}}
+      {{#unless $.Session.get 'userLoading'}}
+        {{> wishList}}
+      {{/unless}}
     </div>
   </div>
 
