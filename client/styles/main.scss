@@ -268,6 +268,50 @@ textarea {
   }
 }
 
+.home-section {
+  padding: 3em 0;
+}
+
+.cont-100 {
+  @include container()
+}
+
+.cont-50-100 {
+  @include container(50%);
+  @media(max-width: $mobile) {
+    @include container();
+  }
+}
+
+.col-50-100 {
+  @include span(50%);
+  @media(max-width: $mobile) {
+    @include span(100%);
+  }
+}
+
+.col-100 {
+  @include span(100%);
+}
+
+.thick {
+  font-weight: 400;
+}
+
+.center-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.no-mar {
+  margin: 0;
+}
+
 #wrapper {
   @include container();
   min-height: calc(100% - #{$footer-height});
@@ -350,6 +394,13 @@ textarea {
     .icon-wrapper:last-child {
       padding-right: 0;
     }
+  }
+}
+
+.tolist {
+  img {
+    // max-width: 5em;
+    margin-bottom: 1em;
   }
 }
 

@@ -36,6 +36,17 @@
       <p class="text-link forgot">Forgot Password</p>
     </form>
   </div>
+  {{else}}
+
+  <div class="tolist home-section cont-50-100">
+    <a href="/list">
+      <div class="col-100">
+        <img class="center-img" src="/images/wish_list.svg">
+        <h1 class='center no-mar col-100'>Go to your list</h1>
+      </div>
+    </a>
+  </div>
+
   {{/unless}}
 
   {{> about}}
