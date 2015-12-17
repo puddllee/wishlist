@@ -32,7 +32,8 @@ Meteor.methods({
 getAvatar = function(email) {
   var md5Hash = Gravatar.hash(email);
   avatar = Gravatar.imageUrl(email, {
-    d: 'retro'
+    d: 'retro',
+    secure: true
   });
   console.log(avatar);
   return avatar;
