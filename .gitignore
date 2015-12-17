@@ -153,3 +153,7 @@ output
 
 # Remove ssl verify
 public/.well-known
+
+# Remove build
+build
+build_tmp
