@@ -7,7 +7,8 @@ Template.friendItem.events({
     event.preventDefault();
     Meteor.call('removeFriend', this._id, function(error, result) {
       if (error) {
-        reutnr;
+        console.log(error);
+        return;
       } else {
         // success
         Session.set('friendsList', Meteor.user().profile.friends);
