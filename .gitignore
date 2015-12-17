@@ -150,3 +150,6 @@ secret.js
 config/
 
 output
+
+# Remove ssl verify
+public/.well-known
