@@ -1,15 +1,16 @@
 #!/bin/sh
 
-#rm -rf build/
+echo 'Removing build dir'
+rm -rf build/
 
-echo 'Cleaning build_tmp dir'
-rm -r build_tmp
+#echo 'Cleaning build_tmp dir'
+#rm -r build_tmp
 
-echo 'Building meteor to build_tmp'
-meteor build build_tmp
+echo 'Building meteor to build'
+meteor build build
 
 echo 'Untaring'
-cd build_tmp
+cd build
 tar -zxf wishlist.tar.gz
 
 echo 'Npm Install'
@@ -17,9 +18,9 @@ cd bundle/programs/server
 npm install
 cd ../../../..
 
-echo 'Removing build'
-rm -r build
+#echo 'Removing build'
+#rm -r build
 
-echo 'Moving build_tmp to build'
-mv build_tmp build
+#echo 'Moving build_tmp to build'
+#mv build_tmp build
 
