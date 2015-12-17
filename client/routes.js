@@ -102,11 +102,12 @@ MainController = RouteController.extend({
 HomeController = MainController.extend({
   onBeforeAction: function() {
     var path = Router.current().route.path(this);
-    if (path !== '/home' && Meteor.userId() && !Meteor.loggingIn()) {
-      this.render('list');
-    } else {
-      this.next();
-    }
+    this.next();
+    // if (path !== '/home' && Meteor.userId() && !Meteor.loggingIn()) {
+    //   this.render('list');
+    // } else {
+    //   this.next();
+    // }
   },
 
   action: function() {
