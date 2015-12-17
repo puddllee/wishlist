@@ -294,6 +294,10 @@ textarea {
   @include span(100%);
 }
 
+.col-50 {
+  @include span(50%);
+}
+
 .thick {
   font-weight: 400;
 }
@@ -673,6 +677,11 @@ textarea {
           font-weight: 200;
           text-align: center;
         }
+
+        span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
 
       .name {
@@ -1012,27 +1021,41 @@ textarea {
 
   @include fadeIn();
 
-  .avatar {
+  .avatar-cont {
     @include span(2 of 12 no-gutters);
-    @include border-radius(150px);
+    padding-top: 0.5em;
+
+    img {
+      @include border-radius(150px);
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 
   .info {
     @include span(10 of 12);
 
+    .name-del {
+      @include container();
+    }
     .name {
       @include span(10 of 12);
-      margin-top: 0.7em;
       margin-bottom: 0;
-      padding-left: 2em;
+      margin-top: 0;
+      padding-left: 0.5em;
+      padding-top: 0;
       font-size: 2em;
     }
 
     .unfriend, .addfriend {
       @include span(2 of 12);
-      margin-top: 0.9em;
       font-size: 2em;
       cursor: pointer;
+    }
+
+    .item-counts {
+      padding-left: 1em;
+      padding-top: 0.5em;
     }
   }
 }

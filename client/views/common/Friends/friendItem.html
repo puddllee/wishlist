@@ -1,10 +1,31 @@
 <template name='friendItem'>
   <a href="/user/{{_id}}">
     <li class="friend-item">
-      <img class='avatar' src="{{profile.avatar}}" alt="{{profile.name}}">
+      <div class="avatar-cont">
+        <img class='avatar' src="{{profile.avatar}}" alt="{{profile.name}}">
+      </div>
       <span class="info">
-        <p class='name'>{{profile.name}}</p>
-        <span class="unfriend entypo-cancel"></span>
+        <div class="name-del">
+          <p class='name'>{{profile.name}}</p>
+          <span class="unfriend entypo-cancel"></span>
+        </div>
+        <div class="item-counts cont-100">
+
+          {{#if anyItems}}
+            {{#if allBought}}
+              <span class="item-count col-100 error">All Items Bought</span>
+            {{else}}
+              {{#if itemCount}}
+                <span class='item-count col-50'>{{itemCount}}</span>
+                <span class="item-unbought success col-50">{{unBoughtCount}}</span>
+              {{else}}
+                <span class="item-unbought success col-100">{{unBoughtCount}}</span>
+              {{/if}}
+            {{/if}}
+          {{else}}
+            <span class="item-count col-100">No Items</span>
+          {{/if}}
+        </div>
       </span>
     </li>
   </a>

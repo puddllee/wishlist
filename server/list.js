@@ -7,7 +7,7 @@ Wishlist = {
     }
 
     if (validateInput(params.name) && validateInput(params.seller)) {
-      Wishlist.addItem(wishlist._id, params.name, params.seller, params.price, params.detail, params.url, params.image, callback);
+      Wishlist.addItem(wishlist, params.name, params.seller, params.price, params.detail, params.url, params.image, callback);
     } else {
       throw new Meteor.Error(500, 'Missing required fields');
     }
@@ -80,7 +80,8 @@ Wishlist = {
       url: url,
       image: image,
       bought: false,
-      wishlist: wishlist,
+      wishlist: wishlist._id,
+      owner: wishlist.owner,
       created_at: new Date()
     }, callback);
   },

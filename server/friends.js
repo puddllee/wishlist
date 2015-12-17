@@ -1,19 +1,19 @@
 // send event to userIds to tell them to update friend list
-var updateFriendSessions = function (userId1, userId2) {
+var updateFriendSessions = function(userId1, userId2) {
   Streamy.sessionsForUsers([userId1, userId2]).emit('friendupdate', {});
 };
 
 Friends = {
   // adds user id as friend to current user
-  addFriend: function (userId) {
+  addFriend: function(userId) {
     if (!Meteor.userId()) {
       console.log('couldn\'t find user');
       return;
     }
-    Meteor.call('insertFriends', Meteor.userId(), userId, function (error, result) {});
+    Meteor.call('insertFriends', Meteor.userId(), userId, function(error, result) {});
   },
 
-  insertFriends: function (accepter, requester) {
+  insertFriends: function(accepter, requester) {
     // dont allow adding yourself as friend
     if (accepter === requester) {
       return;
@@ -51,7 +51,7 @@ Friends = {
     updateFriendSessions(accepter, requester);
   },
 
-  removeFriend: function (userId) {
+  removeFriend: function(userId) {
     if (!Meteor.userId()) {
       console.log('couldn\'t find user');
       return;
@@ -74,10 +74,10 @@ Friends = {
     }
   },
 
-  getFriends: function () {
+  getFriends: function() {
     friends = [];
     if (Meteor.userId()) {
-      Meteor.user().profile.friends.forEach(function (friendId) {
+      Meteor.user().profile.friends.forEach(function(friendId) {
         // do not add yourself if for whatever reason you are friends with yourself
         if (Meteor.userId() !== friendId) {
           var friend = Meteor.users.findOne({
@@ -89,20 +89,41 @@ Friends = {
     } else {
       console.log('error getting friends');
     }
-    friends.sort(function (a, b) {
+    friends.sort(function(a, b) {
       var aName = a.profile.name.toUpperCase();
       var bName = b.profile.name.toUpperCase();
       return (aName < bName) ? -1 : (aName > bName) ? 1 : 0;
     });
+
+    // var items = Items.find({owner})
+    friends.forEach(function(user) {
+      var wishlist = Wishlists.findOne({
+        owner: user._id
+      });
+      var items = Items.find({
+        wishlist: wishlist._id
+      });
+      var unBoughtItems = Items.find({
+        wishlist: wishlist._id,
+        bought: false
+      });
+
+      var itemCount = items.count();
+      var unBoughtCount = unBoughtItems.count();
+
+      user.profile.itemCount = itemCount;
+      user.profile.unBoughtCount = unBoughtCount;
+    });
+
     return friends;
   },
 
-  isFriend: function (friendId) {
+  isFriend: function(friendId) {
     var flag = false; // I should probably figure out more JS so I don't need to do this
     if (Meteor.userId()) {
       var user = Meteor.user();
       var friend = null;
-      user.profile.friends.forEach(function (id) {
+      user.profile.friends.forEach(function(id) {
         if (id === friendId) {
           flag = true;
         }
@@ -111,7 +132,7 @@ Friends = {
     }
   },
 
-  getUserFriends: function (accessToken) {
+  getUserFriends: function(accessToken) {
     var fb = new Facebook(accessToken);
     var data = fb.getUserFriends();
     return data;
