@@ -7,7 +7,7 @@ Wishlist = {
     }
 
     if (validateInput(params.name) && validateInput(params.seller)) {
-      Wishlist.addItem(wishlist._id, params.name, params.seller, params.price, params.detail, params.url, params.image, callback);
+      Wishlist.addItem(wishlist, params.name, params.seller, params.price, params.detail, params.url, params.image, callback);
     } else {
       throw new Meteor.Error(500, 'Missing required fields');
     }
@@ -80,7 +80,8 @@ Wishlist = {
       url: url,
       image: image,
       bought: false,
-      wishlist: wishlist,
+      wishlist: wishlist._id,
+      owner: wishlist.owner,
       created_at: new Date()
     }, callback);
   },
@@ -105,8 +106,32 @@ Wishlist = {
     Items.remove(itemId);
   },
 
-  getItemsForList: function(userId) {
-
+  getItemsForList: function(wishlist) {
+    var items = [];
+    if (wishlist) {
+      if (wishlist.owner === Meteor.userId()) {
+        items = Items.find({
+          wishlist: wishlist._id
+        }, {
+          sort: {
+            created_at: -1
+          },
+          fields: {
+            bought: 0,
+            bought_id: 0
+          }
+        }).fetch();
+      } else {
+        items = Items.find({
+          wishlist: wishlist._id
+        }, {
+          sort: {
+            created_at: -1
+          }
+        }).fetch();
+      }
+    }
+    return items;
   },
 
   getWishlist: function(userId) {

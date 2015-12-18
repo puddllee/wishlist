@@ -63,6 +63,7 @@ MainController = RouteController.extend({
     Meteor.subscribe('wishlists');
     Meteor.subscribe('notis');
     Meteor.subscribe('users');
+    Meteor.subscribe('me');
   },
 
   onBeforeAction: function() {
@@ -92,21 +93,18 @@ MainController = RouteController.extend({
 
     Session.set('emailUser', isEmailUser());
     this.next();
-  },
-
-  action: function() {
-    this.render('home');
   }
 });
 
 HomeController = MainController.extend({
   onBeforeAction: function() {
     var path = Router.current().route.path(this);
-    if (path !== '/home' && Meteor.userId() && !Meteor.loggingIn()) {
-      this.render('list');
-    } else {
-      this.next();
-    }
+    this.next();
+    // if (path !== '/home' && Meteor.userId() && !Meteor.loggingIn()) {
+    //   this.render('list');
+    // } else {
+    //   this.next();
+    // }
   },
 
   action: function() {

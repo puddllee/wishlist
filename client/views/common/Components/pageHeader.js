@@ -13,11 +13,6 @@ Template.pageHeader.events({
   'click .home': function(event) {
     // event.preventDefault();
     // Router.go('/');
-  },
-
-  'click .header-text': function(event) {
-    event.preventDefault();
-    Router.go('/');
   }
 });
 
