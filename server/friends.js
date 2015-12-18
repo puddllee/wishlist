@@ -1,6 +1,16 @@
 // send event to userIds to tell them to update friend list
-var updateFriendSessions = function(userId1, userId2) {
-  Streamy.sessionsForUsers([userId1, userId2]).emit('friendupdate', {});
+var updateFriendSessions = function(userIds) {
+  // send friends to all user ids
+
+  userIds.forEach(function(userId) {
+    var friendList = Friends.getFriends(userId);
+    if (friendList) {
+      Streamy.sessionsForUsers([userId]).emit('friendlist', {
+        'friendlist': friendList
+      });
+    }
+  });
+  // Streamy.sessionsForUsers([userId1, userId2]).emit('friendupdate', {});
 };
 
 Friends = {
@@ -48,7 +58,7 @@ Friends = {
     }).profile.name;
     Meteor.call('addNoti', from_label + ' has accepted your friend request.', 'timed',
       requester);
-    updateFriendSessions(accepter, requester);
+    updateFriendSessions([accepter, requester]);
   },
 
   removeFriend: function(userId) {
@@ -70,16 +80,20 @@ Friends = {
           'profile.friends': userId
         }
       });
-      updateFriendSessions(userId, Meteor.userId());
+      updateFriendSessions([userId, Meteor.userId()]);
     }
   },
 
-  getFriends: function() {
+  getFriends: function(userId) {
+    userId = userId || Meteor.userId();
     friends = [];
-    if (Meteor.userId()) {
-      Meteor.user().profile.friends.forEach(function(friendId) {
+    var user = Meteor.users.findOne({
+      _id: userId
+    });
+    if (user) {
+      user.profile.friends.forEach(function(friendId) {
         // do not add yourself if for whatever reason you are friends with yourself
-        if (Meteor.userId() !== friendId) {
+        if (userId !== friendId) {
           var friend = Meteor.users.findOne({
             _id: friendId
           });
@@ -131,12 +145,6 @@ Friends = {
       return flag;
     }
   },
-
-  getUserFriends: function(accessToken) {
-    var fb = new Facebook(accessToken);
-    var data = fb.getUserFriends();
-    return data;
-  }
 }
 
 Meteor.methods(Friends);

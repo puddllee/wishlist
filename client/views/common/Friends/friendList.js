@@ -7,7 +7,7 @@ searchFriendList = function(search) {
 }
 
 var getFriends = function() {
-  Meteor.call('getFriends', Meteor.user(), function(error, result) {
+  Meteor.call('getFriends', Meteor.userId(), function(error, result) {
     if (error) {
       return;
     }
@@ -21,10 +21,10 @@ Template.friendList.rendered = function() {
   Session.set('email', '');
   Session.set('emailvalid', false);
 
-  Streamy.on('friendupdate', function() {
-    setTimeout(function() {
-      getFriends();
-    }, 500)
+  Streamy.on('friendlist', function(data, from) {
+    if (data && data.friendlist) {
+      Session.set('friendList', data.friendlist);
+    }
   });
 
   getFriends();

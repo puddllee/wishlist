@@ -63,6 +63,7 @@ MainController = RouteController.extend({
     Meteor.subscribe('wishlists');
     Meteor.subscribe('notis');
     Meteor.subscribe('users');
+    Meteor.subscribe('me');
   },
 
   onBeforeAction: function() {
@@ -92,10 +93,6 @@ MainController = RouteController.extend({
 
     Session.set('emailUser', isEmailUser());
     this.next();
-  },
-
-  action: function() {
-    this.render('home');
   }
 });
 

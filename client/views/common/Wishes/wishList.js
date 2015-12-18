@@ -1,11 +1,26 @@
 Template.wishList.rendered = function() {
-
+  // Tracker.autorun(function() {
+  //   Session.set('loadingItems', true);
+  //   var wishlist = Session.get('wishlist');
+  //   var items = Meteor.call('getItemsForList', wishlist, function(err, res) {
+  //     Tracker.autorun(function() {
+  //       console.log('fuck');
+  //       Session.set('loadingItems', false);
+  //       if (!err) {
+  //         Session.set('yourItems', res);
+  //       }
+  //     });
+  //   });
+  // });
 }
 
 Template.wishList.helpers({
   yourItems: function() {
-    var wishlist = Session.get('wishlist');
+    // return Session.get('yourItems');
     var items = [];
+    var wishlist = Session.get('wishlist');
+    console.log('whyyy');
+    console.log(wishlist);
     if (wishlist) {
       if (wishlist.owner === Meteor.userId()) {
         items = Items.find({
