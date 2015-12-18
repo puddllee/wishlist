@@ -19,8 +19,6 @@ Template.wishList.helpers({
     // return Session.get('yourItems');
     var items = [];
     var wishlist = Session.get('wishlist');
-    console.log('whyyy');
-    console.log(wishlist);
     if (wishlist) {
       if (wishlist.owner === Meteor.userId()) {
         items = Items.find({
