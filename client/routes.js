@@ -41,7 +41,7 @@ Router.route('/changepass/:token', {
   controller: 'ChangePasswordController'
 });
 
-Router.route('/forgot', function () {
+Router.route('/forgot', function() {
   this.render('forgot');
 });
 
@@ -58,7 +58,7 @@ Router.route('/user/:_id', {
 // });
 
 MainController = RouteController.extend({
-  waitOn: function () {
+  waitOn: function() {
     Meteor.subscribe('items');
     Meteor.subscribe('wishlists');
     Meteor.subscribe('notis');
@@ -66,7 +66,7 @@ MainController = RouteController.extend({
     Meteor.subscribe('me');
   },
 
-  onBeforeAction: function () {
+  onBeforeAction: function() {
     var friendrequest = '';
     var query = this.params.query;
     if (query && query.friendrequest && query.friendrequest !== '') {
@@ -79,7 +79,7 @@ MainController = RouteController.extend({
     }
 
     if (Meteor.userId() && friendrequest !== '') {
-      console.log('adding friend for hash ' + friendrequest);
+
       Meteor.call('addFriendForHash', friendrequest);
       Cookie.remove('friendrequest');
 
@@ -97,7 +97,7 @@ MainController = RouteController.extend({
 });
 
 HomeController = MainController.extend({
-  onBeforeAction: function () {
+  onBeforeAction: function() {
     var path = Router.current().route.path(this);
     this.next();
     // if (path !== '/home' && Meteor.userId() && !Meteor.loggingIn()) {
@@ -107,20 +107,19 @@ HomeController = MainController.extend({
     // }
   },
 
-  action: function () {
+  action: function() {
     this.render('home');
   }
 });
 
 ChangePasswordController = MainController.extend({
-  onBeforeAction: function () {
+  onBeforeAction: function() {
     if (this.params.token && isEmailUser()) {
       Accounts._resetPasswordToken = this.params.token;
       this.next();
     } else if ((Meteor.userId() || Meteor.loggingIn()) && isEmailUser()) {
       this.next();
     } else {
-      console.log(isEmailUser());
       if (Meteor.userId() && !isEmailUser()) {
         this.render('list');
       } else {
@@ -130,9 +129,9 @@ ChangePasswordController = MainController.extend({
     }
   },
 
-  action: function () {
+  action: function() {
     this.render('changePassword', {
-      data: function () {
+      data: function() {
         return this.params.token;
       }
     });
@@ -140,7 +139,7 @@ ChangePasswordController = MainController.extend({
 });
 
 ListController = MainController.extend({
-  onBeforeAction: function () {
+  onBeforeAction: function() {
     if (!Meteor.userId() && !Meteor.loggingIn()) {
       this.render('home');
     } else {
@@ -148,13 +147,13 @@ ListController = MainController.extend({
     }
   },
 
-  action: function () {
+  action: function() {
     this.render('list');
   }
 });
 
 UserController = MainController.extend({
-  onBeforeAction: function () {
+  onBeforeAction: function() {
     if (!Meteor.userId() && !Meteor.loggingIn()) {
       this.render('home');
     } else {
@@ -162,10 +161,10 @@ UserController = MainController.extend({
     }
   },
 
-  action: function () {
+  action: function() {
     // this.state.set('userId', this.params._id);
     this.render('user', {
-      data: function () {
+      data: function() {
         return this.params._id
       }
     });
@@ -173,7 +172,7 @@ UserController = MainController.extend({
 });
 
 MeController = MainController.extend({
-  onBeforeAction: function () {
+  onBeforeAction: function() {
     if (!Meteor.userId() && !Meteor.loggingIn()) {
       this.render('home');
     } else {
@@ -181,10 +180,10 @@ MeController = MainController.extend({
     }
   },
 
-  action: function () {
+  action: function() {
     this.state.set('data', Meteor.userId());
     this.render('user', {
-      data: function () {
+      data: function() {
         return Meteor.userId()
       }
     })

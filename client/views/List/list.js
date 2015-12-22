@@ -28,11 +28,8 @@ Template.list.rendered = function() {
 Template.list.helpers({
   wishlist: function() {
     var user = Meteor.userId(); // should make this get recalled when user changes
-    console.log(user);
-    console.log('getting wishlist');
     Meteor.call('getWishlist', Meteor.userId(), function(error, wishlist) {
       if (wishlist) {
-        console.log('setting here');
         Session.set('wishlist', wishlist);
         Session.set('isMine', Meteor.userId() === wishlist.owner);
       }

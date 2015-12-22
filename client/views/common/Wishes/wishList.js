@@ -4,7 +4,6 @@ Template.wishList.rendered = function() {
   //   var wishlist = Session.get('wishlist');
   //   var items = Meteor.call('getItemsForList', wishlist, function(err, res) {
   //     Tracker.autorun(function() {
-  //       console.log('fuck');
   //       Session.set('loadingItems', false);
   //       if (!err) {
   //         Session.set('yourItems', res);
