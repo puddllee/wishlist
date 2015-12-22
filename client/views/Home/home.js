@@ -45,6 +45,10 @@ Template.home.events({
 
     if (validateEmail(email) && validateInput(password)) {
       Session.set('loginError', '');
+      if (!validatePassword(password)) {
+        Session.set('loginError', 'Password must be >= ' + PASS_LENGTH + ' characters');
+        return;
+      }
     } else {
       if (!validateEmail(email)) {
         Session.set('loginError', 'Invalid email');
