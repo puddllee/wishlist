@@ -28,7 +28,7 @@ Hash = {
   // as a friend to the currently logged in user
   addFriendForHash: function(hash) {
     hash = hash.trim();
-    console.log('addng friend for ahsh')
+    console.log('addng friend for hash ' + hash)
     if (!Meteor.user()) {
       console.log('error adding friend for hash')
       return;
@@ -36,10 +36,7 @@ Hash = {
 
     var friend = Hash.getUserFromHash(hash);
     console.log(Hashs.find({}).fetch());
-    console.log(Meteor.userId());
-    console.log(friend);
     if (friend) {
-      console.log(friend);
       Friends.addFriend(friend.user_id);
       Hash.removeHash(friend._id);
     } else {

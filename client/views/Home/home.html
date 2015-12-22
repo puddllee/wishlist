@@ -1,0 +1,58 @@
+<template name="home">
+
+  <div class="header">
+    <div class="header-text">
+      <!-- <img class='logo' src="/images/star.svg" alt=""> -->
+      {{> heading}}
+      <!-- <span>Wish List</span> -->
+    </div>
+
+    <div class="header-info">
+      <p>Wish List is an online gift registry for holidays and events. Easily create and share your list with family and friends.</p>
+    </div>
+  </div>
+
+  <div class="how-to-use">
+
+  </div>
+
+  {{#unless currentUser}}
+  <div class="auth">
+    <form class="login">
+      <h2>Login or Register to Get Started</h2>
+
+      {{#unless $.Session.equals 'loginError' ''}}
+      <p class='error'>{{$.Session.get 'loginError'}}</p>
+      {{/unless}}
+
+      <input type="email" name='email' placeholder='Email'>
+      <input type="password" name='password' placeholder='Password'>
+      <button type='submit'>Go</button>
+
+      <div class="social">
+        <span class="icon-wrapper">
+          <span class="fb entypo-facebook"></span>
+        </span>
+        <span class="icon-wrapper">
+          <span class="gplus entypo-gplus"></span>
+        </span>
+      </div>
+      <p class="text-link forgot">Forgot Password</p>
+    </form>
+  </div>
+  {{else}}
+
+  <div class="tolist home-section cont-50-100">
+    <a href="/list">
+      <div class="col-100">
+        <img class="center-img" src="/images/wish_list.svg">
+        <h1 class='center no-mar col-100'>Go to your list</h1>
+      </div>
+    </a>
+  </div>
+
+  {{/unless}}
+
+  {{> about}}
+
+</template>

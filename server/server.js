@@ -27,36 +27,13 @@ Meteor.methods({
       return;
     }
   },
-
-  addItem: function(wishlist, name, seller, price, detail, url, image, callback) {
-    Wishlist.addItem(wishlist, name, seller, price, detail, url, image, callback);
-  },
-
-  deleteItem: function(itemId, wishlistId) {
-    Wishlist.deleteItem(itemId, wishlistId);
-  },
-
-  buyItem: function(itemId) {
-    Wishlist.buyItem(itemId);
-  },
-
-  unbuyItem: function(itemId) {
-    Wishlist.unbuyItem(itemId);
-  },
-
-  getBoughtUserName: function(itemId) {
-    return Wishlist.getBoughtUserName(itemId);
-  },
-
-  getWishlist: function(userId) {
-    return Wishlist.getWishlist(userId);
-  }
 });
 
 getAvatar = function(email) {
   var md5Hash = Gravatar.hash(email);
   avatar = Gravatar.imageUrl(email, {
-    d: 'retro'
+    d: 'retro',
+    secure: true
   });
   console.log(avatar);
   return avatar;

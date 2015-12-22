@@ -10,6 +10,74 @@ var client = amazon.createClient({
 
 var prodAdv = aws.createProdAdvClient(AMAZON_ID, AMAZON_SECRET, AMAZON_TAG);
 
+var FALLBACK_ERROR = 'AWS.ECommerceService.ItemNotAccessible';
+
+var ALL_PRICE_REG = /Price: ([A-Z]+). ([0-9]+\.?[0-9]+)/g;
+var PRICE_REG = /Price: ([A-Z]+). ([0-9]+\.?[0-9]+)/;
+
+// tries to parse text and find price and offer price
+var getPriceFromText = function(text) {
+  var match = text.match(ALL_PRICE_REG);
+  var price = '';
+  if (match && match.length > 0) {
+    var priceString = match[match.length - 1];
+    match = priceString.match(PRICE_REG);
+    if (match && match.length >= 2) {
+      price = match[2] + ' ' + match[1];
+
+      // add dollar sign if needed
+      if (match[1] === 'USD' || match[1] === 'CDN') {
+        price = '$' + price;
+      }
+    }
+  }
+  return price;
+};
+
+// finds first image in references and returns it
+var getImageFromReferences = function(refs) {
+  var image = '';
+  for (var i = 0; i < refs.length; i++) {
+    if (refs[i].indexOf('png') !== -1 || refs[i].indexOf('jpg') !== -1 || refs[i].indexOf('jpeg') !== -1) {
+      image = refs[i];
+      break;
+    }
+  }
+  return image;
+};
+
+// returns amazon fallback information if result has errored
+var amazonFallback = function(result, url) {
+  if (result.Items.Request.Errors) {
+    var websiteData = Scrape.website(url)
+    var title = websiteData.description || websiteData.title || '';
+    var detail = '';
+    var image = websiteData.image || '';
+
+    // parse title to remove 'Amazon.ca: Electronics' or ', Amazon.com'
+    if (title.indexOf(':') !== -1) {
+      title = title.split(':')[0];
+    }
+    if (title.indexOf(',') !== -1) {
+      title = title.split(',')[0];
+    }
+
+    price = getPriceFromText(websiteData.text);
+    if (!image || image === '') {
+      image = getImageFromReferences(websiteData.references);
+    }
+    return {
+      url: url,
+      name: title,
+      detail: detail,
+      image: image,
+      price: price
+    }
+  } else {
+    return null;
+  }
+};
+
 AMAZON = {
   productForURL: function(url) {
     try {
@@ -23,16 +91,22 @@ AMAZON = {
           ItemId: asin,
           ResponseGroup: 'Large'
         });
-        return result;
+        var fallback = amazonFallback(result, url);
+        if (fallback) {
+          return fallback;
+        } else {
+          return result.Items;
+        }
       } else {
         // not a amazon url
         return 'Not an amazon url';
       }
     } catch (err) {
       console.log(err);
+      return 'Error';
     }
   }
-}
+};
 
 Meteor.methods(AMAZON);
 

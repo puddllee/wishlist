@@ -1,0 +1,89 @@
+<template name='listItem'>
+  <li class='list-item'>
+    <div class="item-image-container">
+      <img class='image-url' src="{{imageUrl}}" alt="{{title}}">
+    </div>
+    <div class="info">
+      <span class="title-icon">
+        <!-- <span class="type entypo-dribbble"></span> -->
+        <!-- <p class='title'>{{name}}</p> -->
+        <!-- <input type="text" class="noinput title" value="{{name}}" disabled="{{#unless $.
+        Session.get 'isMine'}}true{{/unless}}"> -->
+        {{#if $.Session.get 'isMine'}}
+        {{> editableText collection="items" field="name" class='sinput' placeholder="Name" substitute='<span class="empty-detail">Name</span>'}}
+        {{else}}
+        <span class='sinput'>{{name}}</span>
+        {{/if}}
+
+        {{#if $.Session.get 'isMine'}}
+        <span class="delete entypo-cancel"></span>
+        {{/if}}
+      </span>
+
+      <span class="seller-wrapper">
+        {{#if $.H.compare seller "Amazon"}}
+          <span class="favicon-icon zocial-amazon"></span>
+        {{else}}
+          {{#if $.H.favicon url}}
+            <img id='favicon-icon-image' class='favicon-icon' src="{{$.H.favicon url}}" alt="">
+            {{else}}
+            <span class="favicon-icon entypo-basket"></span>
+          {{/if}}
+        {{/if}}
+
+        <span class="seller">
+          {{#if $.Session.get 'isMine'}}
+            {{> editableText collection="items" field="seller" class='sinput' placeholder="Seller" substitute='<span class="empty-detail">Seller</span>'}}
+          {{else}}
+            <span>{{seller}}</span>
+          {{/if}}
+        </span>
+      </span>
+
+      <span class="price-bought">
+        <span class="price">
+          {{#if $.Session.get 'isMine'}}
+          {{> editableText collection="items" field="price" class='sinput' placeholder="Price" substitute='<span id="empty-detail-price" class="empty-detail">Price</span>'}}
+          {{else}}
+          <span class='sinput'>{{price}}</span>
+          {{/if}}
+        </span>
+
+        {{#unless $.Session.get 'isMine'}}
+        <span class="bought">
+          {{#if bought}}
+          {{#if boughtByMe}}
+          <span class="buy buy-unmark">Unmark as bought</span>
+          <!-- <button class="buy">Unmark as bought</button> -->
+          {{else}}
+          <span class="buy buy-already">Bought by {{$.Session.get 'bought_user'}}</span>
+          {{/if}}
+          {{else}}
+          <span class="buy buy-mark">
+            Mark as bought
+          </span>
+          {{/if}}
+        </span>
+        {{/unless}}
+
+      </span>
+
+      <span class="detail">
+        <!-- <textarea class='detail-text' name="detail" id="" placeholder='detail' cols='3'></textarea> -->
+        {{#if $.Session.get 'isMine'}}
+        {{> editableText collection="items" field="detail" placeholder="detail" substitute='<span class="empty-detail">detail</span>' textarea=true acceptEmpty=true}}
+        {{else}}
+        {{#if detail}}
+        <span>{{detail}}</span>
+        {{/if}}
+        {{/if}}
+      </span>
+
+      {{#if url}}
+      <span class="url">
+        <a href="{{url}}" target='_blank'>visit page</a>
+      </span>
+      {{/if}}
+    </div>
+  </li>
+</template>

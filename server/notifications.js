@@ -1,5 +1,5 @@
 Noti = {
-  addNoti: function (label, type, owner, from) {
+  addNoti: function(label, type, owner, from) {
     owner = owner || Meteor.userId();
     if (Meteor.user()) {
       Notis.insert({
@@ -12,11 +12,11 @@ Noti = {
     }
   },
 
-  deleteNoti: function (notiId) {
+  deleteNoti: function(notiId) {
     Notis.remove(notiId);
   },
 
-  addRequestNoti: function (friend_id, fromId) {
+  addRequestNoti: function(friend_id, fromId) {
     if (!Meteor.userId()) {
       return;
     }
@@ -25,22 +25,25 @@ Noti = {
       _id: friend_id
     });
 
-    var noti = Notis.findOne({
-      owner: user._id,
-      from: fromId
-    });
+    if (user) {
+      var noti = Notis.findOne({
+        owner: user._id,
+        from: fromId
+      });
+    }
+
+    var sentLabel = 'Friend request sent';
+    this.addNoti(sentLabel, 'timed');
 
     // do not make new request if there is alreay one for same users
     if (!noti) {
       if (user) {
         var requestLabel = Meteor.user().profile.name + ' wants to be your friend';
+        console.log('sent friend request notification for ' + user._id + ' from ' + fromId);
         this.addNoti(requestLabel, 'request', user._id, fromId);
       }
-
-      var sentLabel = 'Friend request sent';
-      this.addNoti(sentLabel, 'timed');
     } else {
-      console.log('GOT ONE ALREADY');
+      console.log('there is already the same friend notification waiting for that user')
     }
   }
 }

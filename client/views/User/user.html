@@ -1,0 +1,45 @@
+<template name='user'>
+  <div class="user footer-bot">
+    {{> pageHeader}}
+
+    <div class="user-body">
+      <div class="user-info">
+        <div class="avatar-cont">
+          <img class='avatar' src="{{avatar}}" alt="">
+        </div>
+
+        <div class="name">
+          {{#if $.Session.get 'isMine'}}
+          {{#with currentUser}}
+          {{> editableText collection="users" field="profile.name" placeholder="Enter name"}}
+          {{/with}}
+          {{else}}
+          <span class='other-name'>{{name}}</span>
+          {{/if}}
+        </div>
+
+        {{#if $.Session.get 'isMine'}}
+        <div class="email">
+          {{#with currentUser}}
+            <span>{{profile.email}}</span>
+          {{/with}}
+        </div>
+        {{/if}}
+
+        {{#if $.Session.get 'isMine'}}
+          {{#if $.Session.get 'emailUser'}}
+            <div class="changepass">
+              <span class='passtext'>Change password</span>
+            </div>
+          {{/if}}
+        {{/if}}
+
+      </div>
+
+      {{#unless $.Session.get 'userLoading'}}
+        {{> wishList}}
+      {{/unless}}
+    </div>
+  </div>
+
+</template>
