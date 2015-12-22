@@ -39,9 +39,12 @@ Noti = {
     if (!noti) {
       if (user) {
         var requestLabel = Meteor.user().profile.name + ' wants to be your friend';
+        console.log('sent friend request notification for ' + user._id + ' from ' + fromId);
         this.addNoti(requestLabel, 'request', user._id, fromId);
       }
-    } else {}
+    } else {
+      console.log('there is already the same friend notification waiting for that user')
+    }
   }
 }
 
